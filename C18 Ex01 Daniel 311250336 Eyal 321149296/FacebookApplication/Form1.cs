@@ -1,0 +1,136 @@
+﻿using FacebookWrapper;
+using FacebookWrapper.ObjectModel;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace FacebookApplication
+{
+    public partial class Form1 : Form
+    {
+        private User m_FacebookUser;
+        private AppSettings m_Settings = new AppSettings();
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void buttonLogin_Click(object sender, EventArgs e)
+        {
+            LoginResult result = FacebookService.Login("250350445570281",
+                "email");
+
+            m_Settings.AccessToken = result.AccessToken;
+            m_FacebookUser = result.LoggedInUser;
+            populateUI();
+        }
+
+        private void populateUI()
+        {
+            pictureBoxProfilePic.ImageLocation = m_FacebookUser.PictureNormalURL;
+            pictureBoxProfilePic.SizeMode = PictureBoxSizeMode.StretchImage;
+            this.Text = String.Format("Logged In as {0}", m_FacebookUser.Name);
+            labelUserDetails.Text = String.Format(@"{0}
+{1}
+{2}", m_FacebookUser.Name, m_FacebookUser.Birthday, m_FacebookUser.Email);
+            buttonLoginLogout.Click -= buttonLogin_Click;
+            buttonLoginLogout.Text = "Logout";
+            buttonLoginLogout.Click += buttonLogout_Click;
+        }
+
+        private void fetchFriends()
+        {
+            listBoxFriends.Items.Clear();
+            listBoxFriends.DisplayMember = "Name";
+
+            foreach (User user in m_FacebookUser.Friends)
+            {
+                listBoxFriends.Items.Add(user);
+            }
+        }
+
+        private void buttonLogout_Click(object sender, EventArgs e)
+        {
+            FacebookService.Logout(Logout_Success);
+        }
+
+        private void Logout_Success()
+        {
+            this.Text = "Logged Out";
+            pictureBoxProfilePic.ImageLocation = null;
+            labelUserDetails.Text = String.Empty;
+            buttonLoginLogout.Click += buttonLogin_Click;
+            buttonLoginLogout.Text = "Login";
+            buttonLoginLogout.Click -= buttonLogout_Click;
+        }
+
+        private void checkBoxRememberMe_CheckedChanged(object sender, EventArgs e)
+        {
+            m_Settings.RememberMe = checkBoxRememberMe.Checked;
+            m_Settings.WindowSize = this.Size;
+            m_Settings.WindowLocation = this.Location;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            m_Settings.SaveToFile();
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            m_Settings = AppSettings.LoadFromFile();
+
+            if(m_Settings.RememberMe && !string.IsNullOrEmpty(m_Settings.AccessToken))
+            {
+                this.StartPosition = FormStartPosition.Manual;
+                this.Size = m_Settings.WindowSize;
+                this.Location = m_Settings.WindowLocation;
+                LoginResult result = FacebookService.Connect(m_Settings.AccessToken);
+                m_FacebookUser = result.LoggedInUser;
+                checkBoxRememberMe.Checked = true;
+                populateUI();
+            }
+        }
+
+        private void buttonFetchFriendPosts_Click(object sender, EventArgs e)
+        {
+            User friend = listBoxFriends.SelectedItem as User;
+
+            listBoxFriendPosts.Items.Clear();
+            listBoxFriendPosts.DisplayMember = "Description";
+
+            foreach (Post posts in friend.Posts)
+            {
+                listBoxFriendPosts.Items.Add(posts);
+            }
+        }
+
+        private void buttonFetchPosts_Click(object sender, EventArgs e)
+        {
+            listBoxMyPosts.Items.Clear();
+            listBoxMyPosts.DisplayMember = "Description";
+
+            foreach(Post posts in m_FacebookUser.Posts)
+            {
+                listBoxMyPosts.Items.Add(posts);
+            }
+        }
+
+        private void buttonShareMyPost_Click(object sender, EventArgs e)
+        {
+            m_FacebookUser.PostStatus(textBoxPost.Text);
+        }
+
+        private void buttonFetchFriends_Click(object sender, EventArgs e)
+        {
+            fetchFriends();
+            buttonFetchFriendPosts.Enabled = true;
+        }
+    }
+}
