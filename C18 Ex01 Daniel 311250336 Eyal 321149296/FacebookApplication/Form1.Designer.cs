@@ -36,22 +36,30 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.tabControlInfo = new System.Windows.Forms.TabControl();
             this.tabPageFriends = new System.Windows.Forms.TabPage();
+            this.buttonFetchFriends = new System.Windows.Forms.Button();
             this.buttonFetchFriendPosts = new System.Windows.Forms.Button();
             this.listBoxFriendPosts = new System.Windows.Forms.ListBox();
             this.listBoxFriends = new System.Windows.Forms.ListBox();
             this.tabPageMyPosts = new System.Windows.Forms.TabPage();
+            this.buttonShareMyPost = new System.Windows.Forms.Button();
+            this.textBoxPost = new System.Windows.Forms.TextBox();
             this.buttonFetchPosts = new System.Windows.Forms.Button();
             this.listBoxMyPosts = new System.Windows.Forms.ListBox();
             this.tabPageLikes = new System.Windows.Forms.TabPage();
-            this.tabPageEvents = new System.Windows.Forms.TabPage();
-            this.textBoxPost = new System.Windows.Forms.TextBox();
-            this.buttonShareMyPost = new System.Windows.Forms.Button();
-            this.buttonFetchFriends = new System.Windows.Forms.Button();
-            this.listBoxLikedPages = new System.Windows.Forms.ListBox();
             this.buttonFetchLikedPages = new System.Windows.Forms.Button();
-            this.dateTimePickerEventsPicker = new System.Windows.Forms.DateTimePicker();
-            this.listBoxMyEvents = new System.Windows.Forms.ListBox();
+            this.listBoxLikedPages = new System.Windows.Forms.ListBox();
+            this.tabPageEvents = new System.Windows.Forms.TabPage();
             this.buttonFetchAllEvents = new System.Windows.Forms.Button();
+            this.listBoxMyEvents = new System.Windows.Forms.ListBox();
+            this.dateTimePickerEventsPicker = new System.Windows.Forms.DateTimePicker();
+            this.tabPhotos = new System.Windows.Forms.TabPage();
+            this.buttonRefreshAlbums = new System.Windows.Forms.Button();
+            this.labelAlbum = new System.Windows.Forms.Label();
+            this.listBoxAlbums = new System.Windows.Forms.ListBox();
+            this.listBoxPhoto = new System.Windows.Forms.ListBox();
+            this.labelPhoto = new System.Windows.Forms.Label();
+            this.pictureBoxPhoto = new System.Windows.Forms.PictureBox();
+            this.labelPhotoDescription = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfilePic)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -60,6 +68,8 @@
             this.tabPageMyPosts.SuspendLayout();
             this.tabPageLikes.SuspendLayout();
             this.tabPageEvents.SuspendLayout();
+            this.tabPhotos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPhoto)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLoginLogout
@@ -127,6 +137,7 @@
             this.tabControlInfo.Controls.Add(this.tabPageMyPosts);
             this.tabControlInfo.Controls.Add(this.tabPageLikes);
             this.tabControlInfo.Controls.Add(this.tabPageEvents);
+            this.tabControlInfo.Controls.Add(this.tabPhotos);
             this.tabControlInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlInfo.Location = new System.Drawing.Point(0, 154);
             this.tabControlInfo.Name = "tabControlInfo";
@@ -147,6 +158,16 @@
             this.tabPageFriends.TabIndex = 0;
             this.tabPageFriends.Text = "Friends";
             this.tabPageFriends.UseVisualStyleBackColor = true;
+            // 
+            // buttonFetchFriends
+            // 
+            this.buttonFetchFriends.Location = new System.Drawing.Point(194, 49);
+            this.buttonFetchFriends.Name = "buttonFetchFriends";
+            this.buttonFetchFriends.Size = new System.Drawing.Size(131, 55);
+            this.buttonFetchFriends.TabIndex = 3;
+            this.buttonFetchFriends.Text = "Fetch Friends";
+            this.buttonFetchFriends.UseVisualStyleBackColor = true;
+            this.buttonFetchFriends.Click += new System.EventHandler(this.buttonFetchFriends_Click);
             // 
             // buttonFetchFriendPosts
             // 
@@ -193,6 +214,24 @@
             this.tabPageMyPosts.Text = "My Posts";
             this.tabPageMyPosts.UseVisualStyleBackColor = true;
             // 
+            // buttonShareMyPost
+            // 
+            this.buttonShareMyPost.Location = new System.Drawing.Point(474, 249);
+            this.buttonShareMyPost.Name = "buttonShareMyPost";
+            this.buttonShareMyPost.Size = new System.Drawing.Size(131, 34);
+            this.buttonShareMyPost.TabIndex = 3;
+            this.buttonShareMyPost.Text = "Share My Post";
+            this.buttonShareMyPost.UseVisualStyleBackColor = true;
+            this.buttonShareMyPost.Click += new System.EventHandler(this.buttonShareMyPost_Click);
+            // 
+            // textBoxPost
+            // 
+            this.textBoxPost.Location = new System.Drawing.Point(3, 249);
+            this.textBoxPost.Multiline = true;
+            this.textBoxPost.Name = "textBoxPost";
+            this.textBoxPost.Size = new System.Drawing.Size(455, 123);
+            this.textBoxPost.TabIndex = 2;
+            // 
             // buttonFetchPosts
             // 
             this.buttonFetchPosts.Location = new System.Drawing.Point(8, 197);
@@ -225,6 +264,26 @@
             this.tabPageLikes.Text = "Likes";
             this.tabPageLikes.UseVisualStyleBackColor = true;
             // 
+            // buttonFetchLikedPages
+            // 
+            this.buttonFetchLikedPages.Location = new System.Drawing.Point(360, 41);
+            this.buttonFetchLikedPages.Name = "buttonFetchLikedPages";
+            this.buttonFetchLikedPages.Size = new System.Drawing.Size(145, 42);
+            this.buttonFetchLikedPages.TabIndex = 1;
+            this.buttonFetchLikedPages.Text = "Fetch Liked Pages";
+            this.buttonFetchLikedPages.UseVisualStyleBackColor = true;
+            this.buttonFetchLikedPages.Click += new System.EventHandler(this.buttonFetchLikedPages_Click);
+            // 
+            // listBoxLikedPages
+            // 
+            this.listBoxLikedPages.Dock = System.Windows.Forms.DockStyle.Left;
+            this.listBoxLikedPages.FormattingEnabled = true;
+            this.listBoxLikedPages.ItemHeight = 16;
+            this.listBoxLikedPages.Location = new System.Drawing.Point(0, 0);
+            this.listBoxLikedPages.Name = "listBoxLikedPages";
+            this.listBoxLikedPages.Size = new System.Drawing.Size(338, 380);
+            this.listBoxLikedPages.TabIndex = 0;
+            // 
             // tabPageEvents
             // 
             this.tabPageEvents.Controls.Add(this.buttonFetchAllEvents);
@@ -237,61 +296,15 @@
             this.tabPageEvents.Text = "Events";
             this.tabPageEvents.UseVisualStyleBackColor = true;
             // 
-            // textBoxPost
+            // buttonFetchAllEvents
             // 
-            this.textBoxPost.Location = new System.Drawing.Point(3, 249);
-            this.textBoxPost.Multiline = true;
-            this.textBoxPost.Name = "textBoxPost";
-            this.textBoxPost.Size = new System.Drawing.Size(455, 123);
-            this.textBoxPost.TabIndex = 2;
-            // 
-            // buttonShareMyPost
-            // 
-            this.buttonShareMyPost.Location = new System.Drawing.Point(474, 249);
-            this.buttonShareMyPost.Name = "buttonShareMyPost";
-            this.buttonShareMyPost.Size = new System.Drawing.Size(131, 34);
-            this.buttonShareMyPost.TabIndex = 3;
-            this.buttonShareMyPost.Text = "Share My Post";
-            this.buttonShareMyPost.UseVisualStyleBackColor = true;
-            this.buttonShareMyPost.Click += new System.EventHandler(this.buttonShareMyPost_Click);
-            // 
-            // buttonFetchFriends
-            // 
-            this.buttonFetchFriends.Location = new System.Drawing.Point(194, 49);
-            this.buttonFetchFriends.Name = "buttonFetchFriends";
-            this.buttonFetchFriends.Size = new System.Drawing.Size(131, 55);
-            this.buttonFetchFriends.TabIndex = 3;
-            this.buttonFetchFriends.Text = "Fetch Friends";
-            this.buttonFetchFriends.UseVisualStyleBackColor = true;
-            this.buttonFetchFriends.Click += new System.EventHandler(this.buttonFetchFriends_Click);
-            // 
-            // listBoxLikedPages
-            // 
-            this.listBoxLikedPages.Dock = System.Windows.Forms.DockStyle.Left;
-            this.listBoxLikedPages.FormattingEnabled = true;
-            this.listBoxLikedPages.ItemHeight = 16;
-            this.listBoxLikedPages.Location = new System.Drawing.Point(0, 0);
-            this.listBoxLikedPages.Name = "listBoxLikedPages";
-            this.listBoxLikedPages.Size = new System.Drawing.Size(338, 380);
-            this.listBoxLikedPages.TabIndex = 0;
-            // 
-            // buttonFetchLikedPages
-            // 
-            this.buttonFetchLikedPages.Location = new System.Drawing.Point(395, 81);
-            this.buttonFetchLikedPages.Name = "buttonFetchLikedPages";
-            this.buttonFetchLikedPages.Size = new System.Drawing.Size(145, 42);
-            this.buttonFetchLikedPages.TabIndex = 1;
-            this.buttonFetchLikedPages.Text = "Fetch Liked Pages";
-            this.buttonFetchLikedPages.UseVisualStyleBackColor = true;
-            this.buttonFetchLikedPages.Click += new System.EventHandler(this.buttonFetchLikedPages_Click);
-            // 
-            // dateTimePickerEventsPicker
-            // 
-            this.dateTimePickerEventsPicker.Location = new System.Drawing.Point(27, 13);
-            this.dateTimePickerEventsPicker.Name = "dateTimePickerEventsPicker";
-            this.dateTimePickerEventsPicker.Size = new System.Drawing.Size(282, 22);
-            this.dateTimePickerEventsPicker.TabIndex = 0;
-            this.dateTimePickerEventsPicker.ValueChanged += new System.EventHandler(this.dateTimePickerEventsPicker_ValueChanged);
+            this.buttonFetchAllEvents.Location = new System.Drawing.Point(34, 268);
+            this.buttonFetchAllEvents.Name = "buttonFetchAllEvents";
+            this.buttonFetchAllEvents.Size = new System.Drawing.Size(143, 37);
+            this.buttonFetchAllEvents.TabIndex = 2;
+            this.buttonFetchAllEvents.Text = "Fetch All Events";
+            this.buttonFetchAllEvents.UseVisualStyleBackColor = true;
+            this.buttonFetchAllEvents.Click += new System.EventHandler(this.buttonFetchAllEvents_Click);
             // 
             // listBoxMyEvents
             // 
@@ -302,15 +315,95 @@
             this.listBoxMyEvents.Size = new System.Drawing.Size(340, 196);
             this.listBoxMyEvents.TabIndex = 1;
             // 
-            // buttonFetchAllEvents
+            // dateTimePickerEventsPicker
             // 
-            this.buttonFetchAllEvents.Location = new System.Drawing.Point(34, 268);
-            this.buttonFetchAllEvents.Name = "buttonFetchAllEvents";
-            this.buttonFetchAllEvents.Size = new System.Drawing.Size(143, 37);
-            this.buttonFetchAllEvents.TabIndex = 2;
-            this.buttonFetchAllEvents.Text = "Fetch All Events";
-            this.buttonFetchAllEvents.UseVisualStyleBackColor = true;
-            this.buttonFetchAllEvents.Click += new System.EventHandler(this.buttonFetchAllEvents_Click);
+            this.dateTimePickerEventsPicker.Location = new System.Drawing.Point(27, 13);
+            this.dateTimePickerEventsPicker.Name = "dateTimePickerEventsPicker";
+            this.dateTimePickerEventsPicker.Size = new System.Drawing.Size(282, 22);
+            this.dateTimePickerEventsPicker.TabIndex = 0;
+            this.dateTimePickerEventsPicker.ValueChanged += new System.EventHandler(this.dateTimePickerEventsPicker_ValueChanged);
+            // 
+            // tabPhotos
+            // 
+            this.tabPhotos.Controls.Add(this.labelPhotoDescription);
+            this.tabPhotos.Controls.Add(this.pictureBoxPhoto);
+            this.tabPhotos.Controls.Add(this.labelPhoto);
+            this.tabPhotos.Controls.Add(this.listBoxPhoto);
+            this.tabPhotos.Controls.Add(this.buttonRefreshAlbums);
+            this.tabPhotos.Controls.Add(this.labelAlbum);
+            this.tabPhotos.Controls.Add(this.listBoxAlbums);
+            this.tabPhotos.Location = new System.Drawing.Point(4, 25);
+            this.tabPhotos.Name = "tabPhotos";
+            this.tabPhotos.Size = new System.Drawing.Size(882, 380);
+            this.tabPhotos.TabIndex = 5;
+            this.tabPhotos.Text = "Photos";
+            this.tabPhotos.UseVisualStyleBackColor = true;
+            // 
+            // buttonRefreshAlbums
+            // 
+            this.buttonRefreshAlbums.Location = new System.Drawing.Point(217, 41);
+            this.buttonRefreshAlbums.Name = "buttonRefreshAlbums";
+            this.buttonRefreshAlbums.Size = new System.Drawing.Size(133, 39);
+            this.buttonRefreshAlbums.TabIndex = 2;
+            this.buttonRefreshAlbums.Text = "Refresh Albums";
+            this.buttonRefreshAlbums.UseVisualStyleBackColor = true;
+            this.buttonRefreshAlbums.Click += new System.EventHandler(this.buttonRefreshAlbums_Click);
+            // 
+            // labelAlbum
+            // 
+            this.labelAlbum.AutoSize = true;
+            this.labelAlbum.Location = new System.Drawing.Point(13, 13);
+            this.labelAlbum.Name = "labelAlbum";
+            this.labelAlbum.Size = new System.Drawing.Size(54, 17);
+            this.labelAlbum.TabIndex = 1;
+            this.labelAlbum.Text = "Albums";
+            // 
+            // listBoxAlbums
+            // 
+            this.listBoxAlbums.FormattingEnabled = true;
+            this.listBoxAlbums.ItemHeight = 16;
+            this.listBoxAlbums.Location = new System.Drawing.Point(9, 41);
+            this.listBoxAlbums.Name = "listBoxAlbums";
+            this.listBoxAlbums.Size = new System.Drawing.Size(182, 324);
+            this.listBoxAlbums.TabIndex = 0;
+            this.listBoxAlbums.SelectedIndexChanged += new System.EventHandler(this.listBoxAlbums_SelectedIndexChanged);
+            // 
+            // listBoxPhoto
+            // 
+            this.listBoxPhoto.FormattingEnabled = true;
+            this.listBoxPhoto.ItemHeight = 16;
+            this.listBoxPhoto.Location = new System.Drawing.Point(380, 41);
+            this.listBoxPhoto.Name = "listBoxPhoto";
+            this.listBoxPhoto.Size = new System.Drawing.Size(188, 324);
+            this.listBoxPhoto.TabIndex = 3;
+            this.listBoxPhoto.SelectedIndexChanged += new System.EventHandler(this.listBoxPhoto_SelectedIndexChanged);
+            // 
+            // labelPhoto
+            // 
+            this.labelPhoto.AutoSize = true;
+            this.labelPhoto.Location = new System.Drawing.Point(381, 16);
+            this.labelPhoto.Name = "labelPhoto";
+            this.labelPhoto.Size = new System.Drawing.Size(52, 17);
+            this.labelPhoto.TabIndex = 4;
+            this.labelPhoto.Text = "Photos";
+            // 
+            // pictureBoxPhoto
+            // 
+            this.pictureBoxPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxPhoto.Location = new System.Drawing.Point(596, 41);
+            this.pictureBoxPhoto.Name = "pictureBoxPhoto";
+            this.pictureBoxPhoto.Size = new System.Drawing.Size(267, 216);
+            this.pictureBoxPhoto.TabIndex = 5;
+            this.pictureBoxPhoto.TabStop = false;
+            // 
+            // labelPhotoDescription
+            // 
+            this.labelPhotoDescription.AutoSize = true;
+            this.labelPhotoDescription.Location = new System.Drawing.Point(593, 277);
+            this.labelPhotoDescription.Name = "labelPhotoDescription";
+            this.labelPhotoDescription.Size = new System.Drawing.Size(72, 17);
+            this.labelPhotoDescription.TabIndex = 6;
+            this.labelPhotoDescription.Text = "                ";
             // 
             // Form1
             // 
@@ -334,6 +427,9 @@
             this.tabPageMyPosts.PerformLayout();
             this.tabPageLikes.ResumeLayout(false);
             this.tabPageEvents.ResumeLayout(false);
+            this.tabPhotos.ResumeLayout(false);
+            this.tabPhotos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPhoto)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -364,6 +460,14 @@
         private System.Windows.Forms.ListBox listBoxMyEvents;
         private System.Windows.Forms.DateTimePicker dateTimePickerEventsPicker;
         private System.Windows.Forms.Button buttonFetchAllEvents;
+        private System.Windows.Forms.TabPage tabPhotos;
+        private System.Windows.Forms.Label labelAlbum;
+        private System.Windows.Forms.ListBox listBoxAlbums;
+        private System.Windows.Forms.Button buttonRefreshAlbums;
+        private System.Windows.Forms.Label labelPhoto;
+        private System.Windows.Forms.ListBox listBoxPhoto;
+        private System.Windows.Forms.Label labelPhotoDescription;
+        private System.Windows.Forms.PictureBox pictureBoxPhoto;
     }
 }
 

@@ -43,6 +43,19 @@ namespace FacebookApplication
             buttonLoginLogout.Click -= buttonLogin_Click;
             buttonLoginLogout.Text = "Logout";
             buttonLoginLogout.Click += buttonLogout_Click;
+
+            fetchAlbums();
+        }
+
+        private void fetchAlbums()
+        {
+            listBoxAlbums.Items.Clear();
+            listBoxAlbums.DisplayMember = "Name";
+
+            foreach (Album albums in m_FacebookUser.Albums)
+            {
+                listBoxAlbums.Items.Add(albums);
+            }
         }
 
         private void fetchFriends()
@@ -166,6 +179,29 @@ namespace FacebookApplication
             foreach (Event userEvent in m_FacebookUser.Events)
             {
                 listBoxMyEvents.Items.Add(userEvent);
+            }
+        }
+
+        private void buttonRefreshAlbums_Click(object sender, EventArgs e)
+        {
+            fetchAlbums();
+        }
+
+        private void listBoxPhoto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pictureBoxPhoto.ImageLocation = (listBoxPhoto.SelectedItem as Photo).PictureNormalURL;
+
+            labelPhotoDescription.Text = (listBoxPhoto.SelectedItem as Photo).Message;
+        }
+
+        private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            listBoxPhoto.Items.Clear();
+            listBoxPhoto.DisplayMember = "Name";
+
+            foreach(Photo photo in (listBoxPhoto.SelectedItem as Album).Photos)
+            {
+                listBoxPhoto.Items.Add(photo);
             }
         }
     }
