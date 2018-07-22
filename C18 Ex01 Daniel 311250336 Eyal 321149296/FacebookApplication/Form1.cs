@@ -151,6 +151,20 @@ namespace FacebookApplication
 
             foreach(Event userEvent in m_FacebookUser.Events)
             {
+                if(userEvent.StartTime == dateTimePickerEventsPicker.Value)
+                {
+                    listBoxMyEvents.Items.Add(userEvent);
+                }
+            }
+        }
+
+        private void buttonFetchAllEvents_Click(object sender, EventArgs e)
+        {
+            listBoxMyEvents.Items.Clear();
+            listBoxMyEvents.DisplayMember = "Name";
+
+            foreach (Event userEvent in m_FacebookUser.Events)
+            {
                 listBoxMyEvents.Items.Add(userEvent);
             }
         }

@@ -51,6 +51,7 @@
             this.buttonFetchLikedPages = new System.Windows.Forms.Button();
             this.dateTimePickerEventsPicker = new System.Windows.Forms.DateTimePicker();
             this.listBoxMyEvents = new System.Windows.Forms.ListBox();
+            this.buttonFetchAllEvents = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfilePic)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -226,6 +227,7 @@
             // 
             // tabPageEvents
             // 
+            this.tabPageEvents.Controls.Add(this.buttonFetchAllEvents);
             this.tabPageEvents.Controls.Add(this.listBoxMyEvents);
             this.tabPageEvents.Controls.Add(this.dateTimePickerEventsPicker);
             this.tabPageEvents.Location = new System.Drawing.Point(4, 25);
@@ -295,10 +297,20 @@
             // 
             this.listBoxMyEvents.FormattingEnabled = true;
             this.listBoxMyEvents.ItemHeight = 16;
-            this.listBoxMyEvents.Location = new System.Drawing.Point(23, 84);
+            this.listBoxMyEvents.Location = new System.Drawing.Point(27, 41);
             this.listBoxMyEvents.Name = "listBoxMyEvents";
             this.listBoxMyEvents.Size = new System.Drawing.Size(340, 196);
             this.listBoxMyEvents.TabIndex = 1;
+            // 
+            // buttonFetchAllEvents
+            // 
+            this.buttonFetchAllEvents.Location = new System.Drawing.Point(34, 268);
+            this.buttonFetchAllEvents.Name = "buttonFetchAllEvents";
+            this.buttonFetchAllEvents.Size = new System.Drawing.Size(143, 37);
+            this.buttonFetchAllEvents.TabIndex = 2;
+            this.buttonFetchAllEvents.Text = "Fetch All Events";
+            this.buttonFetchAllEvents.UseVisualStyleBackColor = true;
+            this.buttonFetchAllEvents.Click += new System.EventHandler(this.buttonFetchAllEvents_Click);
             // 
             // Form1
             // 
@@ -351,6 +363,7 @@
         private System.Windows.Forms.ListBox listBoxLikedPages;
         private System.Windows.Forms.ListBox listBoxMyEvents;
         private System.Windows.Forms.DateTimePicker dateTimePickerEventsPicker;
+        private System.Windows.Forms.Button buttonFetchAllEvents;
     }
 }
 
