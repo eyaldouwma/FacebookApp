@@ -51,7 +51,7 @@ namespace FacebookApplication
         {
             AppSettings saved = new AppSettings();
 
-            using (Stream stream = new FileStream(@"C:\temp\appSettings.xml", FileMode.Open))
+            using (Stream stream = new FileStream(@"C:\temp\appSettings.xml", FileMode.OpenOrCreate))
             {
                 XmlSerializer serlizer = new XmlSerializer(typeof(AppSettings));
                 saved = serlizer.Deserialize(stream) as AppSettings;

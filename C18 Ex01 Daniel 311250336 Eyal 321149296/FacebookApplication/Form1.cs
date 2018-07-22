@@ -25,7 +25,11 @@ namespace FacebookApplication
         {
             LoginResult result = FacebookService.Login("250350445570281",
                 "email",
-                "user_posts");
+                "user_posts",
+                "user_friends",
+                "user_likes",
+                "user_photos",
+                "user_events");
 
             m_Settings.AccessToken = result.AccessToken;
             m_FacebookUser = result.LoggedInUser;
@@ -116,12 +120,15 @@ namespace FacebookApplication
         {
             User friend = listBoxFriends.SelectedItem as User;
 
-            listBoxFriendPosts.Items.Clear();
-            listBoxFriendPosts.DisplayMember = "Description";
-
-            foreach (Post posts in friend.Posts)
+            if (friend != null)
             {
-                listBoxFriendPosts.Items.Add(posts);
+                listBoxFriendPosts.Items.Clear();
+                listBoxFriendPosts.DisplayMember = "Description";
+
+                foreach (Post posts in friend.Posts)
+                {
+                    listBoxFriendPosts.Items.Add(posts);
+                }
             }
         }
 
@@ -131,13 +138,17 @@ namespace FacebookApplication
 
             foreach(Post posts in m_FacebookUser.Posts)
             {
-                listBoxMyPosts.Items.Add(posts.Message);
+                if (posts.Message != null)
+                {
+                    listBoxMyPosts.Items.Add(posts.Message);
+                }
             }
         }
 
         private void buttonShareMyPost_Click(object sender, EventArgs e)
         {
             m_FacebookUser.PostStatus(textBoxPost.Text);
+            textBoxPost.Text = String.Empty;
         }
 
         private void buttonFetchFriends_Click(object sender, EventArgs e)
@@ -164,7 +175,7 @@ namespace FacebookApplication
 
             foreach(Event userEvent in m_FacebookUser.Events)
             {
-                if(userEvent.StartTime == dateTimePickerEventsPicker.Value)
+                if(userEvent.StartTime.Value == dateTimePickerEventsPicker.Value)
                 {
                     listBoxMyEvents.Items.Add(userEvent);
                 }
@@ -190,7 +201,7 @@ namespace FacebookApplication
         private void listBoxPhoto_SelectedIndexChanged(object sender, EventArgs e)
         {
             pictureBoxPhoto.ImageLocation = (listBoxPhoto.SelectedItem as Photo).PictureNormalURL;
-
+            pictureBoxPhoto.SizeMode = PictureBoxSizeMode.StretchImage;
             labelPhotoDescription.Text = (listBoxPhoto.SelectedItem as Photo).Message;
         }
 
@@ -198,8 +209,9 @@ namespace FacebookApplication
         {
             listBoxPhoto.Items.Clear();
             listBoxPhoto.DisplayMember = "Name";
+            Album selectedAlbum = listBoxAlbums.SelectedItem as Album;
 
-            foreach(Photo photo in (listBoxPhoto.SelectedItem as Album).Photos)
+            foreach (Photo photo in selectedAlbum.Photos)
             {
                 listBoxPhoto.Items.Add(photo);
             }

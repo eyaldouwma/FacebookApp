@@ -33,10 +33,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Facebook">
-      <HintPath>..\..\..\..\..\Desktop\לימודים\Design Patterns\FBApi\Facebook.dll</HintPath>
+      <HintPath>..\..\..\..\..\OneDrive - The Academic College of Tel-Aviv Jaffa - MTA\CS\Y2\Design Patterns\01_FB01_BasicFacebookFeatures.V6.8.0.17\FBApi\Facebook.dll</HintPath>
     </Reference>
     <Reference Include="FbGraphApiWrapper">
-      <HintPath>..\..\..\..\..\Desktop\לימודים\Design Patterns\FBApi\FbGraphApiWrapper.dll</HintPath>
+      <HintPath>..\..\..\..\..\OneDrive - The Academic College of Tel-Aviv Jaffa - MTA\CS\Y2\Design Patterns\01_FB01_BasicFacebookFeatures.V6.8.0.17\FBApi\FbGraphApiWrapper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
