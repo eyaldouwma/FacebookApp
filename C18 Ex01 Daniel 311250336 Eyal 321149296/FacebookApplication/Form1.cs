@@ -24,7 +24,8 @@ namespace FacebookApplication
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             LoginResult result = FacebookService.Login("250350445570281",
-                "email");
+                "email",
+                "user_posts");
 
             m_Settings.AccessToken = result.AccessToken;
             m_FacebookUser = result.LoggedInUser;
@@ -114,11 +115,10 @@ namespace FacebookApplication
         private void buttonFetchPosts_Click(object sender, EventArgs e)
         {
             listBoxMyPosts.Items.Clear();
-            listBoxMyPosts.DisplayMember = "Description";
 
             foreach(Post posts in m_FacebookUser.Posts)
             {
-                listBoxMyPosts.Items.Add(posts);
+                listBoxMyPosts.Items.Add(posts.Message);
             }
         }
 
@@ -131,6 +131,28 @@ namespace FacebookApplication
         {
             fetchFriends();
             buttonFetchFriendPosts.Enabled = true;
+        }
+
+        private void buttonFetchLikedPages_Click(object sender, EventArgs e)
+        {
+            listBoxLikedPages.Items.Clear();
+            listBoxLikedPages.DisplayMember = "Name";
+
+            foreach (Page page in m_FacebookUser.LikedPages)
+            {
+                listBoxLikedPages.Items.Add(page);
+            }
+        }
+
+        private void dateTimePickerEventsPicker_ValueChanged(object sender, EventArgs e)
+        {
+            listBoxMyEvents.Items.Clear();
+            listBoxMyEvents.DisplayMember = "Name";
+
+            foreach(Event userEvent in m_FacebookUser.Events)
+            {
+                listBoxMyEvents.Items.Add(userEvent);
+            }
         }
     }
 }

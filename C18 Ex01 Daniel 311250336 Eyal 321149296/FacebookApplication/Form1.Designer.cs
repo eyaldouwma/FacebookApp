@@ -47,12 +47,18 @@
             this.textBoxPost = new System.Windows.Forms.TextBox();
             this.buttonShareMyPost = new System.Windows.Forms.Button();
             this.buttonFetchFriends = new System.Windows.Forms.Button();
+            this.listBoxLikedPages = new System.Windows.Forms.ListBox();
+            this.buttonFetchLikedPages = new System.Windows.Forms.Button();
+            this.dateTimePickerEventsPicker = new System.Windows.Forms.DateTimePicker();
+            this.listBoxMyEvents = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfilePic)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabControlInfo.SuspendLayout();
             this.tabPageFriends.SuspendLayout();
             this.tabPageMyPosts.SuspendLayout();
+            this.tabPageLikes.SuspendLayout();
+            this.tabPageEvents.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonLoginLogout
@@ -209,6 +215,8 @@
             // 
             // tabPageLikes
             // 
+            this.tabPageLikes.Controls.Add(this.buttonFetchLikedPages);
+            this.tabPageLikes.Controls.Add(this.listBoxLikedPages);
             this.tabPageLikes.Location = new System.Drawing.Point(4, 25);
             this.tabPageLikes.Name = "tabPageLikes";
             this.tabPageLikes.Size = new System.Drawing.Size(882, 380);
@@ -218,6 +226,8 @@
             // 
             // tabPageEvents
             // 
+            this.tabPageEvents.Controls.Add(this.listBoxMyEvents);
+            this.tabPageEvents.Controls.Add(this.dateTimePickerEventsPicker);
             this.tabPageEvents.Location = new System.Drawing.Point(4, 25);
             this.tabPageEvents.Name = "tabPageEvents";
             this.tabPageEvents.Size = new System.Drawing.Size(882, 380);
@@ -253,6 +263,43 @@
             this.buttonFetchFriends.UseVisualStyleBackColor = true;
             this.buttonFetchFriends.Click += new System.EventHandler(this.buttonFetchFriends_Click);
             // 
+            // listBoxLikedPages
+            // 
+            this.listBoxLikedPages.Dock = System.Windows.Forms.DockStyle.Left;
+            this.listBoxLikedPages.FormattingEnabled = true;
+            this.listBoxLikedPages.ItemHeight = 16;
+            this.listBoxLikedPages.Location = new System.Drawing.Point(0, 0);
+            this.listBoxLikedPages.Name = "listBoxLikedPages";
+            this.listBoxLikedPages.Size = new System.Drawing.Size(338, 380);
+            this.listBoxLikedPages.TabIndex = 0;
+            // 
+            // buttonFetchLikedPages
+            // 
+            this.buttonFetchLikedPages.Location = new System.Drawing.Point(395, 81);
+            this.buttonFetchLikedPages.Name = "buttonFetchLikedPages";
+            this.buttonFetchLikedPages.Size = new System.Drawing.Size(145, 42);
+            this.buttonFetchLikedPages.TabIndex = 1;
+            this.buttonFetchLikedPages.Text = "Fetch Liked Pages";
+            this.buttonFetchLikedPages.UseVisualStyleBackColor = true;
+            this.buttonFetchLikedPages.Click += new System.EventHandler(this.buttonFetchLikedPages_Click);
+            // 
+            // dateTimePickerEventsPicker
+            // 
+            this.dateTimePickerEventsPicker.Location = new System.Drawing.Point(27, 13);
+            this.dateTimePickerEventsPicker.Name = "dateTimePickerEventsPicker";
+            this.dateTimePickerEventsPicker.Size = new System.Drawing.Size(282, 22);
+            this.dateTimePickerEventsPicker.TabIndex = 0;
+            this.dateTimePickerEventsPicker.ValueChanged += new System.EventHandler(this.dateTimePickerEventsPicker_ValueChanged);
+            // 
+            // listBoxMyEvents
+            // 
+            this.listBoxMyEvents.FormattingEnabled = true;
+            this.listBoxMyEvents.ItemHeight = 16;
+            this.listBoxMyEvents.Location = new System.Drawing.Point(23, 84);
+            this.listBoxMyEvents.Name = "listBoxMyEvents";
+            this.listBoxMyEvents.Size = new System.Drawing.Size(340, 196);
+            this.listBoxMyEvents.TabIndex = 1;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -273,6 +320,8 @@
             this.tabPageFriends.ResumeLayout(false);
             this.tabPageMyPosts.ResumeLayout(false);
             this.tabPageMyPosts.PerformLayout();
+            this.tabPageLikes.ResumeLayout(false);
+            this.tabPageEvents.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -298,6 +347,10 @@
         private System.Windows.Forms.Button buttonShareMyPost;
         private System.Windows.Forms.TextBox textBoxPost;
         private System.Windows.Forms.Button buttonFetchFriends;
+        private System.Windows.Forms.Button buttonFetchLikedPages;
+        private System.Windows.Forms.ListBox listBoxLikedPages;
+        private System.Windows.Forms.ListBox listBoxMyEvents;
+        private System.Windows.Forms.DateTimePicker dateTimePickerEventsPicker;
     }
 }
 
