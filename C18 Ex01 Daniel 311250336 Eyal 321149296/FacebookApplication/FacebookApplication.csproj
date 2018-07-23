@@ -38,6 +38,7 @@
     <Reference Include="FbGraphApiWrapper">
       <HintPath>..\..\..\..\..\OneDrive - The Academic College of Tel-Aviv Jaffa - MTA\CS\Y2\Design Patterns\01_FB01_BasicFacebookFeatures.V6.8.0.17\FBApi\FbGraphApiWrapper.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

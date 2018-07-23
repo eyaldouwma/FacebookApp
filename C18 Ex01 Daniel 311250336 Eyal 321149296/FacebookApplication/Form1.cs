@@ -149,6 +149,8 @@ namespace FacebookApplication
         {
             User friend = listBoxFriends.SelectedItem as User;
 
+            friend.ReFetch();
+
             if (friend != null)
             {
                 listBoxFriendPosts.Items.Clear();
@@ -163,6 +165,7 @@ namespace FacebookApplication
 
         private void buttonFetchPosts_Click(object sender, EventArgs e)
         {
+            m_FacebookUser.ReFetch();
             listBoxMyPosts.Items.Clear();
 
             foreach(Post posts in m_FacebookUser.Posts)
@@ -282,8 +285,13 @@ namespace FacebookApplication
         private void listBoxFriendPosts_SelectedValueChanged(object sender, EventArgs e)
         {
             Post post = listBoxFriendPosts.SelectedItem as Post;
-
-            startPreviewFormThread(post.PictureURL);
+            if (post != null)
+            {
+                if (!string.IsNullOrEmpty(post.PictureURL))
+                {
+                    startPreviewFormThread(post.PictureURL);
+                }
+            }
         }
 
         private void showPreviewForm(object i_PictureURL)
@@ -319,6 +327,32 @@ namespace FacebookApplication
             if (!string.IsNullOrEmpty(pictureBoxPhoto.ImageLocation))
             {
                 startPreviewFormThread(pictureBoxPhoto.ImageLocation);
+            }
+        }
+
+        private void buttonCreateAlbum_Click(object sender, EventArgs e)
+        {
+            string inputAlbumName = Microsoft.VisualBasic.Interaction.InputBox("Please enter a name for the album: ");
+            try
+            {
+                m_FacebookUser.CreateAlbum(inputAlbumName);
+            }
+            catch (FacebookOAuthException ex)
+            {
+                MessageBox.Show("Insuffiecient Permissions");
+            }
+        }
+
+        private void buttonUploadPhoto_Click(object sender, EventArgs e)
+        {
+            if (listBoxAlbums.SelectedItem != null)
+            {
+                var FD = new OpenFileDialog();
+                FD.Filter = "Image Files(*.JPG)| *.JPG";
+                if (FD.ShowDialog() == DialogResult.OK)
+                {
+                    (listBoxAlbums.SelectedItem as Album).UploadPhoto(FD.FileName);
+                }
             }
         }
     }
