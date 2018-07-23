@@ -49,12 +49,20 @@ namespace FacebookApplication
 
         public static AppSettings LoadFromFile()
         {
-            AppSettings saved = new AppSettings();
+            AppSettings saved;
 
-            using (Stream stream = new FileStream(@"C:\temp\appSettings.xml", FileMode.OpenOrCreate))
+            try
             {
-                XmlSerializer serlizer = new XmlSerializer(typeof(AppSettings));
-                saved = serlizer.Deserialize(stream) as AppSettings;
+                using (Stream stream = new FileStream(@"C:\temp\appSettings.xml", FileMode.Open))
+                {
+                    XmlSerializer serlizer = new XmlSerializer(typeof(AppSettings));
+
+                    saved = serlizer.Deserialize(stream) as AppSettings;
+                }
+            }
+            catch (Exception ex)
+            {
+                saved = new AppSettings();
             }
 
             return saved;

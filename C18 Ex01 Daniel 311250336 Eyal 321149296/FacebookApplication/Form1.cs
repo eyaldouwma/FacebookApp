@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using Facebook;
+using System.Xml.Serialization;
 
 namespace FacebookApplication
 {
@@ -93,6 +95,7 @@ namespace FacebookApplication
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
+            saveToFile(m_FacebookUser.Friends.GetType(), @"C:\temp\LastFriendList.xml");
             FacebookService.Logout(Logout_Success);
         }
 
@@ -115,6 +118,28 @@ namespace FacebookApplication
             textBoxPost.Text = string.Empty;
             changeButtonsEnabled(false);
             buttonFetchFriendPosts.Enabled = false; //has an irregular behavior compared to other buttons so it's not included in the enable/disable method.
+
+        }
+
+        private void saveToFile(Type i_TypeToSave, string i_Location)
+        {
+            if (File.Exists(i_Location))
+            {
+                createXML(i_TypeToSave, i_Location,FileMode.Truncate);
+            }
+            else
+            {
+                createXML(i_TypeToSave, i_Location,FileMode.Create);
+            }
+        }
+
+        private void createXML(Type i_TypeToSave, string i_Location, FileMode i_Mode)
+        {
+            using (Stream stream = new FileStream(i_Location, i_Mode))
+            {
+                XmlSerializer serializer = new XmlSerializer(i_TypeToSave);
+                serializer.Serialize(stream, m_FacebookUser.Friends);
+            }
         }
 
         private void checkBoxRememberMe_CheckedChanged(object sender, EventArgs e)
@@ -131,6 +156,7 @@ namespace FacebookApplication
 
         private void Form1_Shown(object sender, EventArgs e)
         {
+
             m_Settings = AppSettings.LoadFromFile();
 
             if(m_Settings.RememberMe && !string.IsNullOrEmpty(m_Settings.AccessToken))
@@ -167,12 +193,13 @@ namespace FacebookApplication
         {
             m_FacebookUser.ReFetch();
             listBoxMyPosts.Items.Clear();
+            listBoxMyPosts.DisplayMember = "Message";
 
             foreach(Post posts in m_FacebookUser.Posts)
             {
                 if (posts.Message != null)
                 {
-                    listBoxMyPosts.Items.Add(posts.Message);
+                    listBoxMyPosts.Items.Add(posts);
                 }
             }
         }
@@ -339,7 +366,7 @@ namespace FacebookApplication
             }
             catch (FacebookOAuthException ex)
             {
-                MessageBox.Show("Insuffiecient Permissions");
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -354,6 +381,20 @@ namespace FacebookApplication
                     (listBoxAlbums.SelectedItem as Album).UploadPhoto(FD.FileName);
                 }
             }
+        }
+
+        private void buttonDeletePost_Click(object sender, EventArgs e)
+        {
+            if (listBoxMyPosts.SelectedItem != null)
+            {
+                (listBoxMyPosts.SelectedItem as Post).Delete();
+            }
+            else
+            {
+                MessageBox.Show("Please select a post to delete.");
+            }
+
+            buttonFetchPosts_Click(null, null);
         }
     }
 }
