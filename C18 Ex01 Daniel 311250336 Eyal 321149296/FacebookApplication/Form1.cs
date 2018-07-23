@@ -95,7 +95,9 @@ namespace FacebookApplication
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            saveToFile(m_FacebookUser.Friends.GetType(), @"C:\temp\LastFriendList.xml");
+            List<string> NameToSave = new List<string>();
+            NameToSave = extractNameFromAllFriends();
+            saveToFile(NameToSave.GetType(), @"C:\temp\LastFriendList.xml", FileMode.Truncate, NameToSave);
             FacebookService.Logout(Logout_Success);
         }
 
@@ -121,24 +123,24 @@ namespace FacebookApplication
 
         }
 
-        private void saveToFile(Type i_TypeToSave, string i_Location)
+        private void saveToFile(Type i_TypeToSave, string i_Location, FileMode i_FileModeIfExists, object i_Instance)
         {
             if (File.Exists(i_Location))
             {
-                createXML(i_TypeToSave, i_Location,FileMode.Truncate);
+                createXML(i_TypeToSave, i_Location, i_FileModeIfExists, i_Instance);
             }
             else
             {
-                createXML(i_TypeToSave, i_Location,FileMode.Create);
+                createXML(i_TypeToSave, i_Location,FileMode.Create, i_Instance);
             }
         }
 
-        private void createXML(Type i_TypeToSave, string i_Location, FileMode i_Mode)
+        private void createXML(Type i_TypeToSave, string i_Location, FileMode i_Mode, object i_Instance)
         {
             using (Stream stream = new FileStream(i_Location, i_Mode))
             {
                 XmlSerializer serializer = new XmlSerializer(i_TypeToSave);
-                serializer.Serialize(stream, m_FacebookUser.Friends);
+                serializer.Serialize(stream, i_Instance);
             }
         }
 
@@ -395,6 +397,55 @@ namespace FacebookApplication
             }
 
             buttonFetchPosts_Click(null, null);
+        }
+
+        private void buttonWhoDeletedMe_Click(object sender, EventArgs e)
+        {
+            List<string> names;
+            List<string> deletedMe = new List<string>();
+            List<string> friendId = extractNameFromAllFriends();
+            using (Stream stream = new FileStream(@"C:\temp\LastFriendList.xml", FileMode.Open))
+            {
+                XmlSerializer serlizer = new XmlSerializer(typeof(List<string>));
+
+                names = serlizer.Deserialize(stream) as List<string>;
+            }
+
+            foreach(string nameFromXML in names)
+            {
+                if (!friendId.Contains(nameFromXML))
+                {
+                    deletedMe.Add(nameFromXML);
+                }
+               
+            }
+
+            if (deletedMe.Count != 0)
+            {
+                string deletedMeNames = string.Empty;
+                foreach(string name in deletedMe)
+                {
+                    deletedMeNames += name + System.Environment.NewLine;
+                }
+                MessageBox.Show(string.Format("The Friends Who Deleted Me: {0}{1}", System.Environment.NewLine, deletedMeNames));
+            }
+            else
+            {
+                MessageBox.Show("None");
+            }
+
+        }
+
+        private List<string> extractNameFromAllFriends()
+        {
+            List<string> extractedNames = new List<string>();
+
+            foreach(User user in m_FacebookUser.Friends)
+            {
+                extractedNames.Add(user.Name);
+            }
+
+            return extractedNames;
         }
     }
 }
