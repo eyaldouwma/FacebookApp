@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Facebook;
 
 namespace FacebookApplication
 {
@@ -29,7 +30,10 @@ namespace FacebookApplication
                 "user_friends",
                 "user_likes",
                 "user_photos",
-                "user_events");
+                "user_events",
+                "user_birthday",
+                "user_hometown",
+                "user_tagged_places");
 
             m_Settings.AccessToken = result.AccessToken;
             m_FacebookUser = result.LoggedInUser;
@@ -40,15 +44,26 @@ namespace FacebookApplication
         {
             pictureBoxProfilePic.ImageLocation = m_FacebookUser.PictureNormalURL;
             pictureBoxProfilePic.SizeMode = PictureBoxSizeMode.StretchImage;
-            this.Text = String.Format("Logged In as {0}", m_FacebookUser.Name);
-            labelUserDetails.Text = String.Format(@"{0}
+            this.Text = string.Format("Logged In as {0}", m_FacebookUser.Name);
+            labelUserDetails.Text = string.Format(@"{0}
 {1}
 {2}", m_FacebookUser.Name, m_FacebookUser.Birthday, m_FacebookUser.Email);
             buttonLoginLogout.Click -= buttonLogin_Click;
             buttonLoginLogout.Text = "Logout";
             buttonLoginLogout.Click += buttonLogout_Click;
-
+            changeButtonsEnabled(true);
             fetchAlbums();
+        }
+
+        private void changeButtonsEnabled(bool i_EnableOrDisable)
+        {
+            buttonRefreshAlbums.Enabled = i_EnableOrDisable;
+            buttonShareMyPost.Enabled = i_EnableOrDisable;
+            buttonFetchPosts.Enabled = i_EnableOrDisable;
+            buttonFetchAllEvents.Enabled = i_EnableOrDisable;
+            buttonFetchFriends.Enabled = i_EnableOrDisable;
+            buttonFetchLikedPages.Enabled = i_EnableOrDisable;
+            dateTimePickerEventsPicker.Enabled = i_EnableOrDisable;
         }
 
         private void fetchAlbums()
@@ -82,10 +97,21 @@ namespace FacebookApplication
         {
             this.Text = "Logged Out";
             pictureBoxProfilePic.ImageLocation = null;
-            labelUserDetails.Text = String.Empty;
+            labelUserDetails.Text = string.Empty;
             buttonLoginLogout.Click += buttonLogin_Click;
             buttonLoginLogout.Text = "Login";
             buttonLoginLogout.Click -= buttonLogout_Click;
+            listBoxAlbums.Items.Clear();
+            listBoxPhoto.Items.Clear();
+            listBoxFriendPosts.Items.Clear();
+            listBoxFriends.Items.Clear();
+            listBoxLikedPages.Items.Clear();
+            listBoxMyEvents.Items.Clear();
+            listBoxMyPosts.Items.Clear();
+            pictureBoxPhoto.ImageLocation = null;
+            textBoxPost.Text = string.Empty;
+            changeButtonsEnabled(false);
+            buttonFetchFriendPosts.Enabled = false; //has an irregular behavior compared to other buttons so it's not included in the enable/disable method.
         }
 
         private void checkBoxRememberMe_CheckedChanged(object sender, EventArgs e)
@@ -123,7 +149,7 @@ namespace FacebookApplication
             if (friend != null)
             {
                 listBoxFriendPosts.Items.Clear();
-                listBoxFriendPosts.DisplayMember = "Description";
+                listBoxFriendPosts.DisplayMember = "Message";
 
                 foreach (Post posts in friend.Posts)
                 {
@@ -148,7 +174,7 @@ namespace FacebookApplication
         private void buttonShareMyPost_Click(object sender, EventArgs e)
         {
             m_FacebookUser.PostStatus(textBoxPost.Text);
-            textBoxPost.Text = String.Empty;
+            textBoxPost.Text = string.Empty;
         }
 
         private void buttonFetchFriends_Click(object sender, EventArgs e)
@@ -161,35 +187,56 @@ namespace FacebookApplication
         {
             listBoxLikedPages.Items.Clear();
             listBoxLikedPages.DisplayMember = "Name";
-
-            foreach (Page page in m_FacebookUser.LikedPages)
+            try
             {
-                listBoxLikedPages.Items.Add(page);
+                foreach (Page page in m_FacebookUser.LikedPages)
+                {
+                    listBoxLikedPages.Items.Add(page);
+                }
+            }
+            catch (FacebookOAuthException ex)
+            {
+                listBoxLikedPages.DisplayMember = ToString();
+                listBoxLikedPages.Items.Add("Facebook doesn't allow fetching liked pages.");
             }
         }
 
         private void dateTimePickerEventsPicker_ValueChanged(object sender, EventArgs e)
         {
-            listBoxMyEvents.Items.Clear();
-            listBoxMyEvents.DisplayMember = "Name";
-
-            foreach(Event userEvent in m_FacebookUser.Events)
-            {
-                if(userEvent.StartTime.Value == dateTimePickerEventsPicker.Value)
-                {
-                    listBoxMyEvents.Items.Add(userEvent);
-                }
-            }
+            fetchEvents(dateTimePickerEventsPicker.Value);
         }
 
         private void buttonFetchAllEvents_Click(object sender, EventArgs e)
         {
+            fetchEvents(DateTime.MinValue);
+        }
+
+        private void fetchEvents(DateTime i_DateForEvents)
+        {
             listBoxMyEvents.Items.Clear();
             listBoxMyEvents.DisplayMember = "Name";
 
-            foreach (Event userEvent in m_FacebookUser.Events)
+            try
             {
-                listBoxMyEvents.Items.Add(userEvent);
+                foreach (Event userEvent in m_FacebookUser.Events)
+                {
+                    if (i_DateForEvents != DateTime.MinValue)
+                    {
+                        if (userEvent.StartTime == i_DateForEvents)
+                        {
+                            listBoxMyEvents.Items.Add(userEvent);
+                        }
+                    }
+                    else
+                    {
+                        listBoxMyEvents.Items.Add(userEvent);
+                    }
+                }
+            }
+            catch (FacebookOAuthException ex)
+            {
+                listBoxMyEvents.DisplayMember = ToString();
+                listBoxMyEvents.Items.Add("Facebook doesn't allow fetching events.");
             }
         }
 
@@ -209,9 +256,8 @@ namespace FacebookApplication
         {
             listBoxPhoto.Items.Clear();
             listBoxPhoto.DisplayMember = "Name";
-            Album selectedAlbum = listBoxAlbums.SelectedItem as Album;
 
-            foreach (Photo photo in selectedAlbum.Photos)
+            foreach (Photo photo in (listBoxAlbums.SelectedItem as Album).Photos)
             {
                 listBoxPhoto.Items.Add(photo);
             }
