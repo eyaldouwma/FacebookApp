@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using Facebook;
 
@@ -16,6 +17,8 @@ namespace FacebookApplication
     {
         private User m_FacebookUser;
         private AppSettings m_Settings = new AppSettings();
+        private subForm m_PreviewForm = new subForm();
+        private Thread m_SubThread;
 
         public Form1()
         {
@@ -173,8 +176,18 @@ namespace FacebookApplication
 
         private void buttonShareMyPost_Click(object sender, EventArgs e)
         {
-            m_FacebookUser.PostStatus(textBoxPost.Text);
-            textBoxPost.Text = string.Empty;
+            try
+            {
+                m_FacebookUser.PostStatus(textBoxPost.Text);
+            }
+            catch (FacebookOAuthException ex)
+            {
+                MessageBox.Show("Facebook doesn't allow posting from the app.");
+            }
+            finally
+            {
+                textBoxPost.Text = string.Empty;
+            }
         }
 
         private void buttonFetchFriends_Click(object sender, EventArgs e)
@@ -247,9 +260,12 @@ namespace FacebookApplication
 
         private void listBoxPhoto_SelectedIndexChanged(object sender, EventArgs e)
         {
-            pictureBoxPhoto.ImageLocation = (listBoxPhoto.SelectedItem as Photo).PictureNormalURL;
-            pictureBoxPhoto.SizeMode = PictureBoxSizeMode.StretchImage;
-            labelPhotoDescription.Text = (listBoxPhoto.SelectedItem as Photo).Message;
+            if (listBoxPhoto.SelectedItem != null)
+            {
+                pictureBoxPhoto.ImageLocation = (listBoxPhoto.SelectedItem as Photo).PictureNormalURL;
+                pictureBoxPhoto.SizeMode = PictureBoxSizeMode.StretchImage;
+                labelPhotoDescription.Text = (listBoxPhoto.SelectedItem as Photo).Message;
+            }
         }
 
         private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
@@ -260,6 +276,49 @@ namespace FacebookApplication
             foreach (Photo photo in (listBoxAlbums.SelectedItem as Album).Photos)
             {
                 listBoxPhoto.Items.Add(photo);
+            }
+        }
+
+        private void listBoxFriendPosts_SelectedValueChanged(object sender, EventArgs e)
+        {
+            Post post = listBoxFriendPosts.SelectedItem as Post;
+
+            startPreviewFormThread(post.PictureURL);
+        }
+
+        private void showPreviewForm(object i_PictureURL)
+        {
+            m_PreviewForm.InitializeSubForm(i_PictureURL as string);
+            try
+            {
+                m_PreviewForm.StartPosition = FormStartPosition.Manual;
+                m_PreviewForm.Location = new Point(this.Right + 10, this.Location.Y);
+                m_PreviewForm.ShowDialog();
+            }
+            catch (InvalidOperationException ex)
+            {
+                m_PreviewForm.InitializeSubForm(i_PictureURL as string);
+            }
+        }
+
+        private void startPreviewFormThread(string i_PhotoURL)
+        {
+            if (m_SubThread == null || !m_SubThread.IsAlive)
+            {
+                m_SubThread = new Thread(new ParameterizedThreadStart(showPreviewForm));
+                m_SubThread.Start(i_PhotoURL);
+            }
+            else
+            {
+                m_PreviewForm.InitializeSubForm(i_PhotoURL);
+            }
+        }
+
+        private void pictureBoxMagnifer_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(pictureBoxPhoto.ImageLocation))
+            {
+                startPreviewFormThread(pictureBoxPhoto.ImageLocation);
             }
         }
     }
