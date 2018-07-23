@@ -69,6 +69,11 @@ namespace FacebookApplication
             buttonFetchFriends.Enabled = i_EnableOrDisable;
             buttonFetchLikedPages.Enabled = i_EnableOrDisable;
             dateTimePickerEventsPicker.Enabled = i_EnableOrDisable;
+            buttonCreateAlbum.Enabled = i_EnableOrDisable;
+            buttonDeletePost.Enabled = i_EnableOrDisable;
+            buttonWhoDeletedMe.Enabled = i_EnableOrDisable;
+            buttonUploadPhoto.Enabled = i_EnableOrDisable;
+            pictureBoxMagnifer.Enabled = i_EnableOrDisable;
         }
 
         private void fetchAlbums()
@@ -120,7 +125,6 @@ namespace FacebookApplication
             textBoxPost.Text = string.Empty;
             changeButtonsEnabled(false);
             buttonFetchFriendPosts.Enabled = false; //has an irregular behavior compared to other buttons so it's not included in the enable/disable method.
-
         }
 
         private void saveToFile(Type i_TypeToSave, string i_Location, FileMode i_FileModeIfExists, object i_Instance)
@@ -178,15 +182,14 @@ namespace FacebookApplication
             User friend = listBoxFriends.SelectedItem as User;
 
             friend.ReFetch();
-
             if (friend != null)
             {
                 listBoxFriendPosts.Items.Clear();
-                listBoxFriendPosts.DisplayMember = "Message";
-
                 foreach (Post posts in friend.Posts)
                 {
-                    listBoxFriendPosts.Items.Add(posts);
+                    listBoxFriendPosts.Items.Add(string.Format("From: {0}        Post: {1}",
+                        posts.From == null ? friend.Name : posts.From.Name,
+                        posts.Message));
                 }
             }
         }
@@ -195,13 +198,14 @@ namespace FacebookApplication
         {
             m_FacebookUser.ReFetch();
             listBoxMyPosts.Items.Clear();
-            listBoxMyPosts.DisplayMember = "Message";
 
             foreach(Post posts in m_FacebookUser.Posts)
             {
                 if (posts.Message != null)
                 {
-                    listBoxMyPosts.Items.Add(posts);
+                    listBoxMyPosts.Items.Add(string.Format("From: {0}        Post: {1}",
+                        posts.From == null ? m_FacebookUser.Name : posts.From.Name,
+                        posts.Message));
                 }
             }
         }
@@ -304,22 +308,11 @@ namespace FacebookApplication
         {
             listBoxPhoto.Items.Clear();
             listBoxPhoto.DisplayMember = "Name";
+            
 
             foreach (Photo photo in (listBoxAlbums.SelectedItem as Album).Photos)
             {
                 listBoxPhoto.Items.Add(photo);
-            }
-        }
-
-        private void listBoxFriendPosts_SelectedValueChanged(object sender, EventArgs e)
-        {
-            Post post = listBoxFriendPosts.SelectedItem as Post;
-            if (post != null)
-            {
-                if (!string.IsNullOrEmpty(post.PictureURL))
-                {
-                    startPreviewFormThread(post.PictureURL);
-                }
             }
         }
 
@@ -368,20 +361,27 @@ namespace FacebookApplication
             }
             catch (FacebookOAuthException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Facebook doesn't allow creating albums from the app.");
             }
         }
 
         private void buttonUploadPhoto_Click(object sender, EventArgs e)
         {
-            if (listBoxAlbums.SelectedItem != null)
+            try
             {
-                var FD = new OpenFileDialog();
-                FD.Filter = "Image Files(*.JPG)| *.JPG";
-                if (FD.ShowDialog() == DialogResult.OK)
+                if (listBoxAlbums.SelectedItem != null)
                 {
-                    (listBoxAlbums.SelectedItem as Album).UploadPhoto(FD.FileName);
+                    var FD = new OpenFileDialog();
+                    FD.Filter = "Image Files(*.JPG)| *.JPG";
+                    if (FD.ShowDialog() == DialogResult.OK)
+                    {
+                        (listBoxAlbums.SelectedItem as Album).UploadPhoto(FD.FileName);
+                    }
                 }
+            }
+            catch (FacebookOAuthException ex)
+            {
+                MessageBox.Show("Facebook prevents uploading photos from the app.");
             }
         }
 
@@ -389,7 +389,7 @@ namespace FacebookApplication
         {
             if (listBoxMyPosts.SelectedItem != null)
             {
-                (listBoxMyPosts.SelectedItem as Post).Delete();
+                m_FacebookUser.Posts[listBoxMyPosts.SelectedIndex].Delete();
             }
             else
             {
@@ -401,17 +401,26 @@ namespace FacebookApplication
 
         private void buttonWhoDeletedMe_Click(object sender, EventArgs e)
         {
-            List<string> names;
+            List<string> names = null;
             List<string> deletedMe = new List<string>();
             List<string> friendId = extractNameFromAllFriends();
-            using (Stream stream = new FileStream(@"C:\temp\LastFriendList.xml", FileMode.Open))
-            {
-                XmlSerializer serlizer = new XmlSerializer(typeof(List<string>));
 
-                names = serlizer.Deserialize(stream) as List<string>;
+            try
+            {
+                using (Stream stream = new FileStream(@"C:\temp\LastFriendList.xml", FileMode.Open))
+                {
+                    XmlSerializer serlizer = new XmlSerializer(typeof(List<string>));
+
+                    names = serlizer.Deserialize(stream) as List<string>;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Cannot preform this action.{0}File maybe be corrupted.", Environment.NewLine));
+                return;
             }
 
-            foreach(string nameFromXML in names)
+            foreach (string nameFromXML in names)
             {
                 if (!friendId.Contains(nameFromXML))
                 {
@@ -446,6 +455,21 @@ namespace FacebookApplication
             }
 
             return extractedNames;
+        }
+
+        private void listBoxFriends_SelectedValueChanged(object sender, EventArgs e)
+        {
+            listBoxFriendPosts.Items.Clear();
+        }
+
+        private void listBoxFriendPosts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            User friend = listBoxFriends.SelectedItem as User;
+
+            if (!string.IsNullOrEmpty(friend.Posts[listBoxFriendPosts.SelectedIndex].PictureURL))
+            {
+                startPreviewFormThread(friend.Posts[listBoxFriendPosts.SelectedIndex].PictureURL);
+            }
         }
     }
 }
