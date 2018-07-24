@@ -39,7 +39,12 @@ namespace FacebookApplication
                 "user_events",
                 "user_birthday",
                 "user_hometown",
-                "user_tagged_places");
+                "user_tagged_places",
+                "publish_to_groups",
+                "publish_pages",
+                "manage_pages",
+                "groups_access_member_info",
+                "pages_show_list");
 
             m_Settings.AccessToken = result.AccessToken;
             m_FacebookUser = result.LoggedInUser;
@@ -101,9 +106,7 @@ namespace FacebookApplication
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            List<string> NameToSave = new List<string>();
-            NameToSave = extractNameFromAllFriends();
-            saveToFile(NameToSave.GetType(), @"C:\temp\LastFriendList.xml", FileMode.Truncate, NameToSave);
+            saveFriendList();
             FacebookService.Logout(Logout_Success);
         }
 
@@ -128,6 +131,16 @@ namespace FacebookApplication
             //the below has an irregular behavior compared to other buttons so it's not included in the enable/disable method.
             buttonFetchFriendPosts.Enabled = false; 
             pictureBoxLike.Enabled = false;
+        }
+
+        private void saveFriendList()
+        {
+            List<string> NameToSave = new List<string>();
+            NameToSave = extractNameFromAllFriends();
+            saveToFile(NameToSave.GetType(),
+                string.Format(@"C:\temp\LastFriendList{0}.xml", m_FacebookUser.Id),
+                FileMode.Truncate,
+                NameToSave);
         }
 
         private void saveToFile(Type i_TypeToSave, string i_Location, FileMode i_FileModeIfExists, object i_Instance)
@@ -160,6 +173,7 @@ namespace FacebookApplication
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            saveFriendList();
             m_Settings.SaveToFile();
         }
 
@@ -413,7 +427,7 @@ namespace FacebookApplication
 
             try
             {
-                using (Stream stream = new FileStream(@"C:\temp\LastFriendList.xml", FileMode.Open))
+                using (Stream stream = new FileStream(string.Format(@"C:\temp\LastFriendList{0}.xml",m_FacebookUser.Id), FileMode.Open))
                 {
                     XmlSerializer serlizer = new XmlSerializer(typeof(List<string>));
 
