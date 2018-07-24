@@ -80,6 +80,7 @@ namespace FacebookApplication
             buttonWhoDeletedMe.Enabled = i_EnableOrDisable;
             buttonUploadPhoto.Enabled = i_EnableOrDisable;
             pictureBoxMagnifer.Enabled = i_EnableOrDisable;
+            buttonFriendsCloseCircle.Enabled = i_EnableOrDisable;
         }
 
         private void fetchAlbums()
@@ -125,6 +126,8 @@ namespace FacebookApplication
             listBoxLikedPages.Items.Clear();
             listBoxMyEvents.Items.Clear();
             listBoxMyPosts.Items.Clear();
+            listBoxCloseFriendsCircle.Items.Clear();
+            listBoxWhoDeletedMe.Items.Clear();
             pictureBoxPhoto.ImageLocation = null;
             textBoxPost.Text = string.Empty;
             changeButtonsEnabled(false);
@@ -436,7 +439,7 @@ namespace FacebookApplication
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format("Cannot preform this action.{0}File maybe be corrupted.", Environment.NewLine));
+                MessageBox.Show(string.Format("Cannot preform this action.{0}File missing or corrupted.", Environment.NewLine));
                 return;
             }
 
@@ -449,20 +452,22 @@ namespace FacebookApplication
                
             }
 
-            if (deletedMe.Count != 0)
+            populateWhoDeletedMeListBox(deletedMe);
+        }
+
+        private void populateWhoDeletedMeListBox(List<string> i_DeletedMe)
+        {
+            if (i_DeletedMe.Count != 0)
             {
-                StringBuilder builder = new StringBuilder();
-                foreach(string name in deletedMe)
+                foreach (string name in i_DeletedMe)
                 {
-                    builder.AppendLine(name);
+                    listBoxWhoDeletedMe.Items.Add(name);
                 }
-                MessageBox.Show(string.Format("The Friends Who Deleted Me: {0}{1}", System.Environment.NewLine, builder.ToString()));
             }
             else
             {
-                MessageBox.Show("None");
+                listBoxWhoDeletedMe.Items.Add("none");
             }
-
         }
 
         private List<string> extractNameFromAllFriends()
@@ -524,6 +529,62 @@ namespace FacebookApplication
             {
                 MessageBox.Show("Facebook doesn't allow liking from the app.");
             }
+        }
+
+        private void buttonFriendsCloseCircle_Click(object sender, EventArgs e)
+        {
+            Dictionary<string, int> myFriendsCount = new Dictionary<string, int>(m_FacebookUser.Friends.Count);
+            Dictionary<string, string> myFriendsByID = new Dictionary<string, string>();
+            int maxMutualFriends = 0;
+            LinkedList<string> closeCircleOfFriends;
+
+            foreach (User friend in m_FacebookUser.Friends)
+            {
+                myFriendsCount.Add(friend.Id, maxMutualFriends);
+                myFriendsByID.Add(friend.Id, friend.Name);
+            }
+
+            foreach (User friend in m_FacebookUser.Friends)
+            {
+                foreach (User friendOfFriend in friend.Friends)
+                {
+                    if (myFriendsCount.ContainsKey(friendOfFriend.Id))
+                    {
+                        myFriendsCount[friendOfFriend.Id]++;
+                        maxMutualFriends = maxMutualFriends < myFriendsCount[friendOfFriend.Id]
+                            ? myFriendsCount[friendOfFriend.Id]
+                            : maxMutualFriends;
+                    }
+                }
+            }
+
+            closeCircleOfFriends = getCloseCircleOfFriend(myFriendsCount, myFriendsByID, maxMutualFriends);
+            populateCloseCircleOfFriendListBox(closeCircleOfFriends);
+            labelCloseCircleOfFriendsCount.Text = maxMutualFriends.ToString();
+        }
+
+        private void populateCloseCircleOfFriendListBox(LinkedList<string> i_CloseCircleOfFriends)
+        {
+            foreach (string name in i_CloseCircleOfFriends)
+            {
+                listBoxCloseFriendsCircle.Items.Add(name);
+            }
+        }
+
+        private LinkedList<string> getCloseCircleOfFriend(Dictionary<string, int> i_FriendsCount,
+            Dictionary<string, string> i_FriendsByID, int i_MaxMutualFriends)
+        {
+            LinkedList<string> closeCircleOfFriends = new LinkedList<string>();
+
+            foreach (string id in i_FriendsCount.Keys)
+            {
+                if (i_FriendsCount[id] == i_MaxMutualFriends)
+                {
+                    closeCircleOfFriends.AddFirst(i_FriendsByID[id]);
+                }
+            }
+
+            return closeCircleOfFriends;
         }
     }
 }
