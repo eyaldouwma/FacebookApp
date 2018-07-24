@@ -12,6 +12,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Facebook;
 using System.Xml.Serialization;
+using FacebookApplication.Properties;
 
 namespace FacebookApplication
 {
@@ -124,7 +125,9 @@ namespace FacebookApplication
             pictureBoxPhoto.ImageLocation = null;
             textBoxPost.Text = string.Empty;
             changeButtonsEnabled(false);
-            buttonFetchFriendPosts.Enabled = false; //has an irregular behavior compared to other buttons so it's not included in the enable/disable method.
+            //the below has an irregular behavior compared to other buttons so it's not included in the enable/disable method.
+            buttonFetchFriendPosts.Enabled = false; 
+            pictureBoxLike.Enabled = false;
         }
 
         private void saveToFile(Type i_TypeToSave, string i_Location, FileMode i_FileModeIfExists, object i_Instance)
@@ -192,6 +195,8 @@ namespace FacebookApplication
                         posts.Message));
                 }
             }
+
+            pictureBoxLike.Enabled = false;
         }
 
         private void buttonFetchPosts_Click(object sender, EventArgs e)
@@ -234,6 +239,7 @@ namespace FacebookApplication
 
         private void buttonFetchLikedPages_Click(object sender, EventArgs e)
         {
+            m_FacebookUser.ReFetch();
             listBoxLikedPages.Items.Clear();
             listBoxLikedPages.DisplayMember = "Name";
             try
@@ -465,10 +471,44 @@ namespace FacebookApplication
         private void listBoxFriendPosts_SelectedIndexChanged(object sender, EventArgs e)
         {
             User friend = listBoxFriends.SelectedItem as User;
+            Post friendPost = friend.Posts[listBoxFriendPosts.SelectedIndex];
 
-            if (!string.IsNullOrEmpty(friend.Posts[listBoxFriendPosts.SelectedIndex].PictureURL))
+            if (!string.IsNullOrEmpty(friendPost.PictureURL))
             {
-                startPreviewFormThread(friend.Posts[listBoxFriendPosts.SelectedIndex].PictureURL);
+                startPreviewFormThread(friendPost.PictureURL);
+            }
+
+            if (friendPost.LikedBy.Contains(m_FacebookUser))
+            {
+                pictureBoxLike.Image = Resources.unlike;
+            }
+            else
+            {
+                pictureBoxLike.Image = Resources.like;
+            }
+
+            pictureBoxLike.Enabled = true;
+        }
+
+        private void pictureBoxLike_Click(object sender, EventArgs e)
+        {
+            User friend = listBoxFriends.SelectedItem as User;
+            Post postToLikeUnlike = friend.Posts[listBoxFriendPosts.SelectedIndex];
+
+            try
+            {
+                if (postToLikeUnlike.LikedBy.Contains(m_FacebookUser))
+                {
+                    postToLikeUnlike.Unlike();
+                }
+                else
+                {
+                    postToLikeUnlike.Like();
+                }
+            }
+            catch (FacebookOAuthException ex)
+            {
+                MessageBox.Show("Facebook doesn't allow liking from the app.");
             }
         }
     }
