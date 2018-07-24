@@ -431,12 +431,12 @@ namespace FacebookApplication
 
             if (deletedMe.Count != 0)
             {
-                string deletedMeNames = string.Empty;
+                StringBuilder builder = new StringBuilder();
                 foreach(string name in deletedMe)
                 {
-                    deletedMeNames += name + System.Environment.NewLine;
+                    builder.AppendLine(name);
                 }
-                MessageBox.Show(string.Format("The Friends Who Deleted Me: {0}{1}", System.Environment.NewLine, deletedMeNames));
+                MessageBox.Show(string.Format("The Friends Who Deleted Me: {0}{1}", System.Environment.NewLine, builder.ToString()));
             }
             else
             {
