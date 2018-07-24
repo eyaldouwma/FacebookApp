@@ -176,8 +176,11 @@ namespace FacebookApplication
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            saveFriendList();
-            m_Settings.SaveToFile();
+            if (m_FacebookUser != null)
+            {
+                saveFriendList();
+                m_Settings.SaveToFile();
+            }
         }
 
         private void Form1_Shown(object sender, EventArgs e)
@@ -201,9 +204,10 @@ namespace FacebookApplication
         {
             User friend = listBoxFriends.SelectedItem as User;
 
-            friend.ReFetch();
+         
             if (friend != null)
             {
+                friend.ReFetch();
                 listBoxFriendPosts.Items.Clear();
                 foreach (Post posts in friend.Posts)
                 {
@@ -367,7 +371,7 @@ namespace FacebookApplication
             }
         }
 
-        private void pictureBoxMagnifer_Click(object sender, EventArgs e)
+        private void pictureBoxMagnifier_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(pictureBoxPhoto.ImageLocation))
             {

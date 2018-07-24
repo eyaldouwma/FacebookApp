@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(subForm));
             this.pictureBoxPostPhoto = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPostPhoto)).BeginInit();
             this.SuspendLayout();
@@ -37,21 +38,25 @@
             this.pictureBoxPostPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxPostPhoto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxPostPhoto.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxPostPhoto.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBoxPostPhoto.Name = "pictureBoxPostPhoto";
-            this.pictureBoxPostPhoto.Size = new System.Drawing.Size(507, 496);
+            this.pictureBoxPostPhoto.Size = new System.Drawing.Size(676, 610);
             this.pictureBoxPostPhoto.TabIndex = 0;
             this.pictureBoxPostPhoto.TabStop = false;
             // 
             // subForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(507, 496);
+            this.ClientSize = new System.Drawing.Size(676, 610);
             this.Controls.Add(this.pictureBoxPostPhoto);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "subForm";
-            this.Text = "subForm";
+            this.Text = "Facebook Application";
+            this.Activated += new System.EventHandler(this.subForm_Activated);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPostPhoto)).EndInit();
             this.ResumeLayout(false);
 

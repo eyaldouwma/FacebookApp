@@ -61,6 +61,26 @@ namespace FacebookApplication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon facebook_icon_0 {
+            get {
+                object obj = ResourceManager.GetObject("facebook_icon_0", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap facebook_logo_background_1412_27 {
+            get {
+                object obj = ResourceManager.GetObject("facebook_logo_background_1412_27", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap like {
@@ -86,6 +106,16 @@ namespace FacebookApplication.Properties {
         internal static System.Drawing.Bitmap unlike {
             get {
                 object obj = ResourceManager.GetObject("unlike", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Untitled_2 {
+            get {
+                object obj = ResourceManager.GetObject("Untitled_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

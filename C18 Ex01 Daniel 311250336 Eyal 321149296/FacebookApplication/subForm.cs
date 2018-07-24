@@ -22,5 +22,10 @@ namespace FacebookApplication
             pictureBoxPostPhoto.ImageLocation = i_Photo;
             pictureBoxPostPhoto.SizeMode = PictureBoxSizeMode.StretchImage;
         }
+
+        private void subForm_Activated(object sender, EventArgs e)
+        {
+            this.BringToFront();
+        }
     }
 }
