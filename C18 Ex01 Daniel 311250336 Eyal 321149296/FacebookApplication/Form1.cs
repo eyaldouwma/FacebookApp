@@ -81,6 +81,16 @@ namespace FacebookApplication
             buttonUploadPhoto.Enabled = i_EnableOrDisable;
             pictureBoxMagnifer.Enabled = i_EnableOrDisable;
             buttonFriendsCloseCircle.Enabled = i_EnableOrDisable;
+            enableOrDisableRightClick(contextMenuStripRightClickFriend, i_EnableOrDisable);
+        }
+
+        private void enableOrDisableRightClick(ContextMenuStrip i_ContextMenuStripRightClickFriend, bool i_EnableOrDisable)
+        {
+            i_ContextMenuStripRightClickFriend.Enabled = i_EnableOrDisable;
+            foreach (ToolStripMenuItem item in i_ContextMenuStripRightClickFriend.Items)
+            {
+                item.Enabled = i_EnableOrDisable;
+            }
         }
 
         private void fetchAlbums()
@@ -594,6 +604,34 @@ namespace FacebookApplication
             }
 
             return closeCircleOfFriends;
+        }
+
+        private void deleteFriendToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void profilePictureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listBoxFriends.SelectedItem != null)
+            {
+                startPreviewFormThread((listBoxFriends.SelectedItem as User).PictureNormalURL);
+            }
+        }
+
+        private void fetchPostsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonFetchFriendPosts_Click(null, null);
+        }
+
+        private void fetchFriendsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fetchFriends();
+        }
+
+        private void listBoxFriends_MouseDown(object sender, MouseEventArgs e)
+        {
+            listBoxFriends.SelectedIndex = listBoxFriends.IndexFromPoint(e.X, e.Y);
         }
     }
 }
