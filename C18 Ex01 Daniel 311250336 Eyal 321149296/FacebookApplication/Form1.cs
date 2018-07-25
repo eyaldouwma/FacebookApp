@@ -181,6 +181,11 @@ namespace FacebookApplication
                 saveFriendList();
                 m_Settings.SaveToFile();
             }
+
+            if (m_SubThread != null && m_SubThread.IsAlive)
+            {
+                m_SubThread.Abort();
+            }
         }
 
         private void Form1_Shown(object sender, EventArgs e)
