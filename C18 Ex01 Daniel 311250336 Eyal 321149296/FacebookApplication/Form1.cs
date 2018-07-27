@@ -138,6 +138,7 @@ namespace FacebookApplication
             listBoxMyPosts.Items.Clear();
             listBoxCloseFriendsCircle.Items.Clear();
             listBoxWhoDeletedMe.Items.Clear();
+            labelCloseCircleOfFriendsCount.Text = string.Empty;
             pictureBoxPhoto.ImageLocation = null;
             textBoxPost.Text = string.Empty;
             changeButtonsEnabled(false);
