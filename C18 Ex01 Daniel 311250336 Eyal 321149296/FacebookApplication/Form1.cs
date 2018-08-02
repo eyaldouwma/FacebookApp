@@ -1,6 +1,4 @@
-﻿using FacebookWrapper;
-using FacebookWrapper.ObjectModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,8 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using Facebook;
 using System.Xml.Serialization;
+using Facebook;
+using FacebookWrapper;
+using FacebookWrapper.ObjectModel;
 using FacebookApplication.Properties;
 
 namespace FacebookApplication
@@ -30,7 +30,8 @@ namespace FacebookApplication
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            LoginResult result = FacebookService.Login("250350445570281",
+            LoginResult result = FacebookService.Login(
+                "250350445570281",
                 "email",
                 "user_posts",
                 "user_friends",
@@ -56,9 +57,13 @@ namespace FacebookApplication
             pictureBoxProfilePic.ImageLocation = m_FacebookUser.PictureNormalURL;
             pictureBoxProfilePic.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Text = string.Format("Logged In as {0}", m_FacebookUser.Name);
-            labelUserDetails.Text = string.Format(@"{0}
+            labelUserDetails.Text = string.Format(
+                @"{0}
 {1}
-{2}", m_FacebookUser.Name, m_FacebookUser.Birthday, m_FacebookUser.Email);
+{2}",
+                m_FacebookUser.Name,
+                m_FacebookUser.Birthday,
+                m_FacebookUser.Email);
             buttonLoginLogout.Click -= buttonLogin_Click;
             buttonLoginLogout.Text = "Logout";
             buttonLoginLogout.Click += buttonLogout_Click;
@@ -142,7 +147,8 @@ namespace FacebookApplication
             pictureBoxPhoto.ImageLocation = null;
             textBoxPost.Text = string.Empty;
             changeButtonsEnabled(false);
-            //the below has an irregular behavior compared to other buttons so it's not included in the enable/disable method.
+
+            // the below has an irregular behavior compared to other buttons so it's not included in the enable/disable method.
             buttonFetchFriendPosts.Enabled = false; 
             pictureBoxLike.Enabled = false;
         }
@@ -151,10 +157,11 @@ namespace FacebookApplication
         {
             List<string> NameToSave = new List<string>();
             NameToSave = extractNameFromAllFriends();
-            saveToFile(NameToSave.GetType(),
+            saveToFile(
+                NameToSave.GetType(),
                 string.Format(@"C:\temp\LastFriendList{0}.xml", m_FacebookUser.Id),
-                FileMode.Truncate,
-                NameToSave);
+                    FileMode.Truncate,
+                    NameToSave);
         }
 
         private void saveToFile(Type i_TypeToSave, string i_Location, FileMode i_FileModeIfExists, object i_Instance)
@@ -165,7 +172,7 @@ namespace FacebookApplication
             }
             else
             {
-                createXML(i_TypeToSave, i_Location,FileMode.Create, i_Instance);
+                createXML(i_TypeToSave, i_Location, FileMode.Create, i_Instance);
             }
         }
 
@@ -201,9 +208,7 @@ namespace FacebookApplication
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-
             m_Settings = AppSettings.LoadFromFile();
-
             if(m_Settings.RememberMe && !string.IsNullOrEmpty(m_Settings.AccessToken))
             {
                 this.StartPosition = FormStartPosition.Manual;
@@ -220,14 +225,14 @@ namespace FacebookApplication
         {
             User friend = listBoxFriends.SelectedItem as User;
 
-         
             if (friend != null)
             {
                 friend.ReFetch();
                 listBoxFriendPosts.Items.Clear();
                 foreach (Post posts in friend.Posts)
                 {
-                    listBoxFriendPosts.Items.Add(string.Format("From: {0}        Post: {1}",
+                    listBoxFriendPosts.Items.Add(string.Format(
+                        "From: {0}        Post: {1}",
                         posts.From == null ? friend.Name : posts.From.Name,
                         posts.Message));
                 }
@@ -245,7 +250,8 @@ namespace FacebookApplication
             {
                 if (posts.Message != null)
                 {
-                    listBoxMyPosts.Items.Add(string.Format("From: {0}        Post: {1}",
+                    listBoxMyPosts.Items.Add(string.Format(
+                        "From: {0}        Post: {1}",
                         posts.From == null ? m_FacebookUser.Name : posts.From.Name,
                         posts.Message));
                 }
@@ -352,7 +358,6 @@ namespace FacebookApplication
             listBoxPhoto.Items.Clear();
             listBoxPhoto.DisplayMember = "Name";
             
-
             foreach (Photo photo in (listBoxAlbums.SelectedItem as Album).Photos)
             {
                 listBoxPhoto.Items.Add(photo);
@@ -450,7 +455,7 @@ namespace FacebookApplication
 
             try
             {
-                using (Stream stream = new FileStream(string.Format(@"C:\temp\LastFriendList{0}.xml",m_FacebookUser.Id), FileMode.Open))
+                using (Stream stream = new FileStream(string.Format(@"C:\temp\LastFriendList{0}.xml", m_FacebookUser.Id), FileMode.Open))
                 {
                     XmlSerializer serlizer = new XmlSerializer(typeof(List<string>));
 
@@ -469,7 +474,6 @@ namespace FacebookApplication
                 {
                     deletedMe.Add(nameFromXML);
                 }
-               
             }
 
             populateWhoDeletedMeListBox(deletedMe);
@@ -591,8 +595,10 @@ namespace FacebookApplication
             }
         }
 
-        private LinkedList<string> getCloseCircleOfFriend(Dictionary<string, int> i_FriendsCount,
-            Dictionary<string, string> i_FriendsByID, int i_MaxMutualFriends)
+        private LinkedList<string> getCloseCircleOfFriend(
+            Dictionary<string, int> i_FriendsCount,
+            Dictionary<string, string> i_FriendsByID,
+            int i_MaxMutualFriends)
         {
             LinkedList<string> closeCircleOfFriends = new LinkedList<string>();
 
@@ -605,11 +611,6 @@ namespace FacebookApplication
             }
 
             return closeCircleOfFriends;
-        }
-
-        private void deleteFriendToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void profilePictureToolStripMenuItem_Click(object sender, EventArgs e)
