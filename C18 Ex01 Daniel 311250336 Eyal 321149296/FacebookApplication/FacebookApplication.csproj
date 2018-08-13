@@ -60,11 +60,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="subForm.cs">
+    <Compile Include="subFormPicutre.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="subForm.Designer.cs">
-      <DependentUpon>subForm.cs</DependentUpon>
+    <Compile Include="subFormPicutre.Designer.cs">
+      <DependentUpon>subFormPicutre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="subFormEasyMode.cs">
+      <SubType>Form</SubType>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -79,8 +82,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="subForm.resx">
-      <DependentUpon>subForm.cs</DependentUpon>
+    <EmbeddedResource Include="subFormEasyMode.resx">
+      <DependentUpon>subFormEasyMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="subFormPicutre.resx">
+      <DependentUpon>subFormPicutre.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">

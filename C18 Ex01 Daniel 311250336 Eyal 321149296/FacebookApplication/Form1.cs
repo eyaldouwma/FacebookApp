@@ -16,16 +16,28 @@ using FacebookApplication.Properties;
 
 namespace FacebookApplication
 {
-    public partial class Form1 : Form
+    public sealed partial class Form1 : Form
     {
+        private static Form1 theInstance = null;
         private User m_FacebookUser;
         private AppSettings m_Settings = new AppSettings();
-        private subForm m_PreviewForm = new subForm();
-        private Thread m_SubThread;
-
-        public Form1()
+        private subFormEasyMode m_EasyMode;
+        private subFormPicture m_PreviewForm = new subFormPicture();
+        private Thread m_SubPictureThread;
+       
+        private Form1()
         {
             InitializeComponent();
+        }
+
+        public static Form1 getInstance()
+        {
+            if (theInstance == null)
+            {
+                theInstance = new Form1();
+            }
+
+            return theInstance;
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
@@ -86,6 +98,7 @@ namespace FacebookApplication
             buttonUploadPhoto.Enabled = i_EnableOrDisable;
             pictureBoxMagnifer.Enabled = i_EnableOrDisable;
             buttonFriendsCloseCircle.Enabled = i_EnableOrDisable;
+            buttonEasyMode.Enabled = i_EnableOrDisable;
             enableOrDisableRightClick(contextMenuStripRightClickFriend, i_EnableOrDisable);
         }
 
@@ -109,14 +122,14 @@ namespace FacebookApplication
             }
         }
 
-        private void fetchFriends()
+        public void FetchFriends(ListBox i_FriendList)
         {
-            listBoxFriends.Items.Clear();
-            listBoxFriends.DisplayMember = "Name";
+            i_FriendList.Items.Clear();
+            i_FriendList.DisplayMember = "Name";
 
             foreach (User user in m_FacebookUser.Friends)
             {
-                listBoxFriends.Items.Add(user);
+                i_FriendList.Items.Add(user);
             }
         }
 
@@ -200,9 +213,9 @@ namespace FacebookApplication
                 m_Settings.SaveToFile();
             }
 
-            if (m_SubThread != null && m_SubThread.IsAlive)
+            if (m_SubPictureThread != null && m_SubPictureThread.IsAlive)
             {
-                m_SubThread.Abort();
+                m_SubPictureThread.Abort();
             }
         }
 
@@ -227,7 +240,7 @@ namespace FacebookApplication
 
             if (friend != null)
             {
-                friend.ReFetch();
+                Refresh();
                 listBoxFriendPosts.Items.Clear();
                 foreach (Post posts in friend.Posts)
                 {
@@ -243,14 +256,19 @@ namespace FacebookApplication
 
         private void buttonFetchPosts_Click(object sender, EventArgs e)
         {
-            m_FacebookUser.ReFetch();
-            listBoxMyPosts.Items.Clear();
+            Refresh();
+            FetchMyPosts(listBoxMyPosts);
+        }
 
-            foreach(Post posts in m_FacebookUser.Posts)
+        public void FetchMyPosts(ListBox i_listBoxMyPosts)
+        {
+            i_listBoxMyPosts.Items.Clear();
+
+            foreach (Post posts in m_FacebookUser.Posts)
             {
                 if (posts.Message != null)
                 {
-                    listBoxMyPosts.Items.Add(string.Format(
+                    i_listBoxMyPosts.Items.Add(string.Format(
                         "From: {0}        Post: {1}",
                         posts.From == null ? m_FacebookUser.Name : posts.From.Name,
                         posts.Message));
@@ -276,26 +294,38 @@ namespace FacebookApplication
 
         private void buttonFetchFriends_Click(object sender, EventArgs e)
         {
-            fetchFriends();
+            FetchFriends(listBoxFriends);
             buttonFetchFriendPosts.Enabled = true;
         }
 
         private void buttonFetchLikedPages_Click(object sender, EventArgs e)
         {
-            m_FacebookUser.ReFetch();
-            listBoxLikedPages.Items.Clear();
-            listBoxLikedPages.DisplayMember = "Name";
+            Refresh();
+            FetchLikedPages(listBoxLikedPages);
+        }
+
+        public void FetchLikedPages(ListBox i_listBoxLikedPages)
+        {
+            i_listBoxLikedPages.Items.Clear();
+            i_listBoxLikedPages.DisplayMember = "Name";
             try
             {
-                foreach (Page page in m_FacebookUser.LikedPages)
+                if (m_FacebookUser.LikedPages.Count == 0)
                 {
-                    listBoxLikedPages.Items.Add(page);
+                    i_listBoxLikedPages.Items.Add("none");
+                }
+                else
+                {
+                    foreach (Page page in m_FacebookUser.LikedPages)
+                    {
+                        i_listBoxLikedPages.Items.Add(page);
+                    }
                 }
             }
             catch (FacebookOAuthException ex)
             {
-                listBoxLikedPages.DisplayMember = ToString();
-                listBoxLikedPages.Items.Add("Facebook doesn't allow fetching liked pages.");
+                i_listBoxLikedPages.DisplayMember = ToString();
+                i_listBoxLikedPages.Items.Add("Facebook doesn't allow fetching liked pages.");
             }
         }
 
@@ -381,10 +411,10 @@ namespace FacebookApplication
 
         private void startPreviewFormThread(string i_PhotoURL)
         {
-            if (m_SubThread == null || !m_SubThread.IsAlive)
+            if (m_SubPictureThread == null || !m_SubPictureThread.IsAlive)
             {
-                m_SubThread = new Thread(new ParameterizedThreadStart(showPreviewForm));
-                m_SubThread.Start(i_PhotoURL);
+                m_SubPictureThread = new Thread(new ParameterizedThreadStart(showPreviewForm));
+                m_SubPictureThread.Start(i_PhotoURL);
             }
             else
             {
@@ -628,12 +658,25 @@ namespace FacebookApplication
 
         private void fetchFriendsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            fetchFriends();
+            
+            FetchFriends(listBoxFriends);
         }
 
         private void listBoxFriends_MouseDown(object sender, MouseEventArgs e)
         {
             listBoxFriends.SelectedIndex = listBoxFriends.IndexFromPoint(e.X, e.Y);
+        }
+
+        private void buttonEasyMode_Click(object sender, EventArgs e)
+        {
+            m_EasyMode = new subFormEasyMode();
+            m_EasyMode.ShowDialog();
+
+        }
+
+        public void Refresh()
+        {
+            m_FacebookUser.ReFetch();
         }
     }
 }
