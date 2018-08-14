@@ -22,7 +22,7 @@ namespace FacebookApplication
         public User m_FacebookUser { get; set; }
         private AppSettings m_Settings = new AppSettings();
         private subFormEasyMode m_EasyMode;
-        private subFormPicture m_PreviewForm = new subFormPicture();
+        private subFormPicture m_PreviewForm = SubFormFactory.CreateForm(SubFormFactory.SubFormTypes.Picture) as subFormPicture;
         private Thread m_SubPictureThread;
        
         private Form1()
@@ -663,9 +663,8 @@ namespace FacebookApplication
 
         private void buttonEasyMode_Click(object sender, EventArgs e)
         {
-            m_EasyMode = new subFormEasyMode();
+            m_EasyMode = SubFormFactory.CreateForm(SubFormFactory.SubFormTypes.EasyMode) as subFormEasyMode;
             m_EasyMode.ShowDialog();
-
         }
 
         public void Refresh()
