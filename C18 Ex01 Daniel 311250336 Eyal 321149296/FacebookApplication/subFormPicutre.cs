@@ -10,9 +10,9 @@ using FacebookWrapper.ObjectModel;
 
 namespace FacebookApplication
 {
-    public partial class subForm : Form
+    public partial class subFormPicture : Form
     {
-        public subForm()
+        public subFormPicture()
         {
             InitializeComponent();
         }

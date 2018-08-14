@@ -1,6 +1,6 @@
 ﻿namespace FacebookApplication
 {
-    public partial class subForm
+    public partial class subFormPicture
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(subForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(subFormPicture));
             this.pictureBoxPostPhoto = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPostPhoto)).BeginInit();
             this.SuspendLayout();

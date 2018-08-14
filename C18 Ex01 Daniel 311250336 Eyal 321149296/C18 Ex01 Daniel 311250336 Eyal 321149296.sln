@@ -5,6 +5,12 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookApplication", "FacebookApplication\FacebookApplication.csproj", "{5F422DEB-27B1-4E72-874C-7DBC7246A1F7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{332D48F8-7D36-4A77-99B5-A842D4566D75}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\Desktop\לימודים\Design Patterns\Exercise 1\C18 Ex01 Daniel 311250336 Eyal 321149296.docx = ..\..\..\..\Desktop\לימודים\Design Patterns\Exercise 1\C18 Ex01 Daniel 311250336 Eyal 321149296.docx
+		..\..\..\..\Downloads\Exercise Checking Report.txt = ..\..\..\..\Downloads\Exercise Checking Report.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
