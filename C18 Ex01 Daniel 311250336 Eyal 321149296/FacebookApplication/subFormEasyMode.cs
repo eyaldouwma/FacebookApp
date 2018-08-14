@@ -12,12 +12,16 @@ namespace FacebookApplication
     {
 
         private Form1 m_TheForm = Form1.getInstance();
-        private subFormPicture m_PostPicture = new subFormPicture();
+        private subFormPicture m_PostPicture = SubFormFactory.CreateForm(SubFormFactory.SubFormTypes.Picture) as subFormPicture;
         private ListBox listBoxGeneral;
         private Button buttonFetchPages;
         private Button buttonFetchFriend;
         private Button buttonFetchMyPosts;
         private Thread m_SubPicutreThread = null;
+        private BindingSource userBindingSource;
+        private System.ComponentModel.IContainer components;
+        private PictureBox imageSquarePictureBox;
+        private Label nameLabel1;
         private bool k_FetchMyPostIsClicked = false;
 
         public subFormEasyMode()
@@ -27,20 +31,25 @@ namespace FacebookApplication
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(subFormEasyMode));
             this.listBoxGeneral = new System.Windows.Forms.ListBox();
             this.buttonFetchPages = new System.Windows.Forms.Button();
             this.buttonFetchFriend = new System.Windows.Forms.Button();
             this.buttonFetchMyPosts = new System.Windows.Forms.Button();
+            this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.imageSquarePictureBox = new System.Windows.Forms.PictureBox();
+            this.nameLabel1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageSquarePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // listBoxGeneral
             // 
             this.listBoxGeneral.FormattingEnabled = true;
-            this.listBoxGeneral.ItemHeight = 16;
             this.listBoxGeneral.Location = new System.Drawing.Point(12, 188);
             this.listBoxGeneral.Name = "listBoxGeneral";
-            this.listBoxGeneral.Size = new System.Drawing.Size(301, 292);
+            this.listBoxGeneral.Size = new System.Drawing.Size(301, 290);
             this.listBoxGeneral.TabIndex = 0;
             this.listBoxGeneral.SelectedIndexChanged += new System.EventHandler(this.listBoxGeneral_SelectedIndexChanged);
             // 
@@ -83,9 +92,34 @@ namespace FacebookApplication
             this.buttonFetchMyPosts.UseVisualStyleBackColor = true;
             this.buttonFetchMyPosts.Click += new System.EventHandler(this.buttonFetchMyPosts_Click);
             // 
+            // userBindingSource
+            // 
+            this.userBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.User);
+            // 
+            // imageSquarePictureBox
+            // 
+            this.imageSquarePictureBox.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.userBindingSource, "ImageSquare", true));
+            this.imageSquarePictureBox.Location = new System.Drawing.Point(12, 6);
+            this.imageSquarePictureBox.Name = "imageSquarePictureBox";
+            this.imageSquarePictureBox.Size = new System.Drawing.Size(113, 114);
+            this.imageSquarePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imageSquarePictureBox.TabIndex = 6;
+            this.imageSquarePictureBox.TabStop = false;
+            // 
+            // nameLabel1
+            // 
+            this.nameLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userBindingSource, "Name", true));
+            this.nameLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.nameLabel1.Location = new System.Drawing.Point(131, 6);
+            this.nameLabel1.Name = "nameLabel1";
+            this.nameLabel1.Size = new System.Drawing.Size(155, 42);
+            this.nameLabel1.TabIndex = 8;
+            // 
             // subFormEasyMode
             // 
-            this.ClientSize = new System.Drawing.Size(494, 492);
+            this.ClientSize = new System.Drawing.Size(496, 500);
+            this.Controls.Add(this.imageSquarePictureBox);
+            this.Controls.Add(this.nameLabel1);
             this.Controls.Add(this.buttonFetchMyPosts);
             this.Controls.Add(this.buttonFetchFriend);
             this.Controls.Add(this.buttonFetchPages);
@@ -94,6 +128,8 @@ namespace FacebookApplication
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "subFormEasyMode";
             this.Text = "Facebook Application";
+            ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageSquarePictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
