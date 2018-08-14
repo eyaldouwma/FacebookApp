@@ -4,20 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
+using System.Threading;
 
 namespace FacebookApplication
 {
     class subFormEasyMode : Form
     {
-        private ListBox listBoxFriends;
-        private LinkLabel linkLabelFetchFriends;
-        private ListBox listBoxPages;
-        private LinkLabel linkLabelFetchPages;
-        private ListBox listBoxFetchMyPosts;
-        private LinkLabel linkLabelFetchMyPosts;
-        private Button buttonRefresh;
-        private Form1 m_TheForm = Form1.getInstance();
 
+        private Form1 m_TheForm = Form1.getInstance();
+        private subFormPicture m_PostPicture = new subFormPicture();
+        private ListBox listBoxGeneral;
+        private Button buttonFetchPages;
+        private Button buttonFetchFriend;
+        private Button buttonFetchMyPosts;
+        private Thread m_SubPicutreThread = null;
+        private bool k_FetchMyPostIsClicked = false;
 
         public subFormEasyMode()
         {
@@ -27,130 +28,140 @@ namespace FacebookApplication
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(subFormEasyMode));
-            this.listBoxFriends = new System.Windows.Forms.ListBox();
-            this.linkLabelFetchFriends = new System.Windows.Forms.LinkLabel();
-            this.listBoxPages = new System.Windows.Forms.ListBox();
-            this.linkLabelFetchPages = new System.Windows.Forms.LinkLabel();
-            this.listBoxFetchMyPosts = new System.Windows.Forms.ListBox();
-            this.linkLabelFetchMyPosts = new System.Windows.Forms.LinkLabel();
-            this.buttonRefresh = new System.Windows.Forms.Button();
+            this.listBoxGeneral = new System.Windows.Forms.ListBox();
+            this.buttonFetchPages = new System.Windows.Forms.Button();
+            this.buttonFetchFriend = new System.Windows.Forms.Button();
+            this.buttonFetchMyPosts = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listBoxFriends
+            // listBoxGeneral
             // 
-            this.listBoxFriends.FormattingEnabled = true;
-            this.listBoxFriends.ItemHeight = 16;
-            this.listBoxFriends.Location = new System.Drawing.Point(23, 226);
-            this.listBoxFriends.Name = "listBoxFriends";
-            this.listBoxFriends.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.listBoxFriends.Size = new System.Drawing.Size(122, 228);
-            this.listBoxFriends.TabIndex = 0;
+            this.listBoxGeneral.FormattingEnabled = true;
+            this.listBoxGeneral.ItemHeight = 16;
+            this.listBoxGeneral.Location = new System.Drawing.Point(12, 188);
+            this.listBoxGeneral.Name = "listBoxGeneral";
+            this.listBoxGeneral.Size = new System.Drawing.Size(301, 292);
+            this.listBoxGeneral.TabIndex = 0;
+            this.listBoxGeneral.SelectedIndexChanged += new System.EventHandler(this.listBoxGeneral_SelectedIndexChanged);
             // 
-            // linkLabelFetchFriends
+            // buttonFetchPages
             // 
-            this.linkLabelFetchFriends.AutoSize = true;
-            this.linkLabelFetchFriends.Location = new System.Drawing.Point(20, 197);
-            this.linkLabelFetchFriends.Name = "linkLabelFetchFriends";
-            this.linkLabelFetchFriends.Size = new System.Drawing.Size(94, 17);
-            this.linkLabelFetchFriends.TabIndex = 1;
-            this.linkLabelFetchFriends.TabStop = true;
-            this.linkLabelFetchFriends.Text = "Fetch Friends";
-            this.linkLabelFetchFriends.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelFetchFriends_LinkClicked);
+            this.buttonFetchPages.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonFetchPages.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonFetchPages.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonFetchPages.Location = new System.Drawing.Point(337, 188);
+            this.buttonFetchPages.Name = "buttonFetchPages";
+            this.buttonFetchPages.Size = new System.Drawing.Size(139, 53);
+            this.buttonFetchPages.TabIndex = 1;
+            this.buttonFetchPages.Text = "Fetch Pages";
+            this.buttonFetchPages.UseVisualStyleBackColor = true;
+            this.buttonFetchPages.Click += new System.EventHandler(this.buttonFetchPages_Click);
             // 
-            // listBoxPages
+            // buttonFetchFriend
             // 
-            this.listBoxPages.FormattingEnabled = true;
-            this.listBoxPages.ItemHeight = 16;
-            this.listBoxPages.Location = new System.Drawing.Point(212, 226);
-            this.listBoxPages.Name = "listBoxPages";
-            this.listBoxPages.Size = new System.Drawing.Size(175, 228);
-            this.listBoxPages.TabIndex = 2;
+            this.buttonFetchFriend.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonFetchFriend.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonFetchFriend.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonFetchFriend.Location = new System.Drawing.Point(338, 308);
+            this.buttonFetchFriend.Name = "buttonFetchFriend";
+            this.buttonFetchFriend.Size = new System.Drawing.Size(137, 52);
+            this.buttonFetchFriend.TabIndex = 2;
+            this.buttonFetchFriend.Text = "Fetch Friends";
+            this.buttonFetchFriend.UseVisualStyleBackColor = true;
+            this.buttonFetchFriend.Click += new System.EventHandler(this.buttonFetchFriend_Click);
             // 
-            // linkLabelFetchPages
+            // buttonFetchMyPosts
             // 
-            this.linkLabelFetchPages.AutoSize = true;
-            this.linkLabelFetchPages.Location = new System.Drawing.Point(209, 197);
-            this.linkLabelFetchPages.Name = "linkLabelFetchPages";
-            this.linkLabelFetchPages.Size = new System.Drawing.Size(87, 17);
-            this.linkLabelFetchPages.TabIndex = 3;
-            this.linkLabelFetchPages.TabStop = true;
-            this.linkLabelFetchPages.Text = "Fetch Pages";
-            this.linkLabelFetchPages.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelFetchPages_LinkClicked);
-            // 
-            // listBoxFetchMyPosts
-            // 
-            this.listBoxFetchMyPosts.FormattingEnabled = true;
-            this.listBoxFetchMyPosts.ItemHeight = 16;
-            this.listBoxFetchMyPosts.Location = new System.Drawing.Point(457, 226);
-            this.listBoxFetchMyPosts.Name = "listBoxFetchMyPosts";
-            this.listBoxFetchMyPosts.Size = new System.Drawing.Size(269, 228);
-            this.listBoxFetchMyPosts.TabIndex = 4;
-            // 
-            // linkLabelFetchMyPosts
-            // 
-            this.linkLabelFetchMyPosts.AutoSize = true;
-            this.linkLabelFetchMyPosts.Location = new System.Drawing.Point(454, 197);
-            this.linkLabelFetchMyPosts.Name = "linkLabelFetchMyPosts";
-            this.linkLabelFetchMyPosts.Size = new System.Drawing.Size(104, 17);
-            this.linkLabelFetchMyPosts.TabIndex = 5;
-            this.linkLabelFetchMyPosts.TabStop = true;
-            this.linkLabelFetchMyPosts.Text = "Fetch My Posts";
-            this.linkLabelFetchMyPosts.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelFetchMyPosts_LinkClicked);
-            // 
-            // buttonRefresh
-            // 
-            this.buttonRefresh.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonRefresh.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonRefresh.Location = new System.Drawing.Point(611, 12);
-            this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(114, 42);
-            this.buttonRefresh.TabIndex = 6;
-            this.buttonRefresh.Text = "Refresh";
-            this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            this.buttonFetchMyPosts.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonFetchMyPosts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonFetchMyPosts.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonFetchMyPosts.Location = new System.Drawing.Point(338, 429);
+            this.buttonFetchMyPosts.Name = "buttonFetchMyPosts";
+            this.buttonFetchMyPosts.Size = new System.Drawing.Size(136, 51);
+            this.buttonFetchMyPosts.TabIndex = 3;
+            this.buttonFetchMyPosts.Text = "Fetch My Posts";
+            this.buttonFetchMyPosts.UseVisualStyleBackColor = true;
+            this.buttonFetchMyPosts.Click += new System.EventHandler(this.buttonFetchMyPosts_Click);
             // 
             // subFormEasyMode
             // 
-            this.ClientSize = new System.Drawing.Size(738, 471);
-            this.Controls.Add(this.buttonRefresh);
-            this.Controls.Add(this.linkLabelFetchMyPosts);
-            this.Controls.Add(this.listBoxFetchMyPosts);
-            this.Controls.Add(this.linkLabelFetchPages);
-            this.Controls.Add(this.listBoxPages);
-            this.Controls.Add(this.linkLabelFetchFriends);
-            this.Controls.Add(this.listBoxFriends);
+            this.ClientSize = new System.Drawing.Size(494, 492);
+            this.Controls.Add(this.buttonFetchMyPosts);
+            this.Controls.Add(this.buttonFetchFriend);
+            this.Controls.Add(this.buttonFetchPages);
+            this.Controls.Add(this.listBoxGeneral);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "subFormEasyMode";
             this.Text = "Facebook Application";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
-        private void linkLabelFetchFriends_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void showPictureForm(object i_PictureLink)
         {
-            m_TheForm.FetchFriends(listBoxFriends);
+            string picture = i_PictureLink as string;
+
+            m_PostPicture.InitializeSubForm(picture);
+            m_PostPicture.ShowDialog();
         }
 
-        private void linkLabelFetchPages_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+
+        private void buttonFetchPages_Click(object sender, EventArgs e)
         {
-            m_TheForm.FetchLikedPages(listBoxPages);
+            k_FetchMyPostIsClicked = false;
+            listBoxGeneral.Items.Clear();
+            m_TheForm.FetchLikedPages(listBoxGeneral);
+
+            killPictureThread();
         }
 
-        private void linkLabelFetchMyPosts_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void killPictureThread()
         {
-            m_TheForm.FetchMyPosts(listBoxFetchMyPosts);
+            if (m_SubPicutreThread != null)
+            {
+                if (m_SubPicutreThread.IsAlive)
+                {
+                    m_SubPicutreThread.Abort();
+                }
+            }
         }
 
-        private void buttonRefresh_Click(object sender, EventArgs e)
+        private void buttonFetchFriend_Click(object sender, EventArgs e)
         {
-            m_TheForm.Refresh();
+            k_FetchMyPostIsClicked = false;
+            listBoxGeneral.Items.Clear();
+            m_TheForm.FetchFriends(listBoxGeneral);
 
-            m_TheForm.FetchMyPosts(listBoxFetchMyPosts);
-            m_TheForm.FetchLikedPages(listBoxPages);
-            m_TheForm.FetchFriends(listBoxFriends);
+            killPictureThread();
+        }
 
+        private void buttonFetchMyPosts_Click(object sender, EventArgs e)
+        {
+            k_FetchMyPostIsClicked = true;
+            listBoxGeneral.Items.Clear();
+            m_TheForm.FetchMyPosts(listBoxGeneral);
+        }
+
+        private void listBoxGeneral_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (k_FetchMyPostIsClicked)
+            {
+                Post myPost = m_TheForm.m_FacebookUser.Posts[listBoxGeneral.SelectedIndex];
+
+                if (!string.IsNullOrEmpty(myPost.PictureURL))
+                {
+                    if (m_SubPicutreThread == null || !m_SubPicutreThread.IsAlive)
+                    {
+                        m_SubPicutreThread = new Thread(new ParameterizedThreadStart(showPictureForm));
+                        m_SubPicutreThread.Start(myPost.PictureURL);
+                    }
+                    else
+                    {
+                        m_PostPicture.InitializeSubForm(myPost.PictureURL);
+                    }
+                }
+            }
         }
     }
 }

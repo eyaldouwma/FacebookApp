@@ -19,7 +19,7 @@ namespace FacebookApplication
     public sealed partial class Form1 : Form
     {
         private static Form1 theInstance = null;
-        private User m_FacebookUser;
+        public User m_FacebookUser { get; set; }
         private AppSettings m_Settings = new AppSettings();
         private subFormEasyMode m_EasyMode;
         private subFormPicture m_PreviewForm = new subFormPicture();
