@@ -89,6 +89,7 @@
       <DependentUpon>subFormPicutre.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="C18 Ex01 Daniel 311250336 Eyal 321149296.docx" />
+    <None Include="Properties\DataSources\FacebookWrapper.ObjectModel.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -66,16 +66,8 @@ namespace FacebookApplication
 
         private void populateUI()
         {
-            pictureBoxProfilePic.ImageLocation = m_FacebookUser.PictureNormalURL;
-            pictureBoxProfilePic.SizeMode = PictureBoxSizeMode.StretchImage;
+            userBindingSource.DataSource = m_FacebookUser;
             this.Text = string.Format("Logged In as {0}", m_FacebookUser.Name);
-            labelUserDetails.Text = string.Format(
-                @"{0}
-{1}
-{2}",
-                m_FacebookUser.Name,
-                m_FacebookUser.Birthday,
-                m_FacebookUser.Email);
             buttonLoginLogout.Click -= buttonLogin_Click;
             buttonLoginLogout.Text = "Logout";
             buttonLoginLogout.Click += buttonLogout_Click;
@@ -141,9 +133,11 @@ namespace FacebookApplication
 
         private void Logout_Success()
         {
+            imageSquarePictureBox.Image = null;
+            nameLabel1.Text = string.Empty;
+            emailLabel1.Text = string.Empty;
+            birthdayLabel1.Text = string.Empty;
             this.Text = "Logged Out";
-            pictureBoxProfilePic.ImageLocation = null;
-            labelUserDetails.Text = string.Empty;
             buttonLoginLogout.Click += buttonLogin_Click;
             buttonLoginLogout.Text = "Login";
             buttonLoginLogout.Click -= buttonLogout_Click;
