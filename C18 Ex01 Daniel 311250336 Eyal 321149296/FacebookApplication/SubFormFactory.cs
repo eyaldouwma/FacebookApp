@@ -24,7 +24,7 @@ namespace FacebookApplication
             }
             else if (i_SubFormType == SubFormTypes.Picture)
             {
-
+                createdForm = new subFormPicture();
             }
 
         return createdForm;
