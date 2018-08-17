@@ -183,18 +183,22 @@ namespace FacebookApplication
         {
             if (k_FetchMyPostIsClicked)
             {
-                Post myPost = m_TheForm.m_FacebookUser.Posts[listBoxGeneral.SelectedIndex];
-
-                if (!string.IsNullOrEmpty(myPost.PictureURL))
+                if (listBoxGeneral.SelectedIndex < m_TheForm.m_FacebookUser.Posts.Count && listBoxGeneral.SelectedIndex > -1)
                 {
-                    if (m_SubPicutreThread == null || !m_SubPicutreThread.IsAlive)
+                    Post myPost = m_TheForm.m_FacebookUser.Posts[listBoxGeneral.SelectedIndex];
+           
+                    if (!string.IsNullOrEmpty(myPost.PictureURL))
                     {
-                        m_SubPicutreThread = new Thread(new ParameterizedThreadStart(showPictureForm));
-                        m_SubPicutreThread.Start(myPost.PictureURL);
-                    }
-                    else
-                    {
-                        m_PostPicture.InitializeSubForm(myPost.PictureURL);
+                        if (m_SubPicutreThread == null || !m_SubPicutreThread.IsAlive)
+                        {
+                            m_SubPicutreThread = new Thread(new ParameterizedThreadStart(showPictureForm));
+                            m_SubPicutreThread.Start(myPost.PictureURL);
+                        }
+                        else
+                        {
+                            m_PostPicture.InitializeSubForm(myPost.PictureURL);
+                        }
+
                     }
                 }
             }

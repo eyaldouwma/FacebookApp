@@ -18,7 +18,7 @@ namespace FacebookApplication
 {
     public sealed partial class Form1 : Form
     {
-        private static Form1 theInstance = null;
+        private static Form1 m_TheInstance = null;
         public User m_FacebookUser { get; set; }
         private AppSettings m_Settings = new AppSettings();
         private subFormEasyMode m_EasyMode;
@@ -32,12 +32,12 @@ namespace FacebookApplication
 
         public static Form1 getInstance()
         {
-            if (theInstance == null)
+            if (m_TheInstance == null)
             {
-                theInstance = new Form1();
+                m_TheInstance = new Form1();
             }
 
-            return theInstance;
+            return m_TheInstance;
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)

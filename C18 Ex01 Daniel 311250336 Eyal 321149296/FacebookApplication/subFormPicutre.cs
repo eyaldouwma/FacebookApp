@@ -21,6 +21,13 @@ namespace FacebookApplication
         {
             pictureBoxPostPhoto.ImageLocation = i_Photo;
             pictureBoxPostPhoto.SizeMode = PictureBoxSizeMode.StretchImage;
+            if (this.IsHandleCreated)
+            {
+                this.Invoke(new Action(() => this.WindowState = FormWindowState.Minimized));
+                this.Invoke(new Action(() => this.Show()));
+                this.Invoke(new Action(() => this.WindowState = FormWindowState.Normal));
+            }
+
         }
 
         private void subForm_Activated(object sender, EventArgs e)
