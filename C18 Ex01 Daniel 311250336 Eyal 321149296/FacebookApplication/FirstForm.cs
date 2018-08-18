@@ -16,6 +16,7 @@ namespace FacebookApplication
     {
         private const bool v_Enable = true;
         private subFormEasyMode m_EasyModeForm;
+        private AppSettings m_Settings;
         private Form1 m_RegularModeForm = Form1.getInstance();
         private Thread m_RegularModeThread = null;
         private Thread m_EasyModeThread = null;
@@ -59,6 +60,11 @@ namespace FacebookApplication
             Form1.getInstance().m_FacebookUser = result.LoggedInUser;
             LoggedIn = true;
             changeLoginToLogout();
+        }
+
+        private void checkBoxRememberMe_CheckedChanged(object sender, EventArgs e)
+        {
+            m_Settings.RememberMe = checkBoxRememberMe.Checked;
         }
 
         private void buttonEasyMode_Click(object sender, EventArgs e)
@@ -125,6 +131,25 @@ namespace FacebookApplication
         {
             this.Invoke(new Action<bool>(enableDisableAllModes), v_Enable);
             (i_Sender as Form).Closing -= subFormClosed;
+        }
+
+        private void FirstForm_Shown(object sender, EventArgs e)
+        {
+            m_Settings = AppSettings.LoadFromFile();
+            m_RegularModeForm.Settings = m_Settings;
+            if (m_Settings.RememberMe && !string.IsNullOrEmpty(m_Settings.AccessToken))
+            {
+                LoginResult result = FacebookService.Connect(m_Settings.AccessToken);
+                Form1.getInstance().m_FacebookUser = result.LoggedInUser;
+                checkBoxRememberMe.Checked = m_Settings.RememberMe;
+                LoggedIn = true;
+                changeLoginToLogout();
+            }
+        }
+
+        private void FirstForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            m_Settings.SaveToFile();
         }
     }
 }

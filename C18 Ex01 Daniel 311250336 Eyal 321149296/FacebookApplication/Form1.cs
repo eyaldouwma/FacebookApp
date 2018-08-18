@@ -20,7 +20,7 @@ namespace FacebookApplication
     {
         private static Form1 m_TheInstance = null;
         public User m_FacebookUser { get; set; }
-        private AppSettings m_Settings = new AppSettings();
+        public AppSettings Settings { get; set; }
         private subFormEasyMode m_EasyMode;
         private subFormPicture m_PreviewForm = SubFormFactory.CreateForm(SubFormFactory.SubFormTypes.Picture) as subFormPicture;
         private Thread m_SubPictureThread;
@@ -161,19 +161,13 @@ namespace FacebookApplication
             }
         }
 
-        //private void checkBoxRememberMe_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    m_Settings.RememberMe = checkBoxRememberMe.Checked;
-        //    m_Settings.WindowSize = this.Size;
-        //    m_Settings.WindowLocation = this.Location;
-        //}
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (m_FacebookUser != null)
             {
                 saveFriendList();
-                m_Settings.SaveToFile();
+                Settings.WindowSize = this.Size;
+                Settings.WindowLocation = this.Location;
             }
 
             if (m_SubPictureThread != null && m_SubPictureThread.IsAlive)
@@ -186,14 +180,11 @@ namespace FacebookApplication
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            m_Settings = AppSettings.LoadFromFile();
-            if(m_Settings.RememberMe && !string.IsNullOrEmpty(m_Settings.AccessToken))
+            if(Settings.RememberMe && !string.IsNullOrEmpty(Settings.AccessToken))
             {
                 this.StartPosition = FormStartPosition.Manual;
-                this.Size = m_Settings.WindowSize;
-                this.Location = m_Settings.WindowLocation;
-                LoginResult result = FacebookService.Connect(m_Settings.AccessToken);
-                m_FacebookUser = result.LoggedInUser;
+                this.Size = Settings.WindowSize;
+                this.Location = Settings.WindowLocation;
             }
 
             populateUI();
