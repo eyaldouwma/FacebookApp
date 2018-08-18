@@ -68,9 +68,6 @@ namespace FacebookApplication
         {
             userBindingSource.DataSource = m_FacebookUser;
             this.Text = string.Format("Logged In as {0}", m_FacebookUser.Name);
-            buttonLoginLogout.Click -= buttonLogin_Click;
-            buttonLoginLogout.Text = "Logout";
-            buttonLoginLogout.Click += buttonLogout_Click;
             changeButtonsEnabled(true);
             fetchAlbums();
         }
@@ -90,7 +87,6 @@ namespace FacebookApplication
             buttonUploadPhoto.Enabled = i_EnableOrDisable;
             pictureBoxMagnifer.Enabled = i_EnableOrDisable;
             buttonFriendsCloseCircle.Enabled = i_EnableOrDisable;
-            buttonEasyMode.Enabled = i_EnableOrDisable;
             enableOrDisableRightClick(contextMenuStripRightClickFriend, i_EnableOrDisable);
         }
 
@@ -138,9 +134,6 @@ namespace FacebookApplication
             emailLabel1.Text = string.Empty;
             birthdayLabel1.Text = string.Empty;
             this.Text = "Logged Out";
-            buttonLoginLogout.Click += buttonLogin_Click;
-            buttonLoginLogout.Text = "Login";
-            buttonLoginLogout.Click -= buttonLogout_Click;
             listBoxAlbums.Items.Clear();
             listBoxPhoto.Items.Clear();
             listBoxFriendPosts.Items.Clear();
@@ -192,12 +185,12 @@ namespace FacebookApplication
             }
         }
 
-        private void checkBoxRememberMe_CheckedChanged(object sender, EventArgs e)
-        {
-            m_Settings.RememberMe = checkBoxRememberMe.Checked;
-            m_Settings.WindowSize = this.Size;
-            m_Settings.WindowLocation = this.Location;
-        }
+        //private void checkBoxRememberMe_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    m_Settings.RememberMe = checkBoxRememberMe.Checked;
+        //    m_Settings.WindowSize = this.Size;
+        //    m_Settings.WindowLocation = this.Location;
+        //}
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -211,6 +204,8 @@ namespace FacebookApplication
             {
                 m_SubPictureThread.Abort();
             }
+
+            Logout_Success();
         }
 
         private void Form1_Shown(object sender, EventArgs e)
@@ -223,7 +218,6 @@ namespace FacebookApplication
                 this.Location = m_Settings.WindowLocation;
                 LoginResult result = FacebookService.Connect(m_Settings.AccessToken);
                 m_FacebookUser = result.LoggedInUser;
-                checkBoxRememberMe.Checked = true;
                 populateUI();
             }
         }

@@ -47,9 +47,10 @@ namespace FacebookApplication
             // listBoxGeneral
             // 
             this.listBoxGeneral.FormattingEnabled = true;
+            this.listBoxGeneral.ItemHeight = 16;
             this.listBoxGeneral.Location = new System.Drawing.Point(12, 188);
             this.listBoxGeneral.Name = "listBoxGeneral";
-            this.listBoxGeneral.Size = new System.Drawing.Size(301, 290);
+            this.listBoxGeneral.Size = new System.Drawing.Size(301, 276);
             this.listBoxGeneral.TabIndex = 0;
             this.listBoxGeneral.SelectedIndexChanged += new System.EventHandler(this.listBoxGeneral_SelectedIndexChanged);
             // 
@@ -128,6 +129,7 @@ namespace FacebookApplication
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "subFormEasyMode";
             this.Text = "Facebook Application";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.subFormEasyMode_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageSquarePictureBox)).EndInit();
             this.ResumeLayout(false);
@@ -202,6 +204,17 @@ namespace FacebookApplication
                     }
                 }
             }
+        }
+
+        private void subFormEasyMode_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (m_SubPicutreThread != null && m_SubPicutreThread.IsAlive)
+            {
+                m_SubPicutreThread.Abort();
+                m_SubPicutreThread = null;
+            }
+
+            listBoxGeneral.Items.Clear();
         }
     }
 }
