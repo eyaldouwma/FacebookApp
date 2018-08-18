@@ -11,7 +11,8 @@ namespace FacebookApplication
         public enum SubFormTypes
         {
             EasyMode,
-            Picture
+            Picture,
+            Login
         }
 
         public static Form CreateForm(SubFormTypes i_SubFormType)
@@ -26,8 +27,12 @@ namespace FacebookApplication
             {
                 createdForm = new subFormPicture();
             }
+            else if (i_SubFormType == SubFormTypes.Login)
+            {
+                createdForm = new FirstForm();
+            }
 
-        return createdForm;
+            return createdForm;
         }
     }
 }

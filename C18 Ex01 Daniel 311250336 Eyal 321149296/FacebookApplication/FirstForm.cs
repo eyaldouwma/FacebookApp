@@ -14,11 +14,22 @@ namespace FacebookApplication
 {
     public partial class FirstForm : Form
     {
-
+        private const bool v_Enable = true;
         private subFormEasyMode m_EasyModeForm;
         private Form1 m_RegularModeForm = Form1.getInstance();
         private Thread m_RegularModeThread = null;
         private Thread m_EasyModeThread = null;
+        private bool m_LoggedIn = false;
+        private bool LoggedIn
+        {
+            get { return m_LoggedIn; }
+            set
+            {
+                m_LoggedIn = value;
+                enableDisableAllModes(value);
+            }
+
+        }
 
 
         public FirstForm()
@@ -46,24 +57,24 @@ namespace FacebookApplication
                 "pages_show_list");
 
             Form1.getInstance().m_FacebookUser = result.LoggedInUser;
-            buttonEasyMode.Enabled = true;
-            buttonRegularMode.Enabled = true;
+            LoggedIn = true;
+            changeLoginToLogout();
         }
 
         private void buttonEasyMode_Click(object sender, EventArgs e)
         {
             m_EasyModeForm = SubFormFactory.CreateForm(SubFormFactory.SubFormTypes.EasyMode) as subFormEasyMode;
+            m_EasyModeForm.Closing += subFormClosed;
             m_EasyModeThread = new Thread(() => m_EasyModeForm.ShowDialog());
             m_EasyModeThread.SetApartmentState(ApartmentState.STA);
             m_EasyModeThread.Start();
 
-
-            disableAllModes();
-            changeLoginToLogout();
+            enableDisableAllModes(!v_Enable);
         }
 
         private void changeLoginToLogout()
         {
+            buttonLogin.Click -= buttonLogin_Click;
             buttonLogin.Text = "Logout";
             buttonLogin.Click += logOutMethod;
         }
@@ -89,25 +100,31 @@ namespace FacebookApplication
         private void logOutSuccess()
         {
             buttonLogin.Text = "Login";
-            disableAllModes();
+            LoggedIn = false;
             buttonLogin.Click -= logOutMethod;
             buttonLogin.Click += buttonLogin_Click;
         }
 
-        private void disableAllModes()
+        private void enableDisableAllModes(bool i_EnableDisable)
         {
-            buttonEasyMode.Enabled = false;
-            buttonRegularMode.Enabled = false;
+            buttonEasyMode.Enabled = i_EnableDisable;
+            buttonRegularMode.Enabled = i_EnableDisable;
         }
 
         private void buttonRegularMode_Click(object sender, EventArgs e)
         {
+            m_RegularModeForm.Closing += subFormClosed;
             m_RegularModeThread = new Thread(() => m_RegularModeForm.ShowDialog());
             m_RegularModeThread.SetApartmentState(ApartmentState.STA);
             m_RegularModeThread.Start();
 
-            disableAllModes();
-            changeLoginToLogout();
+            enableDisableAllModes(!v_Enable);
+        }
+
+        private void subFormClosed(object i_Sender, EventArgs i_E)
+        {
+            this.Invoke(new Action<bool>(enableDisableAllModes), v_Enable);
+            (i_Sender as Form).Closing -= subFormClosed;
         }
     }
 }

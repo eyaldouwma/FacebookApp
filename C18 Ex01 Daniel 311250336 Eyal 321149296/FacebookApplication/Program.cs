@@ -15,7 +15,7 @@ namespace FacebookApplication
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FirstForm());
+            Application.Run(SubFormFactory.CreateForm(SubFormFactory.SubFormTypes.Login));
         }
     }
 }
