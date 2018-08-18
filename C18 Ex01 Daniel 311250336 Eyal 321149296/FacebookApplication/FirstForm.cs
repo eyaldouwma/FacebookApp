@@ -129,7 +129,7 @@ namespace FacebookApplication
 
         private void subFormClosed(object i_Sender, EventArgs i_E)
         {
-            this.Invoke(new Action<bool>(enableDisableAllModes), v_Enable);
+            this.Invoke(new Action (() => enableDisableAllModes(v_Enable)));
             (i_Sender as Form).Closing -= subFormClosed;
         }
 
