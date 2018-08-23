@@ -15,9 +15,9 @@ namespace FacebookApplication
     public partial class FirstForm : Form
     {
         private const bool v_Enable = true;
-        private subFormEasyMode m_EasyModeForm;
         private AppSettings m_Settings;
-        private Form1 m_RegularModeForm = Form1.getInstance();
+        private subFormEasyMode m_EasyModeForm; //subsystem a
+        private Form1 m_RegularModeForm = Form1.getInstance(); //subsystem b
         private Thread m_RegularModeThread = null;
         private Thread m_EasyModeThread = null;
         private bool m_LoggedIn = false;
