@@ -1,6 +1,4 @@
-﻿using FacebookWrapper;
-using FacebookWrapper.ObjectModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using FacebookWrapper;
+using FacebookWrapper.ObjectModel;
 
 namespace FacebookApplication
 {
@@ -16,11 +16,12 @@ namespace FacebookApplication
     {
         private const bool v_Enable = true;
         private AppSettings m_Settings;
-        private subFormEasyMode m_EasyModeForm; //subsystem a
-        private Form1 m_RegularModeForm = Form1.getInstance(); //subsystem b
+        private subFormEasyMode m_EasyModeForm; 
+        private Form1 m_RegularModeForm = Form1.getInstance();
         private Thread m_RegularModeThread = null;
         private Thread m_EasyModeThread = null;
         private bool m_LoggedIn = false;
+
         private bool LoggedIn
         {
             get { return m_LoggedIn; }
@@ -29,9 +30,7 @@ namespace FacebookApplication
                 m_LoggedIn = value;
                 enableDisableAllModes(value);
             }
-
         }
-
 
         public FirstForm()
         {
@@ -89,10 +88,11 @@ namespace FacebookApplication
         {
             if (m_RegularModeThread != null && m_RegularModeThread.IsAlive)
             {
-                m_RegularModeForm.Invoke(new Action(() =>m_RegularModeForm.Close()));
+                m_RegularModeForm.Invoke(new Action(() => m_RegularModeForm.Close()));
                 m_RegularModeThread.Abort();
                 m_RegularModeThread = null;
             }
+
             if (m_EasyModeThread != null && m_EasyModeThread.IsAlive)
             {
                 m_EasyModeForm.Invoke(new Action(() => m_EasyModeForm.Close()));
@@ -129,7 +129,7 @@ namespace FacebookApplication
 
         private void subFormClosed(object i_Sender, EventArgs i_E)
         {
-            this.Invoke(new Action (() => enableDisableAllModes(v_Enable)));
+            this.Invoke(new Action(() => enableDisableAllModes(v_Enable)));
             (i_Sender as Form).Closing -= subFormClosed;
         }
 

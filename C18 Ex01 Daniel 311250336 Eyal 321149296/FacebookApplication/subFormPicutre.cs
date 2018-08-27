@@ -27,13 +27,11 @@ namespace FacebookApplication
                 this.Invoke(new Action(() => this.Show()));
                 this.Invoke(new Action(() => this.WindowState = FormWindowState.Normal));
             }
-
         }
 
         private void subForm_Activated(object sender, EventArgs e)
         {
             this.BringToFront();
         }
-
     }
 }

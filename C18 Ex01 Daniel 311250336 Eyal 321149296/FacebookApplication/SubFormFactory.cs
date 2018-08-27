@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace FacebookApplication
 {
-    static class SubFormFactory
+    public static class SubFormFactory
     {
         public enum SubFormTypes
         {

@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using FacebookWrapper.ObjectModel;
 using System.Threading;
+using FacebookWrapper.ObjectModel;
 
 namespace FacebookApplication
 {
-    class subFormEasyMode : Form
+    public class subFormEasyMode : Form
     {
-
         private Form1 m_TheForm = Form1.getInstance();
         private subFormPicture m_PostPicture = SubFormFactory.CreateForm(SubFormFactory.SubFormTypes.Picture) as subFormPicture;
         private ListBox listBoxGeneral;
@@ -133,7 +132,6 @@ namespace FacebookApplication
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageSquarePictureBox)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         private void showPictureForm(object i_PictureLink)
@@ -144,13 +142,11 @@ namespace FacebookApplication
             m_PostPicture.ShowDialog();
         }
 
-
         private void buttonFetchPages_Click(object sender, EventArgs e)
         {
             k_FetchMyPostIsClicked = false;
             listBoxGeneral.Items.Clear();
             m_TheForm.FetchLikedPages(listBoxGeneral);
-
             killPictureThread();
         }
 
@@ -200,7 +196,6 @@ namespace FacebookApplication
                         {
                             m_PostPicture.InitializeSubForm(myPost.PictureURL);
                         }
-
                     }
                 }
             }

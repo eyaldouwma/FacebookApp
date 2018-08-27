@@ -19,8 +19,19 @@ namespace FacebookApplication
     public sealed partial class Form1 : Form
     {
         private static Form1 m_TheInstance = null;
-        public User m_FacebookUser { get; set; }
-        public AppSettings Settings { get; set; }
+
+        public User m_FacebookUser
+        {
+            get;
+            set;
+        }
+
+        public AppSettings Settings
+        {
+            get;
+            set;
+        }
+
         private subFormEasyMode m_EasyMode;
         private subFormPicture m_PreviewForm = SubFormFactory.CreateForm(SubFormFactory.SubFormTypes.Picture) as subFormPicture;
         private Thread m_SubPictureThread;
@@ -613,8 +624,7 @@ namespace FacebookApplication
         }
 
         private void fetchFriendsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
+        { 
             FetchFriends(listBoxFriends);
         }
 
@@ -629,7 +639,7 @@ namespace FacebookApplication
             m_EasyMode.ShowDialog();
         }
 
-        public void Refresh()
+        public override void Refresh()
         {
             m_FacebookUser.ReFetch();
         }

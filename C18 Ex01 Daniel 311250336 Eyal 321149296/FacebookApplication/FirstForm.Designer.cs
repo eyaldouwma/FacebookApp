@@ -1,6 +1,6 @@
 ﻿namespace FacebookApplication
 {
-    partial class FirstForm
+    public partial class FirstForm
     {
         /// <summary>
         /// Required designer variable.
@@ -17,6 +17,7 @@
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
