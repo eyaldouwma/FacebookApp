@@ -14,12 +14,13 @@ namespace FacebookApplication
 {
     public partial class FirstForm : Form
     {
-        private const bool v_Enable = true;
+        protected const bool v_Enable = true;
         private AppSettings m_Settings;
-        private subFormEasyMode m_EasyModeForm; 
-        private Form1 m_RegularModeForm = Form1.getInstance();
-        private Thread m_RegularModeThread = null;
-        private Thread m_EasyModeThread = null;
+        protected subFormEasyMode m_EasyModeForm; 
+        protected Form1 m_RegularModeForm = Form1.getInstance();
+        protected Thread m_RegularModeThread = null;
+        protected Thread m_EasyModeThread = null;
+        private IMode m_Mode = null;
         private bool m_LoggedIn = false;
 
         private bool LoggedIn
@@ -68,13 +69,9 @@ namespace FacebookApplication
 
         private void buttonEasyMode_Click(object sender, EventArgs e)
         {
-            m_EasyModeForm = SubFormFactory.CreateForm(SubFormFactory.SubFormTypes.EasyMode) as subFormEasyMode;
-            m_EasyModeForm.Closing += subFormClosed;
-            m_EasyModeThread = new Thread(() => m_EasyModeForm.ShowDialog());
-            m_EasyModeThread.SetApartmentState(ApartmentState.STA);
-            m_EasyModeThread.Start();
+            m_Mode = new EasyMode();
 
-            enableDisableAllModes(!v_Enable);
+            m_Mode.showForm();
         }
 
         private void changeLoginToLogout()
@@ -111,7 +108,7 @@ namespace FacebookApplication
             buttonLogin.Click += buttonLogin_Click;
         }
 
-        private void enableDisableAllModes(bool i_EnableDisable)
+        protected void enableDisableAllModes(bool i_EnableDisable)
         {
             buttonEasyMode.Enabled = i_EnableDisable;
             buttonRegularMode.Enabled = i_EnableDisable;
@@ -119,16 +116,17 @@ namespace FacebookApplication
 
         private void buttonRegularMode_Click(object sender, EventArgs e)
         {
-            m_RegularModeForm.Closing += subFormClosed;
-            m_RegularModeThread = new Thread(() => m_RegularModeForm.ShowDialog());
-            m_RegularModeThread.SetApartmentState(ApartmentState.STA);
-            m_RegularModeThread.Start();
+            m_Mode = new RegularMode();
 
-            enableDisableAllModes(!v_Enable);
+            m_Mode.showForm();
         }
 
-        private void subFormClosed(object i_Sender, EventArgs i_E)
+        protected void subFormClosed(object i_Sender, EventArgs i_E)
         {
+            if (!this.IsHandleCreated)
+            {
+                this.CreateHandle();
+            }
             this.Invoke(new Action(() => enableDisableAllModes(v_Enable)));
             (i_Sender as Form).Closing -= subFormClosed;
         }
