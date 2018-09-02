@@ -39,6 +39,23 @@ namespace FacebookApplication
         private Form1()
         {
             InitializeComponent();
+            addAllObserversToNotifiers();
+        }
+
+        private void addAllObserversToNotifiers()
+        {
+            buttonCreateAlbum.attach(labelLastInteraction1);
+            buttonDeletePost.attach(labelLastInteraction1);
+            buttonFetchAllEvents.attach(labelLastInteraction1);
+            buttonFetchFriendPosts.attach(labelLastInteraction1);
+            buttonFetchFriends.attach(labelLastInteraction1);
+            buttonFetchLikedPages.attach(labelLastInteraction1);
+            buttonFetchPosts.attach(labelLastInteraction1);
+            buttonFriendsCloseCircle.attach(labelLastInteraction1);
+            buttonRefreshAlbums.attach(labelLastInteraction1);
+            buttonShareMyPost.attach(labelLastInteraction1);
+            buttonUploadPhoto.attach(labelLastInteraction1);
+            buttonWhoDeletedMe.attach(labelLastInteraction1);
         }
 
         public static Form1 getInstance()
@@ -204,6 +221,7 @@ namespace FacebookApplication
         private void buttonFetchFriendPosts_Click(object sender, EventArgs e)
         {
             User friend = listBoxFriends.SelectedItem as User;
+            buttonFetchFriendPosts.notify();
 
             if (friend != null)
             {
@@ -223,6 +241,7 @@ namespace FacebookApplication
 
         private void buttonFetchPosts_Click(object sender, EventArgs e)
         {
+            buttonFetchPosts.notify();
             Refresh();
             FetchMyPosts(listBoxMyPosts);
         }
@@ -245,6 +264,7 @@ namespace FacebookApplication
 
         private void buttonShareMyPost_Click(object sender, EventArgs e)
         {
+            buttonShareMyPost.notify();
             try
             {
                 m_FacebookUser.PostStatus(textBoxPost.Text);
@@ -261,12 +281,14 @@ namespace FacebookApplication
 
         private void buttonFetchFriends_Click(object sender, EventArgs e)
         {
+            buttonFetchFriends.notify();
             FetchFriends(listBoxFriends);
             buttonFetchFriendPosts.Enabled = true;
         }
 
         private void buttonFetchLikedPages_Click(object sender, EventArgs e)
         {
+            buttonFetchLikedPages.notify();
             Refresh();
             FetchLikedPages(listBoxLikedPages);
         }
@@ -303,6 +325,7 @@ namespace FacebookApplication
 
         private void buttonFetchAllEvents_Click(object sender, EventArgs e)
         {
+            buttonFetchAllEvents.notify();
             fetchEvents(DateTime.MinValue);
         }
 
@@ -337,6 +360,7 @@ namespace FacebookApplication
 
         private void buttonRefreshAlbums_Click(object sender, EventArgs e)
         {
+            buttonRefreshAlbums.notify();
             fetchAlbums();
         }
 
@@ -399,6 +423,8 @@ namespace FacebookApplication
 
         private void buttonCreateAlbum_Click(object sender, EventArgs e)
         {
+            buttonCreateAlbum.notify();
+
             string inputAlbumName = Microsoft.VisualBasic.Interaction.InputBox("Please enter a name for the album: ");
             try
             {
@@ -412,6 +438,8 @@ namespace FacebookApplication
 
         private void buttonUploadPhoto_Click(object sender, EventArgs e)
         {
+            buttonUploadPhoto.notify();
+
             try
             {
                 if (listBoxAlbums.SelectedItem != null)
@@ -432,6 +460,8 @@ namespace FacebookApplication
 
         private void buttonDeletePost_Click(object sender, EventArgs e)
         {
+            buttonDeletePost.notify();
+
             if (listBoxMyPosts.SelectedItem != null)
             {
                 m_FacebookUser.Posts[listBoxMyPosts.SelectedIndex].Delete();
@@ -446,6 +476,8 @@ namespace FacebookApplication
 
         private void buttonWhoDeletedMe_Click(object sender, EventArgs e)
         {
+            buttonWhoDeletedMe.notify();
+
             List<string> names = null;
             List<string> deletedMe = new List<string>();
             List<string> friendId = extractNameFromAllFriends();
@@ -554,6 +586,8 @@ namespace FacebookApplication
 
         private void buttonFriendsCloseCircle_Click(object sender, EventArgs e)
         {
+            buttonFriendsCloseCircle.notify();
+
             Dictionary<string, int> myFriendsCount = new Dictionary<string, int>(m_FacebookUser.Friends.Count);
             Dictionary<string, string> myFriendsByID = new Dictionary<string, string>();
             int maxMutualFriends = 0;

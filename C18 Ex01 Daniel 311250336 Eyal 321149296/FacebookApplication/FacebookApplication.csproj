@@ -68,6 +68,14 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="IMode.cs" />
+    <Compile Include="IObserver.cs" />
+    <Compile Include="ISubject.cs" />
+    <Compile Include="LastInteraction.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NotifierButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="RegularMode.cs">
       <SubType>Form</SubType>
     </Compile>

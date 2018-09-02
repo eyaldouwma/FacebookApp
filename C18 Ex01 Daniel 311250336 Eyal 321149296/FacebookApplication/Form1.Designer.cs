@@ -30,21 +30,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label birthdayLabel;
-            System.Windows.Forms.Label emailLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.birthdayLabel1 = new System.Windows.Forms.Label();
-            this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.emailLabel1 = new System.Windows.Forms.Label();
             this.imageSquarePictureBox = new System.Windows.Forms.PictureBox();
+            this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameLabel1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tabControlInfo = new System.Windows.Forms.TabControl();
             this.tabPageFriends = new System.Windows.Forms.TabPage();
             this.pictureBoxLike = new System.Windows.Forms.PictureBox();
-            this.buttonFetchFriends = new System.Windows.Forms.Button();
-            this.buttonFetchFriendPosts = new System.Windows.Forms.Button();
             this.listBoxFriendPosts = new System.Windows.Forms.ListBox();
             this.listBoxFriends = new System.Windows.Forms.ListBox();
             this.contextMenuStripRightClickFriend = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -52,27 +49,19 @@
             this.profilePictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fetchPostsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageMyPosts = new System.Windows.Forms.TabPage();
-            this.buttonDeletePost = new System.Windows.Forms.Button();
-            this.buttonShareMyPost = new System.Windows.Forms.Button();
             this.textBoxPost = new System.Windows.Forms.TextBox();
-            this.buttonFetchPosts = new System.Windows.Forms.Button();
             this.listBoxMyPosts = new System.Windows.Forms.ListBox();
             this.tabPageLikes = new System.Windows.Forms.TabPage();
-            this.buttonFetchLikedPages = new System.Windows.Forms.Button();
             this.listBoxLikedPages = new System.Windows.Forms.ListBox();
             this.tabPageEvents = new System.Windows.Forms.TabPage();
-            this.buttonFetchAllEvents = new System.Windows.Forms.Button();
             this.listBoxMyEvents = new System.Windows.Forms.ListBox();
             this.dateTimePickerEventsPicker = new System.Windows.Forms.DateTimePicker();
             this.tabPhotos = new System.Windows.Forms.TabPage();
-            this.buttonUploadPhoto = new System.Windows.Forms.Button();
-            this.buttonCreateAlbum = new System.Windows.Forms.Button();
             this.labelPhotoDescription = new System.Windows.Forms.Label();
             this.labelPhoto = new System.Windows.Forms.Label();
             this.pictureBoxMagnifer = new System.Windows.Forms.PictureBox();
             this.pictureBoxPhoto = new System.Windows.Forms.PictureBox();
             this.listBoxPhoto = new System.Windows.Forms.ListBox();
-            this.buttonRefreshAlbums = new System.Windows.Forms.Button();
             this.labelAlbum = new System.Windows.Forms.Label();
             this.listBoxAlbums = new System.Windows.Forms.ListBox();
             this.tabPageExtras = new System.Windows.Forms.TabPage();
@@ -80,13 +69,22 @@
             this.label1 = new System.Windows.Forms.Label();
             this.listBoxCloseFriendsCircle = new System.Windows.Forms.ListBox();
             this.listBoxWhoDeletedMe = new System.Windows.Forms.ListBox();
-            this.buttonFriendsCloseCircle = new System.Windows.Forms.Button();
-            this.buttonWhoDeletedMe = new System.Windows.Forms.Button();
-            birthdayLabel = new System.Windows.Forms.Label();
-            emailLabel = new System.Windows.Forms.Label();
+            this.buttonFetchFriends = new FacebookApplication.NotifierButton();
+            this.buttonFetchFriendPosts = new FacebookApplication.NotifierButton();
+            this.buttonDeletePost = new FacebookApplication.NotifierButton();
+            this.buttonShareMyPost = new FacebookApplication.NotifierButton();
+            this.buttonFetchPosts = new FacebookApplication.NotifierButton();
+            this.buttonFetchLikedPages = new FacebookApplication.NotifierButton();
+            this.buttonFetchAllEvents = new FacebookApplication.NotifierButton();
+            this.buttonUploadPhoto = new FacebookApplication.NotifierButton();
+            this.buttonCreateAlbum = new FacebookApplication.NotifierButton();
+            this.buttonRefreshAlbums = new FacebookApplication.NotifierButton();
+            this.buttonFriendsCloseCircle = new FacebookApplication.NotifierButton();
+            this.buttonWhoDeletedMe = new FacebookApplication.NotifierButton();
+            this.labelLastInteraction1 = new FacebookApplication.LastInteraction();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageSquarePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
             this.tabControlInfo.SuspendLayout();
             this.tabPageFriends.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLike)).BeginInit();
@@ -100,33 +98,13 @@
             this.tabPageExtras.SuspendLayout();
             this.SuspendLayout();
             // 
-            // birthdayLabel
-            // 
-            birthdayLabel.AutoSize = true;
-            birthdayLabel.Location = new System.Drawing.Point(201, 101);
-            birthdayLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            birthdayLabel.Name = "birthdayLabel";
-            birthdayLabel.Size = new System.Drawing.Size(64, 17);
-            birthdayLabel.TabIndex = 4;
-            birthdayLabel.Text = "Birthday:";
-            // 
-            // emailLabel
-            // 
-            emailLabel.AutoSize = true;
-            emailLabel.Location = new System.Drawing.Point(201, 129);
-            emailLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            emailLabel.Name = "emailLabel";
-            emailLabel.Size = new System.Drawing.Size(46, 17);
-            emailLabel.TabIndex = 6;
-            emailLabel.Text = "Email:";
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Controls.Add(birthdayLabel);
+            this.panel1.Controls.Add(this.labelLastInteraction1);
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.birthdayLabel1);
-            this.panel1.Controls.Add(emailLabel);
             this.panel1.Controls.Add(this.emailLabel1);
             this.panel1.Controls.Add(this.imageSquarePictureBox);
             this.panel1.Controls.Add(this.nameLabel1);
@@ -138,38 +116,50 @@
             this.panel1.Size = new System.Drawing.Size(908, 209);
             this.panel1.TabIndex = 4;
             // 
+            // label2
+            // 
+            this.label2.AccessibleDescription = "lastInteractionTitle";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(421, 15);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(148, 17);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Last Interaction made:";
+            // 
             // birthdayLabel1
             // 
-            this.birthdayLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userBindingSource, "Birthday", true));
-            this.birthdayLabel1.Location = new System.Drawing.Point(311, 101);
+            this.birthdayLabel1.AutoSize = true;
+            this.birthdayLabel1.Location = new System.Drawing.Point(201, 101);
             this.birthdayLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.birthdayLabel1.Name = "birthdayLabel1";
-            this.birthdayLabel1.Size = new System.Drawing.Size(133, 28);
-            this.birthdayLabel1.TabIndex = 5;
-            // 
-            // userBindingSource
-            // 
-            this.userBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.User);
+            this.birthdayLabel1.Size = new System.Drawing.Size(64, 17);
+            this.birthdayLabel1.TabIndex = 4;
+            this.birthdayLabel1.Text = "Birthday:";
             // 
             // emailLabel1
             // 
-            this.emailLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userBindingSource, "Email", true));
-            this.emailLabel1.Location = new System.Drawing.Point(311, 129);
+            this.emailLabel1.AutoSize = true;
+            this.emailLabel1.Location = new System.Drawing.Point(201, 129);
             this.emailLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.emailLabel1.Name = "emailLabel1";
-            this.emailLabel1.Size = new System.Drawing.Size(252, 28);
-            this.emailLabel1.TabIndex = 7;
+            this.emailLabel1.Size = new System.Drawing.Size(46, 17);
+            this.emailLabel1.TabIndex = 6;
+            this.emailLabel1.Text = "Email:";
             // 
             // imageSquarePictureBox
             // 
             this.imageSquarePictureBox.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.userBindingSource, "ImageSquare", true));
             this.imageSquarePictureBox.Location = new System.Drawing.Point(16, 15);
-            this.imageSquarePictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.imageSquarePictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.imageSquarePictureBox.Name = "imageSquarePictureBox";
             this.imageSquarePictureBox.Size = new System.Drawing.Size(177, 159);
             this.imageSquarePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imageSquarePictureBox.TabIndex = 9;
             this.imageSquarePictureBox.TabStop = false;
+            // 
+            // userBindingSource
+            // 
+            this.userBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.User);
             // 
             // nameLabel1
             // 
@@ -228,56 +218,13 @@
             this.pictureBoxLike.Enabled = false;
             this.pictureBoxLike.Image = global::FacebookApplication.Properties.Resources.like;
             this.pictureBoxLike.Location = new System.Drawing.Point(233, 217);
-            this.pictureBoxLike.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBoxLike.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBoxLike.Name = "pictureBoxLike";
             this.pictureBoxLike.Size = new System.Drawing.Size(64, 59);
             this.pictureBoxLike.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxLike.TabIndex = 5;
             this.pictureBoxLike.TabStop = false;
             this.pictureBoxLike.Click += new System.EventHandler(this.pictureBoxLike_Click);
-            // 
-            // buttonFetchFriends
-            // 
-            this.buttonFetchFriends.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFetchFriends.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonFetchFriends.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonFetchFriends.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonFetchFriends.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonFetchFriends.Enabled = false;
-            this.buttonFetchFriends.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonFetchFriends.Location = new System.Drawing.Point(193, 32);
-            this.buttonFetchFriends.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonFetchFriends.MaximumSize = new System.Drawing.Size(149, 55);
-            this.buttonFetchFriends.MinimumSize = new System.Drawing.Size(149, 55);
-            this.buttonFetchFriends.Name = "buttonFetchFriends";
-            this.buttonFetchFriends.Size = new System.Drawing.Size(149, 55);
-            this.buttonFetchFriends.TabIndex = 3;
-            this.buttonFetchFriends.Text = "Fetch Friends";
-            this.buttonFetchFriends.UseVisualStyleBackColor = true;
-            this.buttonFetchFriends.Click += new System.EventHandler(this.buttonFetchFriends_Click);
-            // 
-            // buttonFetchFriendPosts
-            // 
-            this.buttonFetchFriendPosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFetchFriendPosts.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonFetchFriendPosts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonFetchFriendPosts.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonFetchFriendPosts.Enabled = false;
-            this.buttonFetchFriendPosts.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonFetchFriendPosts.Location = new System.Drawing.Point(193, 110);
-            this.buttonFetchFriendPosts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonFetchFriendPosts.MaximumSize = new System.Drawing.Size(149, 55);
-            this.buttonFetchFriendPosts.MinimumSize = new System.Drawing.Size(149, 55);
-            this.buttonFetchFriendPosts.Name = "buttonFetchFriendPosts";
-            this.buttonFetchFriendPosts.Size = new System.Drawing.Size(149, 55);
-            this.buttonFetchFriendPosts.TabIndex = 2;
-            this.buttonFetchFriendPosts.Text = "Fetch Friends Posts";
-            this.buttonFetchFriendPosts.UseVisualStyleBackColor = true;
-            this.buttonFetchFriendPosts.Click += new System.EventHandler(this.buttonFetchFriendPosts_Click);
             // 
             // listBoxFriendPosts
             // 
@@ -356,38 +303,6 @@
             this.tabPageMyPosts.Text = "My Posts";
             this.tabPageMyPosts.UseVisualStyleBackColor = true;
             // 
-            // buttonDeletePost
-            // 
-            this.buttonDeletePost.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonDeletePost.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonDeletePost.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonDeletePost.Enabled = false;
-            this.buttonDeletePost.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonDeletePost.Location = new System.Drawing.Point(179, 197);
-            this.buttonDeletePost.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.buttonDeletePost.Name = "buttonDeletePost";
-            this.buttonDeletePost.Size = new System.Drawing.Size(157, 37);
-            this.buttonDeletePost.TabIndex = 4;
-            this.buttonDeletePost.Text = "Delete Selected Post";
-            this.buttonDeletePost.UseVisualStyleBackColor = true;
-            this.buttonDeletePost.Click += new System.EventHandler(this.buttonDeletePost_Click);
-            // 
-            // buttonShareMyPost
-            // 
-            this.buttonShareMyPost.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonShareMyPost.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonShareMyPost.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonShareMyPost.Enabled = false;
-            this.buttonShareMyPost.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonShareMyPost.Location = new System.Drawing.Point(475, 249);
-            this.buttonShareMyPost.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonShareMyPost.Name = "buttonShareMyPost";
-            this.buttonShareMyPost.Size = new System.Drawing.Size(131, 46);
-            this.buttonShareMyPost.TabIndex = 3;
-            this.buttonShareMyPost.Text = "Share My Post";
-            this.buttonShareMyPost.UseVisualStyleBackColor = true;
-            this.buttonShareMyPost.Click += new System.EventHandler(this.buttonShareMyPost_Click);
-            // 
             // textBoxPost
             // 
             this.textBoxPost.Location = new System.Drawing.Point(3, 249);
@@ -396,22 +311,6 @@
             this.textBoxPost.Name = "textBoxPost";
             this.textBoxPost.Size = new System.Drawing.Size(455, 123);
             this.textBoxPost.TabIndex = 2;
-            // 
-            // buttonFetchPosts
-            // 
-            this.buttonFetchPosts.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonFetchPosts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonFetchPosts.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonFetchPosts.Enabled = false;
-            this.buttonFetchPosts.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonFetchPosts.Location = new System.Drawing.Point(8, 197);
-            this.buttonFetchPosts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonFetchPosts.Name = "buttonFetchPosts";
-            this.buttonFetchPosts.Size = new System.Drawing.Size(133, 38);
-            this.buttonFetchPosts.TabIndex = 1;
-            this.buttonFetchPosts.Text = "Fetch My Posts";
-            this.buttonFetchPosts.UseVisualStyleBackColor = true;
-            this.buttonFetchPosts.Click += new System.EventHandler(this.buttonFetchPosts_Click);
             // 
             // listBoxMyPosts
             // 
@@ -437,22 +336,6 @@
             this.tabPageLikes.Text = "Likes";
             this.tabPageLikes.UseVisualStyleBackColor = true;
             // 
-            // buttonFetchLikedPages
-            // 
-            this.buttonFetchLikedPages.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonFetchLikedPages.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonFetchLikedPages.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonFetchLikedPages.Enabled = false;
-            this.buttonFetchLikedPages.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonFetchLikedPages.Location = new System.Drawing.Point(360, 41);
-            this.buttonFetchLikedPages.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonFetchLikedPages.Name = "buttonFetchLikedPages";
-            this.buttonFetchLikedPages.Size = new System.Drawing.Size(145, 42);
-            this.buttonFetchLikedPages.TabIndex = 1;
-            this.buttonFetchLikedPages.Text = "Fetch Liked Pages";
-            this.buttonFetchLikedPages.UseVisualStyleBackColor = true;
-            this.buttonFetchLikedPages.Click += new System.EventHandler(this.buttonFetchLikedPages_Click);
-            // 
             // listBoxLikedPages
             // 
             this.listBoxLikedPages.Dock = System.Windows.Forms.DockStyle.Left;
@@ -476,22 +359,6 @@
             this.tabPageEvents.TabIndex = 4;
             this.tabPageEvents.Text = "Events";
             this.tabPageEvents.UseVisualStyleBackColor = true;
-            // 
-            // buttonFetchAllEvents
-            // 
-            this.buttonFetchAllEvents.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonFetchAllEvents.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonFetchAllEvents.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonFetchAllEvents.Enabled = false;
-            this.buttonFetchAllEvents.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonFetchAllEvents.Location = new System.Drawing.Point(35, 268);
-            this.buttonFetchAllEvents.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonFetchAllEvents.Name = "buttonFetchAllEvents";
-            this.buttonFetchAllEvents.Size = new System.Drawing.Size(143, 37);
-            this.buttonFetchAllEvents.TabIndex = 2;
-            this.buttonFetchAllEvents.Text = "Fetch All Events";
-            this.buttonFetchAllEvents.UseVisualStyleBackColor = true;
-            this.buttonFetchAllEvents.Click += new System.EventHandler(this.buttonFetchAllEvents_Click);
             // 
             // listBoxMyEvents
             // 
@@ -522,8 +389,8 @@
             this.tabPhotos.Controls.Add(this.pictureBoxMagnifer);
             this.tabPhotos.Controls.Add(this.pictureBoxPhoto);
             this.tabPhotos.Controls.Add(this.listBoxPhoto);
-            this.tabPhotos.Controls.Add(this.buttonRefreshAlbums);
             this.tabPhotos.Controls.Add(this.labelAlbum);
+            this.tabPhotos.Controls.Add(this.buttonRefreshAlbums);
             this.tabPhotos.Controls.Add(this.listBoxAlbums);
             this.tabPhotos.Location = new System.Drawing.Point(4, 25);
             this.tabPhotos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -532,6 +399,258 @@
             this.tabPhotos.TabIndex = 5;
             this.tabPhotos.Text = "Photos";
             this.tabPhotos.UseVisualStyleBackColor = true;
+            // 
+            // labelPhotoDescription
+            // 
+            this.labelPhotoDescription.AutoSize = true;
+            this.labelPhotoDescription.Location = new System.Drawing.Point(593, 277);
+            this.labelPhotoDescription.Name = "labelPhotoDescription";
+            this.labelPhotoDescription.Size = new System.Drawing.Size(72, 17);
+            this.labelPhotoDescription.TabIndex = 6;
+            this.labelPhotoDescription.Text = "                ";
+            // 
+            // labelPhoto
+            // 
+            this.labelPhoto.AutoSize = true;
+            this.labelPhoto.Location = new System.Drawing.Point(381, 16);
+            this.labelPhoto.Name = "labelPhoto";
+            this.labelPhoto.Size = new System.Drawing.Size(52, 17);
+            this.labelPhoto.TabIndex = 4;
+            this.labelPhoto.Text = "Photos";
+            // 
+            // pictureBoxMagnifer
+            // 
+            this.pictureBoxMagnifer.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxMagnifer.Enabled = false;
+            this.pictureBoxMagnifer.Image = global::FacebookApplication.Properties.Resources.Magnify;
+            this.pictureBoxMagnifer.Location = new System.Drawing.Point(673, 277);
+            this.pictureBoxMagnifer.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBoxMagnifer.Name = "pictureBoxMagnifer";
+            this.pictureBoxMagnifer.Size = new System.Drawing.Size(67, 60);
+            this.pictureBoxMagnifer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxMagnifer.TabIndex = 7;
+            this.pictureBoxMagnifer.TabStop = false;
+            this.pictureBoxMagnifer.Click += new System.EventHandler(this.pictureBoxMagnifier_Click);
+            // 
+            // pictureBoxPhoto
+            // 
+            this.pictureBoxPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxPhoto.Location = new System.Drawing.Point(596, 41);
+            this.pictureBoxPhoto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBoxPhoto.Name = "pictureBoxPhoto";
+            this.pictureBoxPhoto.Size = new System.Drawing.Size(267, 216);
+            this.pictureBoxPhoto.TabIndex = 5;
+            this.pictureBoxPhoto.TabStop = false;
+            // 
+            // listBoxPhoto
+            // 
+            this.listBoxPhoto.FormattingEnabled = true;
+            this.listBoxPhoto.ItemHeight = 16;
+            this.listBoxPhoto.Location = new System.Drawing.Point(380, 41);
+            this.listBoxPhoto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.listBoxPhoto.Name = "listBoxPhoto";
+            this.listBoxPhoto.Size = new System.Drawing.Size(188, 324);
+            this.listBoxPhoto.TabIndex = 3;
+            this.listBoxPhoto.SelectedIndexChanged += new System.EventHandler(this.listBoxPhoto_SelectedIndexChanged);
+            // 
+            // labelAlbum
+            // 
+            this.labelAlbum.AutoSize = true;
+            this.labelAlbum.Location = new System.Drawing.Point(13, 14);
+            this.labelAlbum.Name = "labelAlbum";
+            this.labelAlbum.Size = new System.Drawing.Size(54, 17);
+            this.labelAlbum.TabIndex = 1;
+            this.labelAlbum.Text = "Albums";
+            // 
+            // listBoxAlbums
+            // 
+            this.listBoxAlbums.FormattingEnabled = true;
+            this.listBoxAlbums.ItemHeight = 16;
+            this.listBoxAlbums.Location = new System.Drawing.Point(9, 41);
+            this.listBoxAlbums.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.listBoxAlbums.Name = "listBoxAlbums";
+            this.listBoxAlbums.Size = new System.Drawing.Size(183, 324);
+            this.listBoxAlbums.TabIndex = 0;
+            this.listBoxAlbums.SelectedIndexChanged += new System.EventHandler(this.listBoxAlbums_SelectedIndexChanged);
+            // 
+            // tabPageExtras
+            // 
+            this.tabPageExtras.Controls.Add(this.labelCloseCircleOfFriendsCount);
+            this.tabPageExtras.Controls.Add(this.label1);
+            this.tabPageExtras.Controls.Add(this.listBoxCloseFriendsCircle);
+            this.tabPageExtras.Controls.Add(this.listBoxWhoDeletedMe);
+            this.tabPageExtras.Controls.Add(this.buttonFriendsCloseCircle);
+            this.tabPageExtras.Controls.Add(this.buttonWhoDeletedMe);
+            this.tabPageExtras.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.tabPageExtras.Location = new System.Drawing.Point(4, 25);
+            this.tabPageExtras.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPageExtras.Name = "tabPageExtras";
+            this.tabPageExtras.Size = new System.Drawing.Size(900, 338);
+            this.tabPageExtras.TabIndex = 6;
+            this.tabPageExtras.Text = "Extras";
+            this.tabPageExtras.UseVisualStyleBackColor = true;
+            // 
+            // labelCloseCircleOfFriendsCount
+            // 
+            this.labelCloseCircleOfFriendsCount.AutoSize = true;
+            this.labelCloseCircleOfFriendsCount.Location = new System.Drawing.Point(680, 42);
+            this.labelCloseCircleOfFriendsCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelCloseCircleOfFriendsCount.Name = "labelCloseCircleOfFriendsCount";
+            this.labelCloseCircleOfFriendsCount.Size = new System.Drawing.Size(13, 17);
+            this.labelCloseCircleOfFriendsCount.TabIndex = 12;
+            this.labelCloseCircleOfFriendsCount.Text = "-";
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(559, 26);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(204, 38);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Number Of Mutual Friends With Close Circle:";
+            // 
+            // listBoxCloseFriendsCircle
+            // 
+            this.listBoxCloseFriendsCircle.FormattingEnabled = true;
+            this.listBoxCloseFriendsCircle.ItemHeight = 16;
+            this.listBoxCloseFriendsCircle.Location = new System.Drawing.Point(403, 94);
+            this.listBoxCloseFriendsCircle.Margin = new System.Windows.Forms.Padding(4);
+            this.listBoxCloseFriendsCircle.Name = "listBoxCloseFriendsCircle";
+            this.listBoxCloseFriendsCircle.Size = new System.Drawing.Size(457, 276);
+            this.listBoxCloseFriendsCircle.TabIndex = 10;
+            // 
+            // listBoxWhoDeletedMe
+            // 
+            this.listBoxWhoDeletedMe.FormattingEnabled = true;
+            this.listBoxWhoDeletedMe.ItemHeight = 16;
+            this.listBoxWhoDeletedMe.Location = new System.Drawing.Point(16, 94);
+            this.listBoxWhoDeletedMe.Margin = new System.Windows.Forms.Padding(4);
+            this.listBoxWhoDeletedMe.Name = "listBoxWhoDeletedMe";
+            this.listBoxWhoDeletedMe.Size = new System.Drawing.Size(355, 276);
+            this.listBoxWhoDeletedMe.TabIndex = 9;
+            // 
+            // buttonFetchFriends
+            // 
+            this.buttonFetchFriends.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFetchFriends.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonFetchFriends.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonFetchFriends.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonFetchFriends.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonFetchFriends.Enabled = false;
+            this.buttonFetchFriends.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonFetchFriends.Location = new System.Drawing.Point(193, 32);
+            this.buttonFetchFriends.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonFetchFriends.MaximumSize = new System.Drawing.Size(149, 55);
+            this.buttonFetchFriends.MinimumSize = new System.Drawing.Size(149, 55);
+            this.buttonFetchFriends.Name = "buttonFetchFriends";
+            this.buttonFetchFriends.Size = new System.Drawing.Size(149, 55);
+            this.buttonFetchFriends.TabIndex = 3;
+            this.buttonFetchFriends.Text = "Fetch Friends";
+            this.buttonFetchFriends.UseVisualStyleBackColor = true;
+            this.buttonFetchFriends.Click += new System.EventHandler(this.buttonFetchFriends_Click);
+            // 
+            // buttonFetchFriendPosts
+            // 
+            this.buttonFetchFriendPosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFetchFriendPosts.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonFetchFriendPosts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonFetchFriendPosts.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonFetchFriendPosts.Enabled = false;
+            this.buttonFetchFriendPosts.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonFetchFriendPosts.Location = new System.Drawing.Point(193, 110);
+            this.buttonFetchFriendPosts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonFetchFriendPosts.MaximumSize = new System.Drawing.Size(149, 55);
+            this.buttonFetchFriendPosts.MinimumSize = new System.Drawing.Size(149, 55);
+            this.buttonFetchFriendPosts.Name = "buttonFetchFriendPosts";
+            this.buttonFetchFriendPosts.Size = new System.Drawing.Size(149, 55);
+            this.buttonFetchFriendPosts.TabIndex = 2;
+            this.buttonFetchFriendPosts.Text = "Fetch Friends Posts";
+            this.buttonFetchFriendPosts.UseVisualStyleBackColor = true;
+            this.buttonFetchFriendPosts.Click += new System.EventHandler(this.buttonFetchFriendPosts_Click);
+            // 
+            // buttonDeletePost
+            // 
+            this.buttonDeletePost.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonDeletePost.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonDeletePost.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonDeletePost.Enabled = false;
+            this.buttonDeletePost.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonDeletePost.Location = new System.Drawing.Point(179, 197);
+            this.buttonDeletePost.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonDeletePost.Name = "buttonDeletePost";
+            this.buttonDeletePost.Size = new System.Drawing.Size(157, 37);
+            this.buttonDeletePost.TabIndex = 4;
+            this.buttonDeletePost.Text = "Delete Selected Post";
+            this.buttonDeletePost.UseVisualStyleBackColor = true;
+            this.buttonDeletePost.Click += new System.EventHandler(this.buttonDeletePost_Click);
+            // 
+            // buttonShareMyPost
+            // 
+            this.buttonShareMyPost.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonShareMyPost.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonShareMyPost.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonShareMyPost.Enabled = false;
+            this.buttonShareMyPost.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonShareMyPost.Location = new System.Drawing.Point(475, 249);
+            this.buttonShareMyPost.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonShareMyPost.Name = "buttonShareMyPost";
+            this.buttonShareMyPost.Size = new System.Drawing.Size(131, 46);
+            this.buttonShareMyPost.TabIndex = 3;
+            this.buttonShareMyPost.Text = "Share My Post";
+            this.buttonShareMyPost.UseVisualStyleBackColor = true;
+            this.buttonShareMyPost.Click += new System.EventHandler(this.buttonShareMyPost_Click);
+            // 
+            // buttonFetchPosts
+            // 
+            this.buttonFetchPosts.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonFetchPosts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonFetchPosts.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonFetchPosts.Enabled = false;
+            this.buttonFetchPosts.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonFetchPosts.Location = new System.Drawing.Point(8, 197);
+            this.buttonFetchPosts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonFetchPosts.Name = "buttonFetchPosts";
+            this.buttonFetchPosts.Size = new System.Drawing.Size(133, 38);
+            this.buttonFetchPosts.TabIndex = 1;
+            this.buttonFetchPosts.Text = "Fetch My Posts";
+            this.buttonFetchPosts.UseVisualStyleBackColor = true;
+            this.buttonFetchPosts.Click += new System.EventHandler(this.buttonFetchPosts_Click);
+            // 
+            // buttonFetchLikedPages
+            // 
+            this.buttonFetchLikedPages.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonFetchLikedPages.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonFetchLikedPages.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonFetchLikedPages.Enabled = false;
+            this.buttonFetchLikedPages.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonFetchLikedPages.Location = new System.Drawing.Point(360, 41);
+            this.buttonFetchLikedPages.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonFetchLikedPages.Name = "buttonFetchLikedPages";
+            this.buttonFetchLikedPages.Size = new System.Drawing.Size(145, 42);
+            this.buttonFetchLikedPages.TabIndex = 1;
+            this.buttonFetchLikedPages.Text = "Fetch Liked Pages";
+            this.buttonFetchLikedPages.UseVisualStyleBackColor = true;
+            this.buttonFetchLikedPages.Click += new System.EventHandler(this.buttonFetchLikedPages_Click);
+            // 
+            // buttonFetchAllEvents
+            // 
+            this.buttonFetchAllEvents.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonFetchAllEvents.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonFetchAllEvents.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonFetchAllEvents.Enabled = false;
+            this.buttonFetchAllEvents.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonFetchAllEvents.Location = new System.Drawing.Point(35, 268);
+            this.buttonFetchAllEvents.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonFetchAllEvents.Name = "buttonFetchAllEvents";
+            this.buttonFetchAllEvents.Size = new System.Drawing.Size(143, 37);
+            this.buttonFetchAllEvents.TabIndex = 2;
+            this.buttonFetchAllEvents.Text = "Fetch All Events";
+            this.buttonFetchAllEvents.UseVisualStyleBackColor = true;
+            this.buttonFetchAllEvents.Click += new System.EventHandler(this.buttonFetchAllEvents_Click);
             // 
             // buttonUploadPhoto
             // 
@@ -565,59 +684,6 @@
             this.buttonCreateAlbum.UseVisualStyleBackColor = true;
             this.buttonCreateAlbum.Click += new System.EventHandler(this.buttonCreateAlbum_Click);
             // 
-            // labelPhotoDescription
-            // 
-            this.labelPhotoDescription.AutoSize = true;
-            this.labelPhotoDescription.Location = new System.Drawing.Point(593, 277);
-            this.labelPhotoDescription.Name = "labelPhotoDescription";
-            this.labelPhotoDescription.Size = new System.Drawing.Size(72, 17);
-            this.labelPhotoDescription.TabIndex = 6;
-            this.labelPhotoDescription.Text = "                ";
-            // 
-            // labelPhoto
-            // 
-            this.labelPhoto.AutoSize = true;
-            this.labelPhoto.Location = new System.Drawing.Point(381, 16);
-            this.labelPhoto.Name = "labelPhoto";
-            this.labelPhoto.Size = new System.Drawing.Size(52, 17);
-            this.labelPhoto.TabIndex = 4;
-            this.labelPhoto.Text = "Photos";
-            // 
-            // pictureBoxMagnifer
-            // 
-            this.pictureBoxMagnifer.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxMagnifer.Enabled = false;
-            this.pictureBoxMagnifer.Image = global::FacebookApplication.Properties.Resources.Magnify;
-            this.pictureBoxMagnifer.Location = new System.Drawing.Point(673, 277);
-            this.pictureBoxMagnifer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.pictureBoxMagnifer.Name = "pictureBoxMagnifer";
-            this.pictureBoxMagnifer.Size = new System.Drawing.Size(67, 60);
-            this.pictureBoxMagnifer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxMagnifer.TabIndex = 7;
-            this.pictureBoxMagnifer.TabStop = false;
-            this.pictureBoxMagnifer.Click += new System.EventHandler(this.pictureBoxMagnifier_Click);
-            // 
-            // pictureBoxPhoto
-            // 
-            this.pictureBoxPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxPhoto.Location = new System.Drawing.Point(596, 41);
-            this.pictureBoxPhoto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBoxPhoto.Name = "pictureBoxPhoto";
-            this.pictureBoxPhoto.Size = new System.Drawing.Size(267, 216);
-            this.pictureBoxPhoto.TabIndex = 5;
-            this.pictureBoxPhoto.TabStop = false;
-            // 
-            // listBoxPhoto
-            // 
-            this.listBoxPhoto.FormattingEnabled = true;
-            this.listBoxPhoto.ItemHeight = 16;
-            this.listBoxPhoto.Location = new System.Drawing.Point(380, 41);
-            this.listBoxPhoto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.listBoxPhoto.Name = "listBoxPhoto";
-            this.listBoxPhoto.Size = new System.Drawing.Size(188, 324);
-            this.listBoxPhoto.TabIndex = 3;
-            this.listBoxPhoto.SelectedIndexChanged += new System.EventHandler(this.listBoxPhoto_SelectedIndexChanged);
-            // 
             // buttonRefreshAlbums
             // 
             this.buttonRefreshAlbums.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
@@ -634,82 +700,6 @@
             this.buttonRefreshAlbums.UseVisualStyleBackColor = true;
             this.buttonRefreshAlbums.Click += new System.EventHandler(this.buttonRefreshAlbums_Click);
             // 
-            // labelAlbum
-            // 
-            this.labelAlbum.AutoSize = true;
-            this.labelAlbum.Location = new System.Drawing.Point(13, 14);
-            this.labelAlbum.Name = "labelAlbum";
-            this.labelAlbum.Size = new System.Drawing.Size(54, 17);
-            this.labelAlbum.TabIndex = 1;
-            this.labelAlbum.Text = "Albums";
-            // 
-            // listBoxAlbums
-            // 
-            this.listBoxAlbums.FormattingEnabled = true;
-            this.listBoxAlbums.ItemHeight = 16;
-            this.listBoxAlbums.Location = new System.Drawing.Point(9, 41);
-            this.listBoxAlbums.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.listBoxAlbums.Name = "listBoxAlbums";
-            this.listBoxAlbums.Size = new System.Drawing.Size(183, 324);
-            this.listBoxAlbums.TabIndex = 0;
-            this.listBoxAlbums.SelectedIndexChanged += new System.EventHandler(this.listBoxAlbums_SelectedIndexChanged);
-            // 
-            // tabPageExtras
-            // 
-            this.tabPageExtras.Controls.Add(this.labelCloseCircleOfFriendsCount);
-            this.tabPageExtras.Controls.Add(this.label1);
-            this.tabPageExtras.Controls.Add(this.listBoxCloseFriendsCircle);
-            this.tabPageExtras.Controls.Add(this.listBoxWhoDeletedMe);
-            this.tabPageExtras.Controls.Add(this.buttonFriendsCloseCircle);
-            this.tabPageExtras.Controls.Add(this.buttonWhoDeletedMe);
-            this.tabPageExtras.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.tabPageExtras.Location = new System.Drawing.Point(4, 25);
-            this.tabPageExtras.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPageExtras.Name = "tabPageExtras";
-            this.tabPageExtras.Size = new System.Drawing.Size(900, 338);
-            this.tabPageExtras.TabIndex = 6;
-            this.tabPageExtras.Text = "Extras";
-            this.tabPageExtras.UseVisualStyleBackColor = true;
-            // 
-            // labelCloseCircleOfFriendsCount
-            // 
-            this.labelCloseCircleOfFriendsCount.AutoSize = true;
-            this.labelCloseCircleOfFriendsCount.Location = new System.Drawing.Point(680, 42);
-            this.labelCloseCircleOfFriendsCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelCloseCircleOfFriendsCount.Name = "labelCloseCircleOfFriendsCount";
-            this.labelCloseCircleOfFriendsCount.Size = new System.Drawing.Size(13, 17);
-            this.labelCloseCircleOfFriendsCount.TabIndex = 12;
-            this.labelCloseCircleOfFriendsCount.Text = "-";
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(559, 26);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(204, 38);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Number Of Mutual Friends With Close Circle:";
-            // 
-            // listBoxCloseFriendsCircle
-            // 
-            this.listBoxCloseFriendsCircle.FormattingEnabled = true;
-            this.listBoxCloseFriendsCircle.ItemHeight = 16;
-            this.listBoxCloseFriendsCircle.Location = new System.Drawing.Point(403, 94);
-            this.listBoxCloseFriendsCircle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.listBoxCloseFriendsCircle.Name = "listBoxCloseFriendsCircle";
-            this.listBoxCloseFriendsCircle.Size = new System.Drawing.Size(457, 276);
-            this.listBoxCloseFriendsCircle.TabIndex = 10;
-            // 
-            // listBoxWhoDeletedMe
-            // 
-            this.listBoxWhoDeletedMe.FormattingEnabled = true;
-            this.listBoxWhoDeletedMe.ItemHeight = 16;
-            this.listBoxWhoDeletedMe.Location = new System.Drawing.Point(16, 94);
-            this.listBoxWhoDeletedMe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.listBoxWhoDeletedMe.Name = "listBoxWhoDeletedMe";
-            this.listBoxWhoDeletedMe.Size = new System.Drawing.Size(355, 276);
-            this.listBoxWhoDeletedMe.TabIndex = 9;
-            // 
             // buttonFriendsCloseCircle
             // 
             this.buttonFriendsCloseCircle.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
@@ -718,7 +708,7 @@
             this.buttonFriendsCloseCircle.Enabled = false;
             this.buttonFriendsCloseCircle.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.buttonFriendsCloseCircle.Location = new System.Drawing.Point(403, 26);
-            this.buttonFriendsCloseCircle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonFriendsCloseCircle.Margin = new System.Windows.Forms.Padding(4);
             this.buttonFriendsCloseCircle.Name = "buttonFriendsCloseCircle";
             this.buttonFriendsCloseCircle.Size = new System.Drawing.Size(148, 55);
             this.buttonFriendsCloseCircle.TabIndex = 8;
@@ -734,13 +724,22 @@
             this.buttonWhoDeletedMe.Enabled = false;
             this.buttonWhoDeletedMe.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.buttonWhoDeletedMe.Location = new System.Drawing.Point(16, 26);
-            this.buttonWhoDeletedMe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonWhoDeletedMe.Margin = new System.Windows.Forms.Padding(4);
             this.buttonWhoDeletedMe.Name = "buttonWhoDeletedMe";
             this.buttonWhoDeletedMe.Size = new System.Drawing.Size(149, 55);
             this.buttonWhoDeletedMe.TabIndex = 7;
             this.buttonWhoDeletedMe.Text = "Who deleted me?";
             this.buttonWhoDeletedMe.UseVisualStyleBackColor = true;
             this.buttonWhoDeletedMe.Click += new System.EventHandler(this.buttonWhoDeletedMe_Click);
+            // 
+            // labelLastInteraction1
+            // 
+            this.labelLastInteraction1.AutoSize = true;
+            this.labelLastInteraction1.Location = new System.Drawing.Point(421, 42);
+            this.labelLastInteraction1.Name = "labelLastInteraction1";
+            this.labelLastInteraction1.Size = new System.Drawing.Size(42, 17);
+            this.labelLastInteraction1.TabIndex = 13;
+            this.labelLastInteraction1.Text = "None";
             // 
             // Form1
             // 
@@ -757,8 +756,8 @@
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageSquarePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
             this.tabControlInfo.ResumeLayout(false);
             this.tabPageFriends.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLike)).EndInit();
@@ -786,34 +785,34 @@
         private System.Windows.Forms.TabPage tabPageLikes;
         private System.Windows.Forms.TabPage tabPageEvents;
         private System.Windows.Forms.ListBox listBoxFriends;
-        private System.Windows.Forms.Button buttonFetchFriendPosts;
+        private NotifierButton buttonFetchFriendPosts;
         private System.Windows.Forms.ListBox listBoxFriendPosts;
         private System.Windows.Forms.ListBox listBoxMyPosts;
-        private System.Windows.Forms.Button buttonFetchPosts;
-        private System.Windows.Forms.Button buttonShareMyPost;
+        private NotifierButton buttonFetchPosts;
+        private NotifierButton buttonShareMyPost;
         private System.Windows.Forms.TextBox textBoxPost;
-        private System.Windows.Forms.Button buttonFetchFriends;
-        private System.Windows.Forms.Button buttonFetchLikedPages;
+        private NotifierButton buttonFetchFriends;
+        private NotifierButton buttonFetchLikedPages;
         private System.Windows.Forms.ListBox listBoxLikedPages;
         private System.Windows.Forms.ListBox listBoxMyEvents;
         private System.Windows.Forms.DateTimePicker dateTimePickerEventsPicker;
-        private System.Windows.Forms.Button buttonFetchAllEvents;
+        private NotifierButton buttonFetchAllEvents;
         private System.Windows.Forms.TabPage tabPhotos;
         private System.Windows.Forms.Label labelAlbum;
         private System.Windows.Forms.ListBox listBoxAlbums;
-        private System.Windows.Forms.Button buttonRefreshAlbums;
+        private NotifierButton buttonRefreshAlbums;
         private System.Windows.Forms.Label labelPhoto;
         private System.Windows.Forms.ListBox listBoxPhoto;
         private System.Windows.Forms.Label labelPhotoDescription;
         private System.Windows.Forms.PictureBox pictureBoxPhoto;
         private System.Windows.Forms.PictureBox pictureBoxMagnifer;
-        private System.Windows.Forms.Button buttonCreateAlbum;
-        private System.Windows.Forms.Button buttonUploadPhoto;
-        private System.Windows.Forms.Button buttonDeletePost;
+        private NotifierButton buttonCreateAlbum;
+        private NotifierButton buttonUploadPhoto;
+        private NotifierButton buttonDeletePost;
         private System.Windows.Forms.PictureBox pictureBoxLike;
         private System.Windows.Forms.TabPage tabPageExtras;
-        private System.Windows.Forms.Button buttonFriendsCloseCircle;
-        private System.Windows.Forms.Button buttonWhoDeletedMe;
+        private NotifierButton buttonFriendsCloseCircle;
+        private NotifierButton buttonWhoDeletedMe;
         private System.Windows.Forms.ListBox listBoxCloseFriendsCircle;
         private System.Windows.Forms.ListBox listBoxWhoDeletedMe;
         private System.Windows.Forms.Label labelCloseCircleOfFriendsCount;
@@ -822,10 +821,12 @@
         private System.Windows.Forms.ToolStripMenuItem profilePictureToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fetchPostsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fetchFriendsToolStripMenuItem;
-        private System.Windows.Forms.Label birthdayLabel1;
         private System.Windows.Forms.BindingSource userBindingSource;
-        private System.Windows.Forms.Label emailLabel1;
         private System.Windows.Forms.PictureBox imageSquarePictureBox;
         private System.Windows.Forms.Label nameLabel1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label birthdayLabel1;
+        private System.Windows.Forms.Label emailLabel1;
+        private LastInteraction labelLastInteraction1;
     }
 }
