@@ -32,6 +32,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelLastInteraction1 = new FacebookApplication.LastInteraction();
             this.label2 = new System.Windows.Forms.Label();
             this.birthdayLabel1 = new System.Windows.Forms.Label();
             this.emailLabel1 = new System.Windows.Forms.Label();
@@ -42,6 +43,8 @@
             this.tabControlInfo = new System.Windows.Forms.TabControl();
             this.tabPageFriends = new System.Windows.Forms.TabPage();
             this.pictureBoxLike = new System.Windows.Forms.PictureBox();
+            this.buttonFetchFriends = new FacebookApplication.NotifierButton();
+            this.buttonFetchFriendPosts = new FacebookApplication.NotifierButton();
             this.listBoxFriendPosts = new System.Windows.Forms.ListBox();
             this.listBoxFriends = new System.Windows.Forms.ListBox();
             this.contextMenuStripRightClickFriend = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -49,39 +52,36 @@
             this.profilePictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fetchPostsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageMyPosts = new System.Windows.Forms.TabPage();
+            this.buttonDeletePost = new FacebookApplication.NotifierButton();
+            this.buttonShareMyPost = new FacebookApplication.NotifierButton();
             this.textBoxPost = new System.Windows.Forms.TextBox();
+            this.buttonFetchPosts = new FacebookApplication.NotifierButton();
             this.listBoxMyPosts = new System.Windows.Forms.ListBox();
             this.tabPageLikes = new System.Windows.Forms.TabPage();
+            this.buttonFetchLikedPages = new FacebookApplication.NotifierButton();
             this.listBoxLikedPages = new System.Windows.Forms.ListBox();
             this.tabPageEvents = new System.Windows.Forms.TabPage();
+            this.buttonFetchAllEvents = new FacebookApplication.NotifierButton();
             this.listBoxMyEvents = new System.Windows.Forms.ListBox();
             this.dateTimePickerEventsPicker = new System.Windows.Forms.DateTimePicker();
             this.tabPhotos = new System.Windows.Forms.TabPage();
+            this.buttonUploadPhoto = new FacebookApplication.NotifierButton();
+            this.buttonCreateAlbum = new FacebookApplication.NotifierButton();
             this.labelPhotoDescription = new System.Windows.Forms.Label();
             this.labelPhoto = new System.Windows.Forms.Label();
             this.pictureBoxMagnifer = new System.Windows.Forms.PictureBox();
             this.pictureBoxPhoto = new System.Windows.Forms.PictureBox();
             this.listBoxPhoto = new System.Windows.Forms.ListBox();
             this.labelAlbum = new System.Windows.Forms.Label();
+            this.buttonRefreshAlbums = new FacebookApplication.NotifierButton();
             this.listBoxAlbums = new System.Windows.Forms.ListBox();
             this.tabPageExtras = new System.Windows.Forms.TabPage();
             this.labelCloseCircleOfFriendsCount = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.listBoxCloseFriendsCircle = new System.Windows.Forms.ListBox();
             this.listBoxWhoDeletedMe = new System.Windows.Forms.ListBox();
-            this.buttonFetchFriends = new FacebookApplication.NotifierButton();
-            this.buttonFetchFriendPosts = new FacebookApplication.NotifierButton();
-            this.buttonDeletePost = new FacebookApplication.NotifierButton();
-            this.buttonShareMyPost = new FacebookApplication.NotifierButton();
-            this.buttonFetchPosts = new FacebookApplication.NotifierButton();
-            this.buttonFetchLikedPages = new FacebookApplication.NotifierButton();
-            this.buttonFetchAllEvents = new FacebookApplication.NotifierButton();
-            this.buttonUploadPhoto = new FacebookApplication.NotifierButton();
-            this.buttonCreateAlbum = new FacebookApplication.NotifierButton();
-            this.buttonRefreshAlbums = new FacebookApplication.NotifierButton();
             this.buttonFriendsCloseCircle = new FacebookApplication.NotifierButton();
             this.buttonWhoDeletedMe = new FacebookApplication.NotifierButton();
-            this.labelLastInteraction1 = new FacebookApplication.LastInteraction();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageSquarePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
@@ -116,6 +116,15 @@
             this.panel1.Size = new System.Drawing.Size(908, 209);
             this.panel1.TabIndex = 4;
             // 
+            // labelLastInteraction1
+            // 
+            this.labelLastInteraction1.AutoSize = true;
+            this.labelLastInteraction1.Location = new System.Drawing.Point(421, 42);
+            this.labelLastInteraction1.Name = "labelLastInteraction1";
+            this.labelLastInteraction1.Size = new System.Drawing.Size(42, 17);
+            this.labelLastInteraction1.TabIndex = 13;
+            this.labelLastInteraction1.Text = "None";
+            // 
             // label2
             // 
             this.label2.AccessibleDescription = "lastInteractionTitle";
@@ -124,7 +133,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(148, 17);
             this.label2.TabIndex = 12;
-            this.label2.Text = "Last Interaction made:";
+            this.label2.Text = "Last Button clicked:";
             // 
             // birthdayLabel1
             // 
@@ -226,6 +235,49 @@
             this.pictureBoxLike.TabStop = false;
             this.pictureBoxLike.Click += new System.EventHandler(this.pictureBoxLike_Click);
             // 
+            // buttonFetchFriends
+            // 
+            this.buttonFetchFriends.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFetchFriends.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonFetchFriends.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonFetchFriends.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonFetchFriends.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonFetchFriends.Enabled = false;
+            this.buttonFetchFriends.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonFetchFriends.Location = new System.Drawing.Point(193, 32);
+            this.buttonFetchFriends.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonFetchFriends.MaximumSize = new System.Drawing.Size(149, 55);
+            this.buttonFetchFriends.MinimumSize = new System.Drawing.Size(149, 55);
+            this.buttonFetchFriends.Name = "buttonFetchFriends";
+            this.buttonFetchFriends.Size = new System.Drawing.Size(149, 55);
+            this.buttonFetchFriends.TabIndex = 3;
+            this.buttonFetchFriends.Text = "Fetch Friends";
+            this.buttonFetchFriends.UseVisualStyleBackColor = true;
+            this.buttonFetchFriends.Click += new System.EventHandler(this.buttonFetchFriends_Click);
+            // 
+            // buttonFetchFriendPosts
+            // 
+            this.buttonFetchFriendPosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFetchFriendPosts.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonFetchFriendPosts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonFetchFriendPosts.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonFetchFriendPosts.Enabled = false;
+            this.buttonFetchFriendPosts.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonFetchFriendPosts.Location = new System.Drawing.Point(193, 110);
+            this.buttonFetchFriendPosts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonFetchFriendPosts.MaximumSize = new System.Drawing.Size(149, 55);
+            this.buttonFetchFriendPosts.MinimumSize = new System.Drawing.Size(149, 55);
+            this.buttonFetchFriendPosts.Name = "buttonFetchFriendPosts";
+            this.buttonFetchFriendPosts.Size = new System.Drawing.Size(149, 55);
+            this.buttonFetchFriendPosts.TabIndex = 2;
+            this.buttonFetchFriendPosts.Text = "Fetch Friends Posts";
+            this.buttonFetchFriendPosts.UseVisualStyleBackColor = true;
+            this.buttonFetchFriendPosts.Click += new System.EventHandler(this.buttonFetchFriendPosts_Click);
+            // 
             // listBoxFriendPosts
             // 
             this.listBoxFriendPosts.Dock = System.Windows.Forms.DockStyle.Right;
@@ -303,6 +355,38 @@
             this.tabPageMyPosts.Text = "My Posts";
             this.tabPageMyPosts.UseVisualStyleBackColor = true;
             // 
+            // buttonDeletePost
+            // 
+            this.buttonDeletePost.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonDeletePost.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonDeletePost.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonDeletePost.Enabled = false;
+            this.buttonDeletePost.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonDeletePost.Location = new System.Drawing.Point(179, 197);
+            this.buttonDeletePost.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonDeletePost.Name = "buttonDeletePost";
+            this.buttonDeletePost.Size = new System.Drawing.Size(157, 37);
+            this.buttonDeletePost.TabIndex = 4;
+            this.buttonDeletePost.Text = "Delete Selected Post";
+            this.buttonDeletePost.UseVisualStyleBackColor = true;
+            this.buttonDeletePost.Click += new System.EventHandler(this.buttonDeletePost_Click);
+            // 
+            // buttonShareMyPost
+            // 
+            this.buttonShareMyPost.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonShareMyPost.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonShareMyPost.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonShareMyPost.Enabled = false;
+            this.buttonShareMyPost.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonShareMyPost.Location = new System.Drawing.Point(475, 249);
+            this.buttonShareMyPost.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonShareMyPost.Name = "buttonShareMyPost";
+            this.buttonShareMyPost.Size = new System.Drawing.Size(131, 46);
+            this.buttonShareMyPost.TabIndex = 3;
+            this.buttonShareMyPost.Text = "Share My Post";
+            this.buttonShareMyPost.UseVisualStyleBackColor = true;
+            this.buttonShareMyPost.Click += new System.EventHandler(this.buttonShareMyPost_Click);
+            // 
             // textBoxPost
             // 
             this.textBoxPost.Location = new System.Drawing.Point(3, 249);
@@ -311,6 +395,22 @@
             this.textBoxPost.Name = "textBoxPost";
             this.textBoxPost.Size = new System.Drawing.Size(455, 123);
             this.textBoxPost.TabIndex = 2;
+            // 
+            // buttonFetchPosts
+            // 
+            this.buttonFetchPosts.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonFetchPosts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonFetchPosts.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonFetchPosts.Enabled = false;
+            this.buttonFetchPosts.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonFetchPosts.Location = new System.Drawing.Point(8, 197);
+            this.buttonFetchPosts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonFetchPosts.Name = "buttonFetchPosts";
+            this.buttonFetchPosts.Size = new System.Drawing.Size(133, 38);
+            this.buttonFetchPosts.TabIndex = 1;
+            this.buttonFetchPosts.Text = "Fetch My Posts";
+            this.buttonFetchPosts.UseVisualStyleBackColor = true;
+            this.buttonFetchPosts.Click += new System.EventHandler(this.buttonFetchPosts_Click);
             // 
             // listBoxMyPosts
             // 
@@ -336,6 +436,22 @@
             this.tabPageLikes.Text = "Likes";
             this.tabPageLikes.UseVisualStyleBackColor = true;
             // 
+            // buttonFetchLikedPages
+            // 
+            this.buttonFetchLikedPages.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonFetchLikedPages.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonFetchLikedPages.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonFetchLikedPages.Enabled = false;
+            this.buttonFetchLikedPages.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonFetchLikedPages.Location = new System.Drawing.Point(360, 41);
+            this.buttonFetchLikedPages.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonFetchLikedPages.Name = "buttonFetchLikedPages";
+            this.buttonFetchLikedPages.Size = new System.Drawing.Size(145, 42);
+            this.buttonFetchLikedPages.TabIndex = 1;
+            this.buttonFetchLikedPages.Text = "Fetch Liked Pages";
+            this.buttonFetchLikedPages.UseVisualStyleBackColor = true;
+            this.buttonFetchLikedPages.Click += new System.EventHandler(this.buttonFetchLikedPages_Click);
+            // 
             // listBoxLikedPages
             // 
             this.listBoxLikedPages.Dock = System.Windows.Forms.DockStyle.Left;
@@ -359,6 +475,22 @@
             this.tabPageEvents.TabIndex = 4;
             this.tabPageEvents.Text = "Events";
             this.tabPageEvents.UseVisualStyleBackColor = true;
+            // 
+            // buttonFetchAllEvents
+            // 
+            this.buttonFetchAllEvents.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonFetchAllEvents.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonFetchAllEvents.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonFetchAllEvents.Enabled = false;
+            this.buttonFetchAllEvents.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonFetchAllEvents.Location = new System.Drawing.Point(35, 268);
+            this.buttonFetchAllEvents.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonFetchAllEvents.Name = "buttonFetchAllEvents";
+            this.buttonFetchAllEvents.Size = new System.Drawing.Size(143, 37);
+            this.buttonFetchAllEvents.TabIndex = 2;
+            this.buttonFetchAllEvents.Text = "Fetch All Events";
+            this.buttonFetchAllEvents.UseVisualStyleBackColor = true;
+            this.buttonFetchAllEvents.Click += new System.EventHandler(this.buttonFetchAllEvents_Click);
             // 
             // listBoxMyEvents
             // 
@@ -399,6 +531,38 @@
             this.tabPhotos.TabIndex = 5;
             this.tabPhotos.Text = "Photos";
             this.tabPhotos.UseVisualStyleBackColor = true;
+            // 
+            // buttonUploadPhoto
+            // 
+            this.buttonUploadPhoto.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonUploadPhoto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonUploadPhoto.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonUploadPhoto.Enabled = false;
+            this.buttonUploadPhoto.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonUploadPhoto.Location = new System.Drawing.Point(217, 160);
+            this.buttonUploadPhoto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonUploadPhoto.Name = "buttonUploadPhoto";
+            this.buttonUploadPhoto.Size = new System.Drawing.Size(131, 52);
+            this.buttonUploadPhoto.TabIndex = 9;
+            this.buttonUploadPhoto.Text = "Upload Photo To Selected Album";
+            this.buttonUploadPhoto.UseVisualStyleBackColor = true;
+            this.buttonUploadPhoto.Click += new System.EventHandler(this.buttonUploadPhoto_Click);
+            // 
+            // buttonCreateAlbum
+            // 
+            this.buttonCreateAlbum.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonCreateAlbum.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonCreateAlbum.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonCreateAlbum.Enabled = false;
+            this.buttonCreateAlbum.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonCreateAlbum.Location = new System.Drawing.Point(217, 98);
+            this.buttonCreateAlbum.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonCreateAlbum.Name = "buttonCreateAlbum";
+            this.buttonCreateAlbum.Size = new System.Drawing.Size(132, 39);
+            this.buttonCreateAlbum.TabIndex = 8;
+            this.buttonCreateAlbum.Text = "Create Album";
+            this.buttonCreateAlbum.UseVisualStyleBackColor = true;
+            this.buttonCreateAlbum.Click += new System.EventHandler(this.buttonCreateAlbum_Click);
             // 
             // labelPhotoDescription
             // 
@@ -461,6 +625,22 @@
             this.labelAlbum.Size = new System.Drawing.Size(54, 17);
             this.labelAlbum.TabIndex = 1;
             this.labelAlbum.Text = "Albums";
+            // 
+            // buttonRefreshAlbums
+            // 
+            this.buttonRefreshAlbums.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
+            this.buttonRefreshAlbums.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonRefreshAlbums.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonRefreshAlbums.Enabled = false;
+            this.buttonRefreshAlbums.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonRefreshAlbums.Location = new System.Drawing.Point(217, 41);
+            this.buttonRefreshAlbums.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonRefreshAlbums.Name = "buttonRefreshAlbums";
+            this.buttonRefreshAlbums.Size = new System.Drawing.Size(133, 39);
+            this.buttonRefreshAlbums.TabIndex = 2;
+            this.buttonRefreshAlbums.Text = "Refresh Albums";
+            this.buttonRefreshAlbums.UseVisualStyleBackColor = true;
+            this.buttonRefreshAlbums.Click += new System.EventHandler(this.buttonRefreshAlbums_Click);
             // 
             // listBoxAlbums
             // 
@@ -529,177 +709,6 @@
             this.listBoxWhoDeletedMe.Size = new System.Drawing.Size(355, 276);
             this.listBoxWhoDeletedMe.TabIndex = 9;
             // 
-            // buttonFetchFriends
-            // 
-            this.buttonFetchFriends.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFetchFriends.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonFetchFriends.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonFetchFriends.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonFetchFriends.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonFetchFriends.Enabled = false;
-            this.buttonFetchFriends.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonFetchFriends.Location = new System.Drawing.Point(193, 32);
-            this.buttonFetchFriends.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonFetchFriends.MaximumSize = new System.Drawing.Size(149, 55);
-            this.buttonFetchFriends.MinimumSize = new System.Drawing.Size(149, 55);
-            this.buttonFetchFriends.Name = "buttonFetchFriends";
-            this.buttonFetchFriends.Size = new System.Drawing.Size(149, 55);
-            this.buttonFetchFriends.TabIndex = 3;
-            this.buttonFetchFriends.Text = "Fetch Friends";
-            this.buttonFetchFriends.UseVisualStyleBackColor = true;
-            this.buttonFetchFriends.Click += new System.EventHandler(this.buttonFetchFriends_Click);
-            // 
-            // buttonFetchFriendPosts
-            // 
-            this.buttonFetchFriendPosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFetchFriendPosts.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonFetchFriendPosts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonFetchFriendPosts.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonFetchFriendPosts.Enabled = false;
-            this.buttonFetchFriendPosts.ForeColor = System.Drawing.SystemColors.Control;
-            this.buttonFetchFriendPosts.Location = new System.Drawing.Point(193, 110);
-            this.buttonFetchFriendPosts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonFetchFriendPosts.MaximumSize = new System.Drawing.Size(149, 55);
-            this.buttonFetchFriendPosts.MinimumSize = new System.Drawing.Size(149, 55);
-            this.buttonFetchFriendPosts.Name = "buttonFetchFriendPosts";
-            this.buttonFetchFriendPosts.Size = new System.Drawing.Size(149, 55);
-            this.buttonFetchFriendPosts.TabIndex = 2;
-            this.buttonFetchFriendPosts.Text = "Fetch Friends Posts";
-            this.buttonFetchFriendPosts.UseVisualStyleBackColor = true;
-            this.buttonFetchFriendPosts.Click += new System.EventHandler(this.buttonFetchFriendPosts_Click);
-            // 
-            // buttonDeletePost
-            // 
-            this.buttonDeletePost.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonDeletePost.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonDeletePost.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonDeletePost.Enabled = false;
-            this.buttonDeletePost.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonDeletePost.Location = new System.Drawing.Point(179, 197);
-            this.buttonDeletePost.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonDeletePost.Name = "buttonDeletePost";
-            this.buttonDeletePost.Size = new System.Drawing.Size(157, 37);
-            this.buttonDeletePost.TabIndex = 4;
-            this.buttonDeletePost.Text = "Delete Selected Post";
-            this.buttonDeletePost.UseVisualStyleBackColor = true;
-            this.buttonDeletePost.Click += new System.EventHandler(this.buttonDeletePost_Click);
-            // 
-            // buttonShareMyPost
-            // 
-            this.buttonShareMyPost.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonShareMyPost.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonShareMyPost.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonShareMyPost.Enabled = false;
-            this.buttonShareMyPost.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonShareMyPost.Location = new System.Drawing.Point(475, 249);
-            this.buttonShareMyPost.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonShareMyPost.Name = "buttonShareMyPost";
-            this.buttonShareMyPost.Size = new System.Drawing.Size(131, 46);
-            this.buttonShareMyPost.TabIndex = 3;
-            this.buttonShareMyPost.Text = "Share My Post";
-            this.buttonShareMyPost.UseVisualStyleBackColor = true;
-            this.buttonShareMyPost.Click += new System.EventHandler(this.buttonShareMyPost_Click);
-            // 
-            // buttonFetchPosts
-            // 
-            this.buttonFetchPosts.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonFetchPosts.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonFetchPosts.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonFetchPosts.Enabled = false;
-            this.buttonFetchPosts.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonFetchPosts.Location = new System.Drawing.Point(8, 197);
-            this.buttonFetchPosts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonFetchPosts.Name = "buttonFetchPosts";
-            this.buttonFetchPosts.Size = new System.Drawing.Size(133, 38);
-            this.buttonFetchPosts.TabIndex = 1;
-            this.buttonFetchPosts.Text = "Fetch My Posts";
-            this.buttonFetchPosts.UseVisualStyleBackColor = true;
-            this.buttonFetchPosts.Click += new System.EventHandler(this.buttonFetchPosts_Click);
-            // 
-            // buttonFetchLikedPages
-            // 
-            this.buttonFetchLikedPages.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonFetchLikedPages.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonFetchLikedPages.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonFetchLikedPages.Enabled = false;
-            this.buttonFetchLikedPages.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonFetchLikedPages.Location = new System.Drawing.Point(360, 41);
-            this.buttonFetchLikedPages.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonFetchLikedPages.Name = "buttonFetchLikedPages";
-            this.buttonFetchLikedPages.Size = new System.Drawing.Size(145, 42);
-            this.buttonFetchLikedPages.TabIndex = 1;
-            this.buttonFetchLikedPages.Text = "Fetch Liked Pages";
-            this.buttonFetchLikedPages.UseVisualStyleBackColor = true;
-            this.buttonFetchLikedPages.Click += new System.EventHandler(this.buttonFetchLikedPages_Click);
-            // 
-            // buttonFetchAllEvents
-            // 
-            this.buttonFetchAllEvents.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonFetchAllEvents.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonFetchAllEvents.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonFetchAllEvents.Enabled = false;
-            this.buttonFetchAllEvents.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonFetchAllEvents.Location = new System.Drawing.Point(35, 268);
-            this.buttonFetchAllEvents.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonFetchAllEvents.Name = "buttonFetchAllEvents";
-            this.buttonFetchAllEvents.Size = new System.Drawing.Size(143, 37);
-            this.buttonFetchAllEvents.TabIndex = 2;
-            this.buttonFetchAllEvents.Text = "Fetch All Events";
-            this.buttonFetchAllEvents.UseVisualStyleBackColor = true;
-            this.buttonFetchAllEvents.Click += new System.EventHandler(this.buttonFetchAllEvents_Click);
-            // 
-            // buttonUploadPhoto
-            // 
-            this.buttonUploadPhoto.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonUploadPhoto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonUploadPhoto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonUploadPhoto.Enabled = false;
-            this.buttonUploadPhoto.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonUploadPhoto.Location = new System.Drawing.Point(217, 160);
-            this.buttonUploadPhoto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonUploadPhoto.Name = "buttonUploadPhoto";
-            this.buttonUploadPhoto.Size = new System.Drawing.Size(131, 52);
-            this.buttonUploadPhoto.TabIndex = 9;
-            this.buttonUploadPhoto.Text = "Upload Photo To Selected Album";
-            this.buttonUploadPhoto.UseVisualStyleBackColor = true;
-            this.buttonUploadPhoto.Click += new System.EventHandler(this.buttonUploadPhoto_Click);
-            // 
-            // buttonCreateAlbum
-            // 
-            this.buttonCreateAlbum.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonCreateAlbum.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonCreateAlbum.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonCreateAlbum.Enabled = false;
-            this.buttonCreateAlbum.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonCreateAlbum.Location = new System.Drawing.Point(217, 98);
-            this.buttonCreateAlbum.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonCreateAlbum.Name = "buttonCreateAlbum";
-            this.buttonCreateAlbum.Size = new System.Drawing.Size(132, 39);
-            this.buttonCreateAlbum.TabIndex = 8;
-            this.buttonCreateAlbum.Text = "Create Album";
-            this.buttonCreateAlbum.UseVisualStyleBackColor = true;
-            this.buttonCreateAlbum.Click += new System.EventHandler(this.buttonCreateAlbum_Click);
-            // 
-            // buttonRefreshAlbums
-            // 
-            this.buttonRefreshAlbums.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
-            this.buttonRefreshAlbums.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonRefreshAlbums.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonRefreshAlbums.Enabled = false;
-            this.buttonRefreshAlbums.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonRefreshAlbums.Location = new System.Drawing.Point(217, 41);
-            this.buttonRefreshAlbums.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonRefreshAlbums.Name = "buttonRefreshAlbums";
-            this.buttonRefreshAlbums.Size = new System.Drawing.Size(133, 39);
-            this.buttonRefreshAlbums.TabIndex = 2;
-            this.buttonRefreshAlbums.Text = "Refresh Albums";
-            this.buttonRefreshAlbums.UseVisualStyleBackColor = true;
-            this.buttonRefreshAlbums.Click += new System.EventHandler(this.buttonRefreshAlbums_Click);
-            // 
             // buttonFriendsCloseCircle
             // 
             this.buttonFriendsCloseCircle.BackgroundImage = global::FacebookApplication.Properties.Resources.Untitled_2;
@@ -731,15 +740,6 @@
             this.buttonWhoDeletedMe.Text = "Who deleted me?";
             this.buttonWhoDeletedMe.UseVisualStyleBackColor = true;
             this.buttonWhoDeletedMe.Click += new System.EventHandler(this.buttonWhoDeletedMe_Click);
-            // 
-            // labelLastInteraction1
-            // 
-            this.labelLastInteraction1.AutoSize = true;
-            this.labelLastInteraction1.Location = new System.Drawing.Point(421, 42);
-            this.labelLastInteraction1.Name = "labelLastInteraction1";
-            this.labelLastInteraction1.Size = new System.Drawing.Size(42, 17);
-            this.labelLastInteraction1.TabIndex = 13;
-            this.labelLastInteraction1.Text = "None";
             // 
             // Form1
             // 

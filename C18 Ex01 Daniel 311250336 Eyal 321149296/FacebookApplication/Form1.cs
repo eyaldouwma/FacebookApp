@@ -587,61 +587,19 @@ namespace FacebookApplication
         private void buttonFriendsCloseCircle_Click(object sender, EventArgs e)
         {
             buttonFriendsCloseCircle.notify();
+            CloseFriendsCircle closeCircle = new CloseFriendsCircle(m_FacebookUser);
 
-            Dictionary<string, int> myFriendsCount = new Dictionary<string, int>(m_FacebookUser.Friends.Count);
-            Dictionary<string, string> myFriendsByID = new Dictionary<string, string>();
-            int maxMutualFriends = 0;
-            LinkedList<string> closeCircleOfFriends;
+            closeCircle.AddToDictionary(m_FacebookUser);
+            closeCircle.CalculateCloseCircle(m_FacebookUser);
+            closeCircle.CloseCircleOfFriend();
+            labelCloseCircleOfFriendsCount.Text = closeCircle.MaxMutualFriends.ToString();
 
-            foreach (User friend in m_FacebookUser.Friends)
+            IIterator closeCircleIterator = closeCircle.CreateIterator();
+
+            while (!closeCircleIterator.isDone())
             {
-                myFriendsCount.Add(friend.Id, maxMutualFriends);
-                myFriendsByID.Add(friend.Id, friend.Name);
+                listBoxCloseFriendsCircle.Items.Add((closeCircleIterator.Next()) as string);
             }
-
-            foreach (User friend in m_FacebookUser.Friends)
-            {
-                foreach (User friendOfFriend in friend.Friends)
-                {
-                    if (myFriendsCount.ContainsKey(friendOfFriend.Id))
-                    {
-                        myFriendsCount[friendOfFriend.Id]++;
-                        maxMutualFriends = maxMutualFriends < myFriendsCount[friendOfFriend.Id]
-                            ? myFriendsCount[friendOfFriend.Id]
-                            : maxMutualFriends;
-                    }
-                }
-            }
-
-            closeCircleOfFriends = getCloseCircleOfFriend(myFriendsCount, myFriendsByID, maxMutualFriends);
-            populateCloseCircleOfFriendListBox(closeCircleOfFriends);
-            labelCloseCircleOfFriendsCount.Text = maxMutualFriends.ToString();
-        }
-
-        private void populateCloseCircleOfFriendListBox(LinkedList<string> i_CloseCircleOfFriends)
-        {
-            foreach (string name in i_CloseCircleOfFriends)
-            {
-                listBoxCloseFriendsCircle.Items.Add(name);
-            }
-        }
-
-        private LinkedList<string> getCloseCircleOfFriend(
-            Dictionary<string, int> i_FriendsCount,
-            Dictionary<string, string> i_FriendsByID,
-            int i_MaxMutualFriends)
-        {
-            LinkedList<string> closeCircleOfFriends = new LinkedList<string>();
-
-            foreach (string id in i_FriendsCount.Keys)
-            {
-                if (i_FriendsCount[id] == i_MaxMutualFriends)
-                {
-                    closeCircleOfFriends.AddFirst(i_FriendsByID[id]);
-                }
-            }
-
-            return closeCircleOfFriends;
         }
 
         private void profilePictureToolStripMenuItem_Click(object sender, EventArgs e)
@@ -677,5 +635,6 @@ namespace FacebookApplication
         {
             m_FacebookUser.ReFetch();
         }
+
     }
 }

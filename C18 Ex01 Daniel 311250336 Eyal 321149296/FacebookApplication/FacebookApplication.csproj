@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
+    <Compile Include="CloseFriendsCircle.cs" />
+    <Compile Include="CloseFriendsCircleIterator.cs" />
     <Compile Include="EasyMode.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +69,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="IIterator.cs" />
+    <Compile Include="IListOfFriendFeature.cs" />
     <Compile Include="IMode.cs" />
     <Compile Include="IObserver.cs" />
     <Compile Include="ISubject.cs" />
